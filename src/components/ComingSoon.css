@@ -1,21 +1,48 @@
 .coming-soon-section {
-  min-height: 80vh;
+  height: 100vh;
+  background-color: #121212; /* dark background */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #f3f4f6;
+  color: #eee;
   text-align: center;
-  padding: 2rem;
+  padding: 0 1rem;
 }
 
-.coming-soon-section h1 {
-  font-size: 3rem;
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 10px #00e5ff,
+      0 0 20px #00e5ff,
+      0 0 30px #00e5ff,
+      0 0 40px #00ffff,
+      0 0 70px #00ffff,
+      0 0 80px #00ffff,
+      0 0 100px #00ffff;
+  }
+  50% {
+    text-shadow:
+      0 0 20px #00e5ff,
+      0 0 40px #00e5ff,
+      0 0 60px #00e5ff,
+      0 0 80px #00ffff,
+      0 0 100px #00ffff,
+      0 0 120px #00ffff,
+      0 0 140px #00ffff;
+  }
+}
+
+.glow-text {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #00e5ff;
   margin-bottom: 1rem;
-  color: #1f2937;
+  animation: glowPulse 2s ease-in-out infinite;
 }
 
 .coming-soon-section p {
   font-size: 1.25rem;
-  color: #4b5563;
+  color: #ccc;
+  max-width: 400px;
 }

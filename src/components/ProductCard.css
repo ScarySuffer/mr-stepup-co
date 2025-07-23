@@ -1,0 +1,62 @@
+.product-card {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  border: 2px solid #e5e7eb; /* light gray border */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.product-card:hover,
+.product-card:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-color: #2563eb; /* changes border to blue on hover/focus */
+  outline: none;
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+.product-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.product-card p {
+  font-weight: bold;
+  color: #2563eb;
+  margin-bottom: 1rem;
+}
+
+.product-card button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.product-card button:hover,
+.product-card button:focus {
+  background-color: #1d4ed8;
+  outline: none;
+}
+
+/* Accessibility focus */
+.product-card:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}

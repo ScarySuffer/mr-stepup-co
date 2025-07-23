@@ -1,0 +1,90 @@
+.product-card {
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 100%;
+  max-width: 280px;
+  overflow: hidden;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  background-color: #f3f4f6;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+.product-card h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.product-card p {
+  font-size: 1rem;
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.product-card button {
+  background-color: #111827;
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-card button:hover,
+.product-card button:focus {
+  background-color: #1f2937;
+  outline: none;
+}
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center; /* Center cards horizontally */
+  padding: 1rem 0;
+}
+
+/* On bigger screens, allow multiple cards side by side */
+@media (min-width: 768px) {
+  .products-grid {
+    justify-content: flex-start; /* Align left on bigger screens */
+  }
+
+  .product-card {
+    flex: 1 1 calc(33.333% - 1rem); /* 3 cards per row with gaps */
+    max-width: none; /* Remove max-width limit */
+    min-width: 220px; /* Optional: maintain a minimum card width */
+  }
+}
+
+/* On very large screens, show 4 cards per row */
+@media (min-width: 1200px) {
+  .product-card {
+    flex: 1 1 calc(25% - 1rem);
+  }
+}
+
+/* On smaller screens, product cards will center because of .products-grid */

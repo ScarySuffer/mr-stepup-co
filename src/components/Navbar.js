@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const navbarRef = useRef(null);
+
+  // Toggle navbar collapse on toggler click
+  const toggleNavbar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  // Close navbar if click outside or on a nav-link
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!navbarRef.current) return;
+
+      // If clicked outside navbar, collapse it
+      if (!navbarRef.current.contains(event.target)) {
+        setIsCollapsed(true);
+        return;
+      }
+
+      // If clicked on a nav-link inside navbar, collapse it
+      if (event.target.classList.contains("nav-link")) {
+        setIsCollapsed(true);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary" ref={navbarRef}>
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           Mr StepUp.co
@@ -11,18 +41,20 @@ export default function Navbar() {
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
           aria-controls="navbarNavDropdown"
-          aria-expanded="false"
+          aria-expanded={!isCollapsed}
           aria-label="Toggle navigation"
+          onClick={toggleNavbar}
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
+        <div
+          className={`collapse navbar-collapse ${isCollapsed ? "" : "show"}`}
+          id="navbarNavDropdown"
+        >
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
+              <Link className="nav-link active" to="/">
                 Home
               </Link>
             </li>

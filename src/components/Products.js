@@ -2,8 +2,8 @@ import React from "react";
 import ProductCard from "./ProductCard";
 import "./Products.css";
 
-// 🆕 Your updated products array
-import { products } from "./productData"; // You'll store the full product array here
+// Import products as default, no curly braces
+import products from "./productData";
 
 export default function Products() {
   const handleAddToCart = (product) => {

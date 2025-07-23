@@ -1,7 +1,7 @@
 // src/components/Brands.js
 import React from "react";
 import ProductCard from "./ProductCard";
-import { products } from "./productData";
+import  products  from "./productData";
 import "./Products.css"; // reuse styles
 
 // Group products by brand

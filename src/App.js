@@ -7,6 +7,7 @@ import Brands from "./components/Brands"; // Import the new page
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ComingSoon from "./components/ComingSoon";
+import ProductDetails from "./components/ProductDetails";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/brands" element={<Brands />} /> {/* New route */}
         <Route path="/contact" element={<Contact />} />
         <Route path="/coming-soon" element={<ComingSoon />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
       </Routes>
       <Footer />
     </Router>

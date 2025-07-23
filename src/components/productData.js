@@ -1,5 +1,5 @@
-export const products = [
-  // Nike products
+const productData = [
+  // 🟨 Nike
   {
     id: 'nike-air-max-1',
     brand: 'Nike',
@@ -14,6 +14,7 @@ export const products = [
       'Padded, low-cut collar looks sleek and feels great.',
       'Original 1987 design elements.',
     ],
+    sizes: ['6', '7', '8', '9', '10', '11'],
     otherImages: [
       'assets/kicks/White J4 Right.jpg',
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Nike+Air+Max+1+Back',
@@ -21,19 +22,20 @@ export const products = [
     ],
   },
   {
-    id: 'adidas-superstar',
-    brand: 'Nike', // <-- This product looks like Nike, but name says Adidas. Check and fix brand if needed.
+    id: 'nike-af1-hightop-black',
+    brand: 'Nike',
     name: 'Nike Air Force 1 Hightop Black',
     price: 1899.0,
     image: 'assets/kicks 2/Black AF1 High Both.jpg',
     description:
-      'The legendary shell-toe sneaker, a staple of street culture since the 80s. Premium leather and classic detailing.',
+      'The iconic Air Force 1 Hightop in bold black. A streetwear staple with comfort and heritage.',
     features: [
       'Full-grain leather upper for comfort and soft feel.',
-      'Classic rubber shell toe.',
-      'Herringbone-pattern rubber cupsole.',
-      'Authentic 80s silhouette.',
+      'Classic hightop silhouette with adjustable ankle strap.',
+      'Air-cushioned sole for impact absorption.',
+      'Heritage streetwear design.',
     ],
+    sizes: ['5', '6', '7', '8', '9', '10', '11'],
     otherImages: [
       'assets/kicks 2/Black AF1 High Right.jpg',
       'assets/kicks 2/Black AF1 High Back.jpg',
@@ -41,7 +43,7 @@ export const products = [
     ],
   },
 
-  // Puma products
+  // 🟦 Puma
   {
     id: 'puma-suede-classic',
     brand: 'Puma',
@@ -56,6 +58,7 @@ export const products = [
       'Gold foil PUMA Suede branding.',
       'Original 1968 design.',
     ],
+    sizes: ['6', '7', '8', '9', '10'],
     otherImages: [
       'assets/kicks 2/Puma X LULU Black/Green Right.jpg',
       'assets/kicks 2/Puma X LULU Black/Green Front.jpg',
@@ -65,7 +68,7 @@ export const products = [
     ],
   },
 
-  // New Balance products
+  // 🟥 New Balance
   {
     id: 'new-balance-574',
     brand: 'New Balance',
@@ -81,6 +84,7 @@ export const products = [
       'Suede and mesh upper.',
       'Classic 80s running silhouette.',
     ],
+    sizes: ['6', '7', '8', '9', '10', '11'],
     otherImages: [
       'https://placehold.co/400x300/F3F4F6/6B7280?text=New+Balance+574+Side',
       'https://placehold.co/400x300/F3F4F6/6B7280?text=New+Balance+574+Heel',
@@ -88,7 +92,7 @@ export const products = [
     ],
   },
 
-  // Converse products
+  // 🟪 Converse
   {
     id: 'converse-chuck-70',
     brand: 'Converse',
@@ -103,6 +107,7 @@ export const products = [
       'Vintage license plate branding.',
       'Iconic 70s high-top design.',
     ],
+    sizes: ['5', '6', '7', '8', '9', '10', '11'],
     otherImages: [
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Chuck+70+Side',
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Chuck+70+Laces',
@@ -110,7 +115,7 @@ export const products = [
     ],
   },
 
-  // Vans products
+  // 🟧 Vans
   {
     id: 'vans-old-skool',
     brand: 'Vans',
@@ -125,6 +130,7 @@ export const products = [
       'Padded collars for support and flexibility.',
       'Signature rubber waffle outsoles.',
     ],
+    sizes: ['6', '7', '8', '9', '10'],
     otherImages: [
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Vans+Old+Skool+Side',
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Vans+Old+Skool+Back',
@@ -132,7 +138,7 @@ export const products = [
     ],
   },
 
-  // Reebok products
+  // 🟥 Reebok
   {
     id: 'reebok-classic-leather',
     brand: 'Reebok',
@@ -147,6 +153,7 @@ export const products = [
       'High-abrasion rubber outsole for durability.',
       'Iconic side stripes.',
     ],
+    sizes: ['6', '7', '8', '9', '10', '11'],
     otherImages: [
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Reebok+Classic+Side',
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Reebok+Classic+Top',
@@ -154,7 +161,7 @@ export const products = [
     ],
   },
 
-  // ASICS products
+  // 🟩 ASICS
   {
     id: 'asics-gel-lyte-iii',
     brand: 'ASICS',
@@ -169,6 +176,7 @@ export const products = [
       'Suede and mesh upper for breathability and comfort.',
       'Original 90s running aesthetic.',
     ],
+    sizes: ['6', '7', '8', '9', '10'],
     otherImages: [
       'https://placehold.co/400x300/F3F4F6/6B7280?text=ASICS+Gel-Lyte+Side',
       'https://placehold.co/400x300/F3F4F6/6B7280?text=ASICS+Gel-Lyte+Split',
@@ -176,7 +184,7 @@ export const products = [
     ],
   },
 
-  // Brooks products
+  // 🟫 Brooks
   {
     id: 'brooks-chariot',
     brand: 'Brooks',
@@ -191,6 +199,7 @@ export const products = [
       'Rubber outsole for traction.',
       'Retro running silhouette.',
     ],
+    sizes: ['6', '7', '8', '9', '10'],
     otherImages: [
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Brooks+Chariot+Side',
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Brooks+Chariot+Back',
@@ -198,7 +207,7 @@ export const products = [
     ],
   },
 
-  // Saucony products
+  // 🟦 Saucony
   {
     id: 'saucony-jazz-original',
     brand: 'Saucony',
@@ -213,6 +222,7 @@ export const products = [
       'Shock-absorbing EVA midsole.',
       'Durable rubber traction outsole.',
     ],
+    sizes: ['6', '7', '8', '9', '10'],
     otherImages: [
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Saucony+Jazz+Side',
       'https://placehold.co/400x300/F3F4F6/6B7280?text=Saucony+Jazz+Top',
@@ -220,3 +230,5 @@ export const products = [
     ],
   },
 ];
+
+export default productData;

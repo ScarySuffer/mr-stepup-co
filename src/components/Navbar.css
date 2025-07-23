@@ -1,37 +1,44 @@
+/* Override Bootstrap navbar background and text colors */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #2563eb; /* blue */
-  color: white;
+  background-color: #2563eb !important; /* your blue */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.navbar-logo {
+/* Brand/logo style */
+.navbar-brand {
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: 1px;
+  color: white !important;
   cursor: pointer;
 }
 
-.navbar-links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar-links li a {
-  color: white;
-  text-decoration: none;
+/* Nav links style */
+.nav-link {
+  color: white !important;
   font-weight: 600;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, font-size 0.3s ease;
 }
 
-.navbar-links li a:hover,
-.navbar-links li a:focus {
-  color: #93c5fd; /* lighter blue */
+/* Hover and focus states */
+.nav-link:hover,
+.nav-link:focus {
+  color: #93c5fd !important; /* lighter blue */
   outline: none;
+}
+
+/* Optional: spacing between nav links handled by Bootstrap, but you can tweak if needed */
+.navbar-nav > li + li {
+  margin-left: 2rem;
+}
+
+/* Increase nav link and brand font size on larger screens */
+@media (min-width: 992px) {
+  .navbar .nav-link {
+    font-size: 1.25rem !important;
+  }
+
+  .navbar .navbar-brand {
+    font-size: 1.75rem !important;
+  }
 }

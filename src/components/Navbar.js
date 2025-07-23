@@ -74,28 +74,28 @@ export default function Navbar() {
               </Link>
             </li>
             <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                role="button"
+              <button
+                className="nav-link dropdown-toggle btn btn-link"
+                id="navbarDropdown"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                type="button"
               >
                 Dropdown link
-              </a>
-              <ul className="dropdown-menu">
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <Link className="dropdown-item" to="/action">
+                  <Link className="dropdown-item" to="/coming-soon">
                     Action
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/another-action">
+                  <Link className="dropdown-item" to="/coming-soon">
                     Another action
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/something-else">
+                  <Link className="dropdown-item" to="/coming-soon">
                     Something else here
                   </Link>
                 </li>

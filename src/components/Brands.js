@@ -1,10 +1,9 @@
 // src/components/Brands.js
 import React from "react";
 import ProductCard from "./ProductCard";
-import  products  from "./productData";
-import "./Products.css"; // reuse styles
-
-// Group products by brand
+import products from "./productData";
+import "./Products.css"; 
+import "./Brands.css"; 
 const groupByBrand = (items) => {
   return items.reduce((groups, product) => {
     const brand = product.brand || "Other";
@@ -14,7 +13,8 @@ const groupByBrand = (items) => {
   }, {});
 };
 
-export default function Brands() {
+// Brands component also receives onAddToCart as a prop
+export default function Brands({ onAddToCart }) { // Destructure onAddToCart
   const productsByBrand = groupByBrand(products);
 
   return (
@@ -28,7 +28,8 @@ export default function Brands() {
               <ProductCard
                 key={product.id}
                 product={product}
-                onAddToCart={() => alert(`Added ${product.name} to cart!`)}
+                // Pass the function down. ProductCard will use a default size.
+                onAddToCart={onAddToCart}
               />
             ))}
           </div>

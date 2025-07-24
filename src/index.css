@@ -11,3 +11,64 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* src/App.css or src/index.css */
+
+.add-to-cart-confirmation-message {
+  position: fixed;
+  bottom: 20px; /* Position from bottom */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  background-color: #28a745; /* Green background for success */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 1100; /* Ensure it's above other content like the navbar */
+  animation: slideInUp 0.3s ease-out, fadeOut 0.5s forwards ease-out 2.5s; /* Slide in, then fade out after duration */
+  opacity: 0; /* Start hidden for animation */
+}
+
+.add-to-cart-confirmation-message p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.close-confirmation-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.close-confirmation-button:hover {
+  opacity: 0.8;
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    transform: translateX(-50%) translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden; /* Hide element completely after fade */
+  }
+}

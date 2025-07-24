@@ -42,3 +42,44 @@
     font-size: 1.75rem !important;
   }
 }
+/* Add to src/components/Navbar.css */
+
+.cart-icon-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Space between icon and text/badge */
+  font-size: 1.25rem !important; /* Make cart icon larger */
+}
+
+.cart-badge {
+  background-color: #ef4444; /* Red badge */
+  color: white;
+  border-radius: 50%;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  min-width: 20px; /* Ensure badge is round for single digits */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+/* src/components/Navbar.css */
+
+/* Add or adjust these for the search input */
+.navbar .form-control {
+  min-width: 180px; /* Ensure enough space for search input */
+  border-radius: 0.5rem; /* Match other design elements */
+}
+
+/* Ensure search bar is visible and responsive */
+@media (min-width: 992px) { /* Adjust based on your navbar breakpoint */
+  .navbar .form-control {
+    min-width: 200px;
+  }
+  .navbar-nav .search-bar-item {
+    margin-right: 1.5rem; /* Add some space before other links */
+  }
+}
+
+/* For smaller screens, the search bar will be full width due to Bootstrap's d-flex */

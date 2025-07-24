@@ -25,7 +25,7 @@ const productData = [
     id: 'nike-af1-hightop-black',
     brand: 'Nike',
     name: 'Nike Air Force 1 Hightop Black',
-    price: 1899.0,
+    price: 1890.0,
     image: 'assets/kicks 2/Black AF1 High Both.jpg',
     description:
       'The iconic Air Force 1 Hightop in bold black. A streetwear staple with comfort and heritage.',

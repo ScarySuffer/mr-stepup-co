@@ -1,0 +1,73 @@
+/* src/components/FilterSortBar.css */
+.filter-sort-bar {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  justify-content: center; /* Center items on small screens */
+  gap: 1rem; /* Space between filter groups */
+  padding: 1.5rem 1rem;
+  background-color: #f0f4f8; /* Light blue-gray background */
+  border-radius: 10px;
+  margin: 2rem auto; /* Center the bar */
+  max-width: 900px; /* Limit width */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align label/select */
+  gap: 0.5rem;
+  min-width: 150px; /* Ensure enough space for each filter */
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #1f2937;
+  background-color: white;
+  appearance: none; /* Remove default dropdown arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%00-13.2-6.5H18.6c-5%200-9.3%201.8-13.2%206.5A17.6%2017.6%200%20000%2082.2c0%205%201.8%209.3%206.5%2013.2L146.2%20287c4%204.3%209%206.5%2014.2%206.5s10.2-2.2%2014.2-6.5L287%2095.4a17.6%2017.6%200%20006.5-13.2c0-5-1.8-9.3-6.5-13.2z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 0.8em auto;
+}
+
+.filter-group select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .filter-sort-bar {
+    justify-content: flex-start; /* Align left on larger screens */
+    padding-left: 2rem; /* More padding on sides */
+    padding-right: 2rem;
+  }
+  .filter-group {
+    flex-direction: row; /* Label and select side-by-side */
+    align-items: center;
+    gap: 0.8rem;
+    min-width: unset;
+  }
+  .filter-group label {
+    margin-bottom: 0; /* Remove bottom margin for labels */
+  }
+  .filter-group select {
+    width: auto; /* Adjust width to content */
+    min-width: 120px; /* Minimum width for readability */
+  }
+}

@@ -1,109 +1,164 @@
+/* src/components/ProductCard.css */
+
 .product-card {
     background-color: white;
-    border-radius: 1rem;
-    padding: 1rem; /* Reduced padding */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem; /* Slightly smaller border-radius for a tighter look */
+    padding: 0.8rem; /* Reduced internal padding for compactness */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Softer, subtle shadow */
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-    border: 2px solid #e5e7eb;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; /* Faster, smoother transition */
+    border: 1px solid #e0e0e0; /* Lighter, more modern border */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* Make the card a flex container to organize content vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distributes space, pushing buttons to the bottom */
+
+    /* Crucial: Control the overall size of the card in a grid */
+    max-width: 250px; /* Example: Set a maximum width for individual cards */
+    width: 100%; /* Ensures it's responsive and scales down */
+    min-height: 380px; /* TWEAK: Set a minimum height for consistent card sizes in a grid */
 }
 
 .product-card:hover,
 .product-card:focus-within {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    border-color: #2563eb;
-    outline: none;
+    transform: translateY(-4px); /* Slightly less lift for a subtle effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+    border-color: #2563eb; /* Your brand blue border on hover */
+    outline: none; /* Relying on :focus-visible for accessibility */
 }
 
-.product-card img {
+.product-card .product-main-image { /* Specific selector for the main image in ProductCard.js */
     width: 100%;
-    border-radius: 0.75rem;
-    margin-bottom: 0.75rem; /* Reduced margin */
+    max-height: 160px; /* IMPORTANT: Constrain the main image height to shorten the card */
+    object-fit: contain; /* Ensures the entire image is visible, padding if necessary */
+    border-radius: 0.5rem; /* Slightly smaller radius for image */
+    margin-bottom: 0.6rem; /* Reduced margin below image */
     user-select: none;
+    background-color: #f9f9f9; /* Light background for images with transparency */
+    padding: 0.5rem; /* Small padding within the image area */
 }
 
-/* 🆕 Thumbnail gallery */
+/* --- Thumbnail Gallery (for ProductCard) --- */
 .thumbnail-gallery {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 0.5rem; /* Reduced margin */
+    flex-wrap: wrap; /* Allows thumbnails to wrap to the next line on smaller screens */
+    gap: 6px; /* Reduced gap between thumbnails */
+    margin-bottom: 0.8rem; /* Adjusted margin for better spacing */
 }
 
 .thumbnail {
-    width: 600px; /* Reduced width */
-    height: 150px; /* Reduced height */
-    object-fit: cover;
-    border-radius: 0.5rem;
-    border: 1px solid #ccc;
-    transition: transform 0.2s, border-color 0.2s;
+    /* CRITICAL TWEAK: Significantly reduce thumbnail dimensions for compactness */
+    width: 45px; /* Smaller, square thumbnails */
+    height: 45px; /* Significantly reduced height (was 150px!) */
+    object-fit: cover; /* Important: Fills the square area, cropping if necessary */
+    border-radius: 0.3rem; /* Slightly less rounded for a tighter look */
+    border: 1px solid #ddd; /* Lighter, subtle border */
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; /* Added box-shadow to transition */
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Very subtle default shadow */
 }
 
 .thumbnail:hover {
-    transform: scale(1.05);
-    border-color: #2563eb;
-    cursor: pointer;
+    transform: scale(1.08); /* Slight pop on hover */
+    border-color: #2563eb; /* Brand blue on hover */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Enhanced shadow on hover */
+}
+
+/* New wrapper for product details text content (from previous ProductCard.js tweak) */
+.product-details-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows this section to take up available space, pushing buttons down */
+    justify-content: flex-start; /* Aligns text content to the top within its space */
 }
 
 .product-card h3 {
-    font-size: 1.25rem;
+    font-size: 1.1rem; /* Slightly smaller font for product name */
     font-weight: 600;
     color: #111827;
-    margin-bottom: 0.3rem; /* Reduced margin */
+    margin-bottom: 0.25rem; /* Reduced margin */
+    white-space: nowrap; /* Prevent product name from wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add "..." for truncated names */
+    padding: 0 0.2rem; /* Small horizontal padding for ellipsis */
 }
 
-.product-card p { /* This is likely the price */
+.product-card .product-brand { /* Specific style for brand (from ProductCard.js tweak) */
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 0.4rem;
+}
+
+.product-card .product-price { /* Specific style for price (from ProductCard.js tweak) */
     font-weight: bold;
     color: #2563eb;
-    margin-bottom: 0.75rem; /* Reduced margin */
-}
-
-.product-card button { /* Add to Cart button */
-    background-color: #2563eb;
-    color: white;
-    padding: 0.5rem 1.25rem; /* Keep this for good button tap area */
-    border-radius: 9999px;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.product-card button:hover,
-.product-card button:focus {
-    background-color: #1d4ed8;
-    outline: none;
-}
-
-/* Accessibility focus */
-.product-card:focus-visible {
-    outline: 2px solid #2563eb;
-    outline-offset: 3px;
+    font-size: 1.05rem; /* Slightly smaller font for price */
+    margin-bottom: 0.75rem;
 }
 
 .card-buttons {
     display: flex;
     flex-direction: column;
-    gap: 6px; /* Reduced gap */
-    margin-top: 8px; /* Reduced margin */
+    gap: 8px; /* Slightly increased gap for visual separation between buttons */
+    margin-top: auto; /* IMPORTANT: This pushes the buttons to the bottom of the card */
 }
 
 .view-details-btn {
     display: inline-block;
     text-align: center;
-    padding: 8px 12px;
-    /* IMPORTANT: Ensure this matches your brand blue from previous discussions */
-    background-color: #2563eb; /* Consistent brand blue */
+    padding: 0.5rem 1.25rem; /* Consistent button padding */
+    background-color: #2563eb;
     color: white;
     text-decoration: none;
     border-radius: 9999px; /* Consistent pill shape */
-    font-weight: 600; /* Consistent font-weight */
-    transition: background-color 0.3s;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.95rem; /* Consistent font size */
 }
 
 .view-details-btn:hover {
-    background-color: #1d4ed8; /* Consistent darker brand blue on hover */
+    background-color: #1d4ed8;
+}
+
+.add-to-cart-btn { /* Specific class for "Add to Cart" button (from ProductCard.js tweak) */
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1.25rem; /* Consistent button padding */
+    border-radius: 9999px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.95rem; /* Consistent font size */
+}
+
+.add-to-cart-btn:hover,
+.add-to-cart-btn:focus {
+    background-color: #1d4ed8;
+    outline: none;
+}
+
+/* Accessibility focus for the entire card (if it's a link or clickable div) */
+.product-card:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+}
+
+/* Focus for buttons/links inside the card */
+.view-details-btn:focus-visible,
+.add-to-cart-btn:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+/* ProductCard.css (Add this to your existing styles) */
+
+.thumbnail.selected-thumbnail {
+    border-color: #2563eb; /* Highlight with your brand blue */
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.4); /* Add a subtle glow/outline */
+    transform: scale(1.02); /* Very slight scale to indicate selection */
 }

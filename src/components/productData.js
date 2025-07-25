@@ -2,6 +2,189 @@
 
 const productData = [
   {
+    "id": "nike-air-jordan-1-low-legend-blue",
+    "brand": "nike",
+    "name": "Air Jordan 1 Low Legend Blue",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%201%20Low%20Legend%20Blue%20both%20front%20left.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%201%20Low%20Legend%20Blue%20both%20front%20right.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%201%20Low%20Legend%20Blue%20both%20front.jpg"
+    ]
+  },
+  {
+    "id": "nike-air-jordan-1-low-legend-blue-soul",
+    "brand": "nike",
+    "name": "Air Jordan 1 Low Legend Blue Soul",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%201%20Low%20Legend%20Blue%20soul.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-air-jordan-1-mid-panda",
+    "brand": "nike",
+    "name": "Air Jordan 1 Mid Panda",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%201%20MID%20Panda%20back%20both.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%201%20MID%20Panda%20right.jpg"
+    ]
+  },
+  {
+    "id": "nike-air-jordan-1-mid-panda-back-tilted",
+    "brand": "nike",
+    "name": "Air Jordan 1 Mid Panda Back Tilted",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%201%20MID%20Panda%20back%20tilted.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-air-jordan-4-retro-metallic-green",
+    "brand": "nike",
+    "name": "Air Jordan 4 Retro Metallic Green",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%204%20Retro%20Metallic%20Green%20Back.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%204%20Retro%20Metallic%20Green%20left.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%204%20Retro%20Metallic%20Green%20right.jpg"
+    ]
+  },
+  {
+    "id": "nike-air-jordan-4-retro-sb-pine-green",
+    "brand": "nike",
+    "name": "Air Jordan 4 Retro Sb Pine Green",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%204%20Retro%20SB%20Pine%20Green%20Back.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%204%20Retro%20SB%20Pine%20Green%20Front.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%204%20Retro%20SB%20Pine%20Green%20Right.jpg"
+    ]
+  },
+  {
+    "id": "nike-air-jordan-4-retro-sb-pine-green-pair",
+    "brand": "nike",
+    "name": "Air Jordan 4 Retro Sb Pine Green Pair",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%204%20Retro%20SB%20Pine%20Green%20pair.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-air-jordan-retro-4-metallic-red",
+    "brand": "nike",
+    "name": "Air Jordan Retro 4 Metallic Red",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%20Retro%204%20Metallic%20Red%20back.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%20Retro%204%20Metallic%20Red%20right.jpg"
+    ]
+  },
+  {
+    "id": "nike-air-jordan-retro-4-metallic-red-front-one",
+    "brand": "nike",
+    "name": "Air Jordan Retro 4 Metallic Red Front One",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%20Retro%204%20Metallic%20Red%20front%20one.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-air-jordan-retro-4-metallic-red-frot",
+    "brand": "nike",
+    "name": "Air Jordan Retro 4 Metallic Red Frot",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Air%20Jordan%20Retro%204%20Metallic%20Red%20frot.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
     "id": "nike-black-af1-high",
     "brand": "nike",
     "name": "Black Af1 High",
@@ -76,6 +259,313 @@ const productData = [
     "otherImages": []
   },
   {
+    "id": "nike-jordan-1-retro-high-obsidian",
+    "brand": "nike",
+    "name": "Jordan 1 Retro High Obsidian",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%201%20Retro%20High%20Obsidian%20back.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%201%20Retro%20High%20Obsidian%20both%20front.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%201%20Retro%20High%20Obsidian%20front.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%201%20Retro%20High%20Obsidian%20left.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%201%20Retro%20High%20Obsidian%20right.jpg"
+    ]
+  },
+  {
+    "id": "nike-jordan-4-retro-black-cat-soul",
+    "brand": "nike",
+    "name": "Jordan 4 Retro Black Cat  Soul",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20Black%20Cat%20%20Soul.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-jordan-4-retro-black-cat",
+    "brand": "nike",
+    "name": "Jordan 4 Retro Black Cat",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20Black%20Cat%20%20left.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20Black%20Cat%20%20right.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20Black%20Cat%20front.jpg"
+    ]
+  },
+  {
+    "id": "nike-jordan-4-retro-red-thunder",
+    "brand": "nike",
+    "name": "Jordan 4 Retro Red Thunder",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20Red%20Thunder%20%20Back.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20Red%20Thunder%20%20right.jpg"
+    ]
+  },
+  {
+    "id": "nike-jordan-4-retro-red-thunder-right-tilted",
+    "brand": "nike",
+    "name": "Jordan 4 Retro Red Thunder Right Tilted",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20Red%20Thunder%20right%20Tilted.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-jordan-4-retro-seafoam-back-angled",
+    "brand": "nike",
+    "name": "Jordan 4 Retro Seafoam Back Angled",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20Seafoam%20Back%20angled.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-jordan-4-retro-seafoam",
+    "brand": "nike",
+    "name": "Jordan 4 Retro Seafoam",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20Seafoam%20Right.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20Seafoam%20back.jpg"
+    ]
+  },
+  {
+    "id": "nike-jordan-4-retro-university-blue",
+    "brand": "nike",
+    "name": "Jordan 4 Retro University Blue",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20University%20Blue%20Back.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20University%20Blue%20both%20front.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20University%20Blue%20right.jpg"
+    ]
+  },
+  {
+    "id": "nike-jordan-4-retro-university-blue-soul",
+    "brand": "nike",
+    "name": "Jordan 4 Retro University Blue Soul",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20University%20Blue%20soul.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-jordan-4-retro-white-oreo",
+    "brand": "nike",
+    "name": "Jordan 4 Retro White Oreo",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20White%20Oreo%20%20left.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20White%20Oreo%20both%20right.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20White%20Oreo%20right.jpg"
+    ]
+  },
+  {
+    "id": "nike-jordan-4-retro-white-oreo-right-tiltrd",
+    "brand": "nike",
+    "name": "Jordan 4 Retro White Oreo Right Tiltrd",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan%204%20Retro%20White%20Oreo%20right%20tiltrd.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-jordan-retro-black-sideview",
+    "brand": "nike",
+    "name": "Jordan Retro Black Sideview",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan-retro-black-sideview.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-jordan-retro-black",
+    "brand": "nike",
+    "name": "Jordan Retro Black",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan-retro-black.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-jordan-retro-blackright",
+    "brand": "nike",
+    "name": "Jordan Retro Blackright",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan-retro-blackright..jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-jordan-retro-white-front-singleview",
+    "brand": "nike",
+    "name": "Jordan Retro White Front Singleview",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan-retro-white-front-singleview.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-jordan-retro-white-frontview",
+    "brand": "nike",
+    "name": "Jordan Retro White Frontview",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan-retro-white-frontview.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-jordan-retro-white-side-view",
+    "brand": "nike",
+    "name": "Jordan Retro White Side View",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Jordan-retro-white-side%20view.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
     "id": "nike-nike-air-force-1-low-cactus-plant-flea-market-moss",
     "brand": "nike",
     "name": "Nike Air Force 1 Low Cactus Plant Flea Market Moss",
@@ -116,6 +606,152 @@ const productData = [
     ]
   },
   {
+    "id": "nike-nike-air-jordan-1-retro-high-og",
+    "brand": "nike",
+    "name": "Nike Air Jordan 1 Retro High Og",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%201%20Retro%20High%20OG%20%20front.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%201%20Retro%20High%20OG%20back.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%201%20Retro%20High%20OG%20both.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%201%20Retro%20High%20OG%20left.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%201%20Retro%20High%20OG%20right.jpg"
+    ]
+  },
+  {
+    "id": "nike-nike-air-jordan-4-military-black-front-alone",
+    "brand": "nike",
+    "name": "Nike Air Jordan 4 Military Black  Front Alone",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%204%20Military%20Black%20%20front%20alone.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-nike-air-jordan-4-military-black",
+    "brand": "nike",
+    "name": "Nike Air Jordan 4 Military Black",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%204%20Military%20Black%20back.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%204%20Military%20Black%20right.jpg"
+    ]
+  },
+  {
+    "id": "nike-nike-air-jordan-4-military-blackboth",
+    "brand": "nike",
+    "name": "Nike Air Jordan 4 Military Blackboth",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%204%20Military%20Blackboth.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-nike-air-jordan-4-retro-bred",
+    "brand": "nike",
+    "name": "Nike Air Jordan 4 Retro Bred",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%204%20Retro%20Bred%20back.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%204%20Retro%20Bred%20left.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%204%20Retro%20Bred%20top.jpg"
+    ]
+  },
+  {
+    "id": "nike-nike-air-jordan-4-retro-bred-soul",
+    "brand": "nike",
+    "name": "Nike Air Jordan 4 Retro Bred Soul",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Air%20Jordan%204%20Retro%20Bred%20soul.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-nike-jordan-1-low-wolf-grey",
+    "brand": "nike",
+    "name": "Nike Jordan 1 Low Wolf Grey",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike%20Jordan%201%20Low%20Wolf%20Grey%20Right.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "nike-nike-jordana-blackandwhite",
+    "brand": "nike",
+    "name": "Nike Jordana Blackandwhite",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/nike/Nike-Jordana-blackandwhite.jpg",
+    "description": "High-quality sneaker from nike.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
     "id": "nike-white-rope-force-one-custom",
     "brand": "nike",
     "name": "White Rope Force One Custom",
@@ -135,11 +771,30 @@ const productData = [
     ]
   },
   {
-    "id": "adidas-white-rope-force-one-custom",
+    "id": "adidas-adidas-campus-00-dark-green",
     "brand": "adidas",
-    "name": "White Rope Force One Custom",
+    "name": "Adidas Campus 00 Dark Green",
     "price": 1999.99,
-    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/adidas/white-Rope-Force-One-Custom-upside.jpg",
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/adidas/Adidas%20Campus%2000%20Dark%20Green%20back.jpg",
+    "description": "High-quality sneaker from adidas.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/adidas/Adidas%20Campus%2000%20Dark%20Green%20front.jpg"
+    ]
+  },
+  {
+    "id": "adidas-adidas-campus-00-dark-green-right2",
+    "brand": "adidas",
+    "name": "Adidas Campus 00 Dark Green Right(2)",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/adidas/Adidas%20Campus%2000%20Dark%20Green%20right(2).jpg",
     "description": "High-quality sneaker from adidas.",
     "sizes": [
       6,
@@ -150,6 +805,62 @@ const productData = [
       11
     ],
     "otherImages": []
+  },
+  {
+    "id": "adidas-adidas-campus-00s-greywhite",
+    "brand": "adidas",
+    "name": "Adidas Campus 00s Greywhite",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/adidas/Adidas%20Campus%2000s%20GreyWhite%20Right.jpg",
+    "description": "High-quality sneaker from adidas.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/adidas/Adidas%20Campus%2000s%20GreyWhite%20left.jpg"
+    ]
+  },
+  {
+    "id": "adidas-adidas-campus-00s-greywhite-both-lefr",
+    "brand": "adidas",
+    "name": "Adidas Campus 00s Greywhite Both Lefr",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/adidas/Adidas%20Campus%2000s%20GreyWhite%20both%20lefr.jpg",
+    "description": "High-quality sneaker from adidas.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": []
+  },
+  {
+    "id": "adidas-adidas-originals-campus-00s",
+    "brand": "adidas",
+    "name": "Adidas Originals Campus 00s",
+    "price": 1999.99,
+    "image": "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/adidas/adidas%20Originals%20Campus%2000S%20back.jpg",
+    "description": "High-quality sneaker from adidas.",
+    "sizes": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "otherImages": [
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/adidas/adidas%20Originals%20Campus%2000S%20front.jpg",
+      "https://storage.googleapis.com/mr-stepup-assets/assets/kicks/adidas/adidas%20Originals%20Campus%2000S%20right.jpg"
+    ]
   },
   {
     "id": "puma-puma-180",

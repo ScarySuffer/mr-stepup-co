@@ -17,35 +17,44 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
     setIsDropdownOpen(false);
   };
 
+  // Function to close the main navbar (used for nav links and outside clicks)
+  const closeNavbar = () => {
+    setIsCollapsed(true);
+    setIsDropdownOpen(false); // Also close dropdown when main nav closes
+  };
+
   const toggleDropdown = (e) => {
-    // Prevent the default button behavior if it interferes with React state
     e.preventDefault();
     e.stopPropagation(); // Stop event from bubbling up to document click outside listener
-    setIsDropdownOpen(prev => !prev);
+    setIsDropdownOpen((prev) => !prev);
   };
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    if (window.location.pathname !== '/products') {
-        navigate('/products');
+    if (window.location.pathname !== "/products") {
+      navigate("/products");
     }
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (window.location.pathname !== '/products') {
-        navigate('/products');
+    if (window.location.pathname !== "/products") {
+      navigate("/products");
     }
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Close main navbar if click outside navbarRef
-      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
-        setIsCollapsed(true);
+      // Close main navbar if click outside navbarRef AND it's currently open
+      if (
+        isCollapsed === false && // Only close if it's currently open
+        navbarRef.current &&
+        !navbarRef.current.contains(event.target)
+      ) {
+        closeNavbar(); // Use the dedicated close function
       }
 
-      // Close dropdown if click outside dropdown button or menu
+      // Close dropdown if click outside dropdown button or menu AND it's open
       if (
         isDropdownOpen &&
         dropdownRef.current &&
@@ -57,14 +66,14 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside); // Use mousedown for better outside click detection
+    document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isCollapsed, isDropdownOpen]); // Depend on these states to re-add listener if they change
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary" ref={navbarRef}>
+    <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top" ref={navbarRef}> {/* ADDED fixed-top */}
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" onClick={closeNavbar}> {/* ADDED onClick */}
           Mr StepUp.co
         </Link>
         <button
@@ -78,11 +87,13 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
           <span className="navbar-toggler-icon" />
         </button>
         <div
-          className={`collapse navbar-collapse ${isCollapsed ? "" : "show"}`}
+          className={`collapse navbar-collapse justify-content-center ${
+            isCollapsed ? "" : "show"
+          }`}
           id="navbarNavDropdown"
         >
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li className="nav-item search-bar-item">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0 search-bar-left">
+            <li className="nav-item">
               <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>
                 <input
                   className="form-control me-2"
@@ -94,75 +105,83 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
                 />
               </form>
             </li>
+          </ul>
 
+          <ul className="navbar-nav mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" to="/">
+              <Link className="nav-link active" to="/" onClick={closeNavbar}> {/* ADDED onClick */}
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/products">
+              <Link className="nav-link" to="/products" onClick={closeNavbar}> {/* ADDED onClick */}
                 Sneakers
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/brands">
+              <Link className="nav-link" to="/brands" onClick={closeNavbar}> {/* ADDED onClick */}
                 Brands
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/contact">
+              <Link className="nav-link" to="/contact" onClick={closeNavbar}> {/* ADDED onClick */}
                 Contact
               </Link>
             </li>
             <li className="nav-item dropdown">
-              {/* This button now directly controls the dropdown state */}
               <button
-                className={`nav-link dropdown-toggle btn btn-link ${isDropdownOpen ? 'show' : ''}`}
+                className={`nav-link dropdown-toggle btn btn-link ${
+                  isDropdownOpen ? "show" : ""
+                }`}
                 id="navbarDropdown"
-                aria-expanded={isDropdownOpen} // Set aria-expanded based on state
+                aria-expanded={isDropdownOpen}
                 type="button"
-                onClick={toggleDropdown} // Use React's onClick to toggle dropdown
-                ref={dropdownButtonRef} // Attach ref to button
+                onClick={toggleDropdown}
+                ref={dropdownButtonRef}
               >
                 More
               </button>
-              {/* Apply 'show' class conditionally based on state */}
               <ul
-                className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`}
+                className={`dropdown-menu ${isDropdownOpen ? "show" : ""}`}
                 aria-labelledby="navbarDropdown"
-                ref={dropdownRef} // Attach ref to menu
+                ref={dropdownRef}
               >
                 <li>
-                  <Link className="dropdown-item" to="/coming-soon">
+                  <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}> {/* ADDED onClick */}
                     Promotions
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/coming-soon">
+                  <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}> {/* ADDED onClick */}
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/coming-soon">
+                  <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}> {/* ADDED onClick */}
                     FAQ
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/order-history">
+                  <Link className="dropdown-item" to="/order-history" onClick={closeNavbar}> {/* ADDED onClick */}
                     My Orders
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item admin-link" to="/admin/products">
+                  <Link className="dropdown-item admin-link" to="/admin/products" onClick={closeNavbar}> {/* ADDED onClick */}
                     Manage Products (Admin)
                   </Link>
                 </li>
               </ul>
             </li>
+          </ul>
+
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link cart-icon-link" to="/cart">
-                🛒 Cart {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
+              <Link className="nav-link cart-icon-link" to="/cart" onClick={closeNavbar}> {/* ADDED onClick */}
+                🛒 Cart{" "}
+                {cartItemCount > 0 && (
+                  <span className="cart-badge">{cartItemCount}</span>
+                )}
               </Link>
             </li>
           </ul>

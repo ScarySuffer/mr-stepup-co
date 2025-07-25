@@ -1,5 +1,5 @@
 // src/components/ProductCard.js
-import React from "react";
+import React, { useState } from "react"; // Import useState hook
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
 
@@ -9,53 +9,67 @@ export default function ProductCard({ product, onAddToCart }) {
     name,
     brand,
     price,
-    image,
+    image, // This is the default/main image
     otherImages = [],
     sizes = [],
   } = product;
 
-     console.log("ProductCard for product ID:", id, "image URL:", image);
+  // Use state to manage the currently displayed main image
+  // Initialize it with the product's default 'image'
+  const [currentMainImage, setCurrentMainImage] = useState(image);
 
-  // Removed: const fallbackImage = "/assets/fallback.jpg";
+  // Function to handle thumbnail clicks
+  const handleThumbnailClick = (imgUrl) => {
+    setCurrentMainImage(imgUrl); // Update the state to the clicked thumbnail's URL
+  };
 
   return (
     <div className="product-card">
-      <Link to={`/product/${id}`}>
+      {/* Link around the main image for navigation to product details */}
+      <Link to={`/product/${id}`} className="product-image-link">
         <img
-          src={image} // Changed from src={image || fallbackImage} to src={image}
+          src={currentMainImage} // Now dynamically set by state
           alt={name}
-          className="product-image"
+          className="product-main-image"
         />
       </Link>
 
+      {/* Thumbnail gallery: Show if there are any otherImages */}
       {otherImages.length > 0 && (
         <div className="thumbnail-gallery">
+          {/* Include the main image as the first thumbnail for consistency, if desired.
+              Otherwise, just map otherImages.
+              Here, we'll map `image` and then `otherImages.slice(0, 2)` to show a total of 3.
+              Or, show up to 3 thumbnails from `otherImages`
+          */}
           {otherImages.slice(0, 3).map((imgUrl, idx) => (
             <img
-              key={idx}
+              key={idx} // Using index as key is fine for static lists
               src={imgUrl}
-              alt={`${name} view ${idx + 1}`}
-              className="thumbnail"
+              alt={`${name} thumbnail ${idx + 1}`}
+              className={`thumbnail ${currentMainImage === imgUrl ? 'selected-thumbnail' : ''}`} // Add a class for selected thumbnail
+              onClick={() => handleThumbnailClick(imgUrl)} // Add onClick handler
             />
           ))}
         </div>
       )}
 
-      <div className="product-info">
+      <div className="product-details-content">
         <h3>{name}</h3>
-        <p className="brand">{brand}</p>
-        <p className="price">R{price.toFixed(2)}</p>
+        <p className="product-brand">{brand}</p>
+        <p className="product-price">R{price.toFixed(2)}</p>
 
-        <Link to={`/product/${id}`} className="view-details-btn">
-          View Details
-        </Link>
-
-        <button
-          className="add-to-cart-btn"
-          onClick={() => onAddToCart(product, sizes[0] || "", 1)}
-        >
-          Add to Cart
-        </button>
+        <div className="card-buttons">
+          <Link to={`/product/${id}`} className="view-details-btn">
+            View Details
+          </Link>
+          <button
+            className="add-to-cart-btn"
+            onClick={() => onAddToCart(product, sizes[0] || '', 1)}
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
   );

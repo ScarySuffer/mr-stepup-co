@@ -1,85 +1,108 @@
 /* Override Bootstrap navbar background and text colors */
 .navbar {
-  background-color: #2563eb !important; /* your blue */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2563eb !important; /* your blue */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Brand/logo style */
 .navbar-brand {
-  font-weight: 700;
-  font-size: 1.5rem;
-  letter-spacing: 1px;
-  color: white !important;
-  cursor: pointer;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    color: white !important;
+    cursor: pointer;
 }
 
 /* Nav links style */
 .nav-link {
-  color: white !important;
-  font-weight: 600;
-  transition: color 0.3s ease, font-size 0.3s ease;
+    color: white !important;
+    font-weight: 600;
+    font-size: 1rem; /* BASE SIZE: Increased for all screen sizes */
+    transition: color 0.3s ease, font-size 0.3s ease;
 }
 
 /* Hover and focus states */
 .nav-link:hover,
 .nav-link:focus {
-  color: #93c5fd !important; /* lighter blue */
-  outline: none;
+    color: #93c5fd !important; /* lighter blue */
+    outline: none;
+}
+
+/* Style for the active/current nav link */
+.nav-link.active {
+    color: #93c5fd !important; /* Lighter blue to highlight current page */
+    border-bottom: 2px solid #93c5fd; /* Add an underline for emphasis */
+    padding-bottom: 0.3rem; /* Adjust padding to make space for the underline */
+}
+
+
+/* Hover and focus states */
+.nav-link:hover,
+.nav-link:focus {
+    color: #93c5fd !important; /* lighter blue */
+    outline: none;
 }
 
 /* Optional: spacing between nav links handled by Bootstrap, but you can tweak if needed */
 .navbar-nav > li + li {
-  margin-left: 2rem;
+    margin-left: 2rem;
 }
 
 /* Increase nav link and brand font size on larger screens */
 @media (min-width: 992px) {
-  .navbar .nav-link {
-    font-size: 1.25rem !important;
-  }
+    .navbar .nav-link {
+        font-size: 1.15rem !important; /* Larger size for desktop */
+    }
 
-  .navbar .navbar-brand {
-    font-size: 1.75rem !important;
-  }
+    /* Ensure active state also scales up */
+    .navbar .nav-link.active {
+        font-size: 1.15rem !important; /* Keep consistent font size for active on desktop */
+    }
+
+    .navbar .navbar-brand {
+        font-size: 1.75rem !important;
+    }
 }
+
 /* Add to src/components/Navbar.css */
 
 .cart-icon-link {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 5px; /* Space between icon and text/badge */
-  font-size: 1.25rem !important; /* Make cart icon larger */
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between icon and text/badge */
+    font-size: 1.25rem !important; /* Make cart icon larger */
 }
 
 .cart-badge {
-  background-color: #ef4444; /* Red badge */
-  color: white;
-  border-radius: 50%;
-  padding: 0.15rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  min-width: 20px; /* Ensure badge is round for single digits */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    background-color: #ef4444; /* Red badge */
+    color: white;
+    border-radius: 50%;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    min-width: 20px; /* Ensure badge is round for single digits */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
+
 /* src/components/Navbar.css */
 
 /* Add or adjust these for the search input */
 .navbar .form-control {
-  min-width: 180px; /* Ensure enough space for search input */
-  border-radius: 0.5rem; /* Match other design elements */
+    min-width: 180px; /* Ensure enough space for search input */
+    border-radius: 0.5rem; /* Match other design elements */
 }
 
 /* Ensure search bar is visible and responsive */
 @media (min-width: 992px) { /* Adjust based on your navbar breakpoint */
-  .navbar .form-control {
-    min-width: 200px;
-  }
-  .navbar-nav .search-bar-item {
-    margin-right: 1.5rem; /* Add some space before other links */
-  }
+    .navbar .form-control {
+        min-width: 200px;
+    }
+    .navbar-nav .search-bar-item {
+        margin-right: 1.5rem; /* Add some space before other links */
+    }
 }
 
 /* For smaller screens, the search bar will be full width due to Bootstrap's d-flex */

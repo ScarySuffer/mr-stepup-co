@@ -1,51 +1,61 @@
-/* Add these styles or modify existing ones */
+/* =======================
+   PRODUCT DETAILS STYLES
+========================== */
 
-.product-details h2 { /* Ensure consistent styling */
-  font-size: 2.5rem; /* Larger heading */
+/* --- Page Heading (Product Details) --- */
+.product-details h2 {
+  font-size: 2.5rem;
   margin-bottom: 1rem;
   text-align: center;
-  color: #1f2937; /* Darker text */
+  color: #1f2937;
+  padding-top: 2rem;
 }
 
+/* --- Product Detail Card Container --- */
 .product-detail-card {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 10px;
-  max-width: 900px; /* Max width for the card */
+  max-width: 900px;
   width: 100%;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Nicer shadow */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin-bottom: 2rem; /* Space below card */
+  margin: 0 auto 2rem auto;
+  padding: 0 1rem;
 }
 
+/* --- Main Product Section (Image + Info) --- */
 .product-main {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* More space */
-  padding: 2rem; /* More padding */
+  gap: 1.5rem;
+  padding: 1.5rem;
 }
 
-.product-main img.main-image { /* Specific selector for main image */
+/* --- Main Product Image --- */
+.product-main img.main-image {
   width: 100%;
   max-width: 400px;
   border-radius: 10px;
-  object-fit: contain; /* Keep original aspect ratio */
+  object-fit: contain;
   align-self: center;
-  background-color: #f3f4f6; /* Light background for images with transparency */
-  padding: 1rem; /* Padding for the image to prevent cutting off */
+  background-color: #f3f4f6;
+  padding: 1rem;
 }
 
+/* --- Product Information --- */
 .product-info {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem; /* More space between info elements */
+  gap: 0.8rem;
 }
 
-.product-info h2 { /* Style for product name within info */
+.product-info h2 {
   font-size: 2.2rem;
   margin: 0;
   color: #111827;
+  text-align: center;
 }
 
 .product-info .description {
@@ -55,40 +65,43 @@
 }
 
 .price {
-  font-size: 1.8rem; /* Larger price */
+  font-size: 1.8rem;
   font-weight: bold;
-  color: #2563eb; /* Use your brand blue */
+  color: #2563eb;
   margin-bottom: 1.5rem;
 }
 
-h4 { /* General style for headings like 'Available Sizes' */
+/* --- Headings (e.g., 'Available Sizes') --- */
+h4 {
   font-size: 1.25rem;
   color: #1f2937;
-  margin-top: 1rem;
-  margin-bottom: 0.8rem;
+  margin: 1rem 0 0.8rem;
 }
 
-.sizes-selection { /* Use this new class name */
+/* --- Sizes Selection --- */
+.sizes-selection {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
 
+/* --- Individual Size Badge --- */
 .size-badge {
-  display: inline-flex; /* Use inline-flex for better alignment */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 45px; /* Ensure consistent size */
+  min-width: 45px;
   padding: 0.6rem 1rem;
-  background-color: #e5e7eb; /* Light gray for unselected */
+  background-color: #e5e7eb;
   border: 2px solid #e5e7eb;
-  border-radius: 8px; /* Slightly less rounded than 20px for sizes */
+  border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 500;
   color: #374151;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  user-select: none;
 }
 
 .size-badge:hover {
@@ -96,19 +109,19 @@ h4 { /* General style for headings like 'Available Sizes' */
 }
 
 .size-badge.selected {
-  background-color: #2563eb; /* Your brand blue when selected */
-  color: white;
+  background-color: #2563eb;
+  color: #ffffff;
   border-color: #2563eb;
-  transform: scale(1.05); /* Slight pop when selected */
+  transform: scale(1.05);
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
+/* --- Quantity Selector --- */
 .quantity-selector {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin: 1rem 0 2rem;
   font-size: 1.1rem;
   color: #374151;
 }
@@ -124,50 +137,51 @@ h4 { /* General style for headings like 'Available Sizes' */
   border-radius: 5px;
   font-size: 1rem;
   text-align: center;
-  -moz-appearance: textfield; /* Hide arrows in Firefox */
+  -moz-appearance: textfield;
 }
 
-/* Hide arrows in Chrome, Safari, Edge */
+/* Hide number input arrows (Chrome, Safari, Edge) */
 .quantity-selector input::-webkit-outer-spin-button,
 .quantity-selector input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
+/* --- Add to Cart Button --- */
 .add-to-cart-btn {
-  background-color: #2563eb; /* Your brand blue */
-  color: white;
-  padding: 0.9rem 2.5rem; /* Larger padding */
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 0.9rem 2.5rem;
   border: none;
-  border-radius: 9999px; /* Pill shape */
-  font-weight: 700; /* Bolder text */
+  border-radius: 9999px;
+  font-weight: 700;
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  align-self: center; /* Center the button */
-  margin-top: 1.5rem;
-  width: 80%; /* Make it wider */
+  align-self: center;
+  margin: 1.5rem auto;
+  width: 80%;
   max-width: 300px;
 }
 
 .add-to-cart-btn:hover {
-  background-color: #1d4ed8; /* Darker blue on hover */
-  transform: translateY(-2px); /* Slight lift */
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
 }
 
-/* Image Gallery (More Photos) */
-.image-gallery { /* Use this new class name */
+/* --- Image Gallery --- */
+.image-gallery {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  padding: 1.5rem 2rem; /* More padding */
+  padding: 1.5rem 2rem;
   justify-content: center;
-  border-top: 1px solid #eee; /* Lighter border */
-  background-color: #fcfcfc; /* Slightly different background for gallery */
+  border-top: 1px solid #eee;
+  background-color: #fcfcfc;
 }
 
 .image-gallery img {
-  width: 90px; /* Slightly smaller thumbnails */
+  width: 90px;
   height: 90px;
   object-fit: cover;
   border-radius: 6px;
@@ -178,41 +192,49 @@ h4 { /* General style for headings like 'Available Sizes' */
 
 .image-gallery img:hover {
   transform: scale(1.08);
-  border-color: #2563eb; /* Brand blue on hover */
+  border-color: #2563eb;
 }
 
+/* --- Back Button --- */
 .back-btn {
   display: inline-block;
-  margin-top: 2rem;
+  margin: 2rem auto 0;
   color: #2563eb;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.2s ease;
+  text-align: center;
 }
 
 .back-btn:hover {
   color: #1d4ed8;
 }
 
-/* Responsive tweaks for ProductDetails */
+/* ========================
+   MEDIA QUERIES
+========================== */
 @media (min-width: 768px) {
   .product-main {
     flex-direction: row;
-    align-items: flex-start; /* Align top */
+    align-items: flex-start;
     gap: 3rem;
   }
 
   .product-main img.main-image {
-    max-width: 40%; /* Adjust width */
-    flex-shrink: 0; /* Prevent image from shrinking too much */
+    max-width: 40%;
+    flex-shrink: 0;
   }
 
   .product-info {
     flex: 1;
   }
 
+  .product-info h2 {
+    text-align: left;
+  }
+
   .add-to-cart-btn {
-    align-self: flex-start; /* Align button to the left */
+    align-self: flex-start;
   }
 }
 
@@ -220,7 +242,12 @@ h4 { /* General style for headings like 'Available Sizes' */
   .product-main img.main-image {
     max-width: 350px;
   }
+
   .product-details h2 {
     font-size: 3rem;
+  }
+
+  .product-detail-card {
+    max-width: 1100px;
   }
 }

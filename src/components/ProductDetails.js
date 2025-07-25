@@ -1,64 +1,72 @@
 // src/components/ProductDetails.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react"; // Added useEffect
 import { useParams, Link } from "react-router-dom";
-import productData from "./productData";
-import AddToCartConfirmation from './AddToCartConfirmation'; // Import the confirmation component
-import "./ProductDetails.css"; // Ensure this CSS is comprehensive for detailed view
+import AddToCartConfirmation from './AddToCartConfirmation';
+import "./ProductDetails.css";
 
-export default function ProductDetails({ onAddToCart }) {
+// Remove: import productData from './productData'; // No longer needed here
+
+export default function ProductDetails({ onAddToCart, products }) {
   const { id } = useParams();
-  const product = productData.find((item) => item.id === id);
+  // product is now found from the `products` prop
+  const product = products.find((item) => item.id === id);
 
-  // State for selected size and quantity
+  // Initialize mainImage using useEffect to react to product changes
+  const [mainImage, setMainImage] = useState('');
+  useEffect(() => {
+    if (product) {
+      setMainImage(product.image);
+    }
+  }, [product]);
+
   const [selectedSize, setSelectedSize] = useState(
-    product && product.sizes && product.sizes.length > 0 ? product.sizes[0] : ''
+    product && product.sizes?.length > 0 ? product.sizes[0] : ''
   );
   const [quantity, setQuantity] = useState(1);
-
-  // --- NEW STATE FOR CONFIRMATION MESSAGE ---
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState('');
-  // --- END NEW STATE ---
+
+  // Reset selected size and quantity when product changes (e.g., navigating between detail pages)
+  useEffect(() => {
+    if (product) {
+      setSelectedSize(product.sizes?.length > 0 ? product.sizes[0] : '');
+      setQuantity(1);
+    }
+  }, [product]);
 
   if (!product) {
-    return <div>Product not found.</div>;
+    return <div style={{ padding: '2rem' }}>Product not found.</div>;
   }
 
   const handleAddToCartClick = () => {
     if (selectedSize) {
-      // Call the parent's onAddToCart function, passing product, size, and quantity
       onAddToCart(product, selectedSize, quantity);
-
-      // --- TRIGGER CONFIRMATION MESSAGE ---
       setConfirmationMessage(`${quantity}x ${product.name} (Size: ${selectedSize}) added to cart!`);
       setShowConfirmation(true);
-      // --- END TRIGGER ---
-
     } else {
       alert("Please select a size before adding to cart.");
     }
   };
 
-  // --- NEW FUNCTION TO CLOSE CONFIRMATION ---
   const handleCloseConfirmation = () => {
     setShowConfirmation(false);
-    setConfirmationMessage(''); // Clear message when hidden
+    setConfirmationMessage('');
   };
-  // --- END NEW FUNCTION ---
 
   return (
     <div className="product-details">
-      <div className="product-detail-card"> {/* Added a wrapper for better styling */}
+      <div className="product-detail-card">
         <div className="product-main">
-          <img src={product.image} alt={product.name} className="main-image" />
+          {/* Ensure mainImage is always set to the product's primary image on load */}
+          <img src={mainImage} alt={product.name} className="main-image" />
 
           <div className="product-info">
-            <h2>{product.name}</h2> {/* Changed to h2 */}
+            <h2>{product.name}</h2>
             <p className="description">{product.description}</p>
-            <p className="price">R{product.price.toFixed(2)}</p> {/* Format price */}
+            <p className="price">R{product.price.toFixed(2)}</p>
 
             <h4>Available Sizes:</h4>
-            <div className="sizes-selection"> {/* Renamed for clarity */}
+            <div className="sizes-selection">
               {product.sizes.map((size) => (
                 <span
                   key={size}
@@ -70,7 +78,6 @@ export default function ProductDetails({ onAddToCart }) {
               ))}
             </div>
 
-            {/* Quantity Selector */}
             <div className="quantity-selector">
               <label htmlFor="quantity">Quantity:</label>
               <input
@@ -88,30 +95,43 @@ export default function ProductDetails({ onAddToCart }) {
           </div>
         </div>
 
-        {product.otherImages && product.otherImages.length > 0 && (
+        {product.otherImages?.length > 0 && (
           <>
             <h4>More Photos:</h4>
-            <div className="image-gallery"> {/* Renamed for clarity */}
+            <div className="image-gallery">
+              {/* Add product.image (main image) to the gallery so user can click back to it */}
+              <img
+                src={product.image}
+                alt={`Main view of ${product.name}`}
+                className={`thumbnail ${mainImage === product.image ? 'selected-thumbnail' : ''}`}
+                onClick={() => setMainImage(product.image)}
+                style={{ cursor: 'pointer' }}
+              />
               {product.otherImages.map((img, index) => (
-                <img key={index} src={img} alt={`More of ${product.name}`} />
+                <img
+                  key={index}
+                  src={img}
+                  alt={`More of ${product.name} view ${index + 2}`}
+                  className={`thumbnail ${mainImage === img ? 'selected-thumbnail' : ''}`}
+                  onClick={() => setMainImage(img)}
+                  style={{ cursor: 'pointer' }}
+                />
               ))}
             </div>
           </>
         )}
-      </div> {/* End product-detail-card */}
+      </div>
 
       <Link to="/products" className="back-btn">
         ← Back to Products
       </Link>
 
-      {/* --- ADD THE CONFIRMATION MESSAGE COMPONENT HERE --- */}
       <AddToCartConfirmation
         show={showConfirmation}
         message={confirmationMessage}
         onClose={handleCloseConfirmation}
-        duration={3000} // Message will automatically hide after 3 seconds
+        duration={3000}
       />
-      {/* --- END ADDITION --- */}
     </div>
   );
 }

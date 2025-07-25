@@ -1,84 +1,109 @@
 .product-card {
-  background-color: white;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-  border: 2px solid #e5e7eb; /* light gray border */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem; /* Reduced padding */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    border: 2px solid #e5e7eb;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .product-card:hover,
 .product-card:focus-within {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  border-color: #2563eb; /* changes border to blue on hover/focus */
-  outline: none;
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-color: #2563eb;
+    outline: none;
 }
 
 .product-card img {
-  width: 100%;
-  border-radius: 0.75rem;
-  margin-bottom: 1rem;
-  user-select: none;
+    width: 100%;
+    border-radius: 0.75rem;
+    margin-bottom: 0.75rem; /* Reduced margin */
+    user-select: none;
+}
+
+/* 🆕 Thumbnail gallery */
+.thumbnail-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 0.5rem; /* Reduced margin */
+}
+
+.thumbnail {
+    width: 600px; /* Reduced width */
+    height: 150px; /* Reduced height */
+    object-fit: cover;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.thumbnail:hover {
+    transform: scale(1.05);
+    border-color: #2563eb;
+    cursor: pointer;
 }
 
 .product-card h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.3rem; /* Reduced margin */
 }
 
-.product-card p {
-  font-weight: bold;
-  color: #2563eb;
-  margin-bottom: 1rem;
+.product-card p { /* This is likely the price */
+    font-weight: bold;
+    color: #2563eb;
+    margin-bottom: 0.75rem; /* Reduced margin */
 }
 
-.product-card button {
-  background-color: #2563eb;
-  color: white;
-  padding: 0.5rem 1.25rem;
-  border-radius: 9999px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.product-card button { /* Add to Cart button */
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1.25rem; /* Keep this for good button tap area */
+    border-radius: 9999px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .product-card button:hover,
 .product-card button:focus {
-  background-color: #1d4ed8;
-  outline: none;
+    background-color: #1d4ed8;
+    outline: none;
 }
 
 /* Accessibility focus */
 .product-card:focus-visible {
-  outline: 2px solid #2563eb;
-  outline-offset: 3px;
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
 }
+
 .card-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* Reduced gap */
+    margin-top: 8px; /* Reduced margin */
 }
 
 .view-details-btn {
-  display: inline-block;
-  text-align: center;
-  padding: 8px 12px;
-  background-color: #0077cc;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: bold;
-  transition: background-color 0.3s;
+    display: inline-block;
+    text-align: center;
+    padding: 8px 12px;
+    /* IMPORTANT: Ensure this matches your brand blue from previous discussions */
+    background-color: #2563eb; /* Consistent brand blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 9999px; /* Consistent pill shape */
+    font-weight: 600; /* Consistent font-weight */
+    transition: background-color 0.3s;
 }
 
 .view-details-btn:hover {
-  background-color: #005fa3;
+    background-color: #1d4ed8; /* Consistent darker brand blue on hover */
 }

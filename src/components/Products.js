@@ -1,14 +1,13 @@
 // src/components/Products.js
 import React from "react";
 import ProductCard from "./ProductCard";
-import FilterSortBar from "./FilterSortBar"; // Import the new component
+import FilterSortBar from "./FilterSortBar";
 import "./Products.css";
-// products from productData will now be passed as prop as productsToDisplay
 
 export default function Products({
   onAddToCart,
   productsToDisplay,
-  // NEW PROPS FOR FILTER/SORT
+  // PROPS FOR FILTER/SORT
   selectedBrand,
   setSelectedBrand,
   selectedSize,
@@ -21,7 +20,6 @@ export default function Products({
   return (
     <section id="products" className="products-section">
       <h2>Featured Sneakers</h2>
-      {/* Render the FilterSortBar component */}
       <FilterSortBar
         selectedBrand={selectedBrand}
         setSelectedBrand={setSelectedBrand}

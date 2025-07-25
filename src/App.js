@@ -1,24 +1,29 @@
 // src/App.js
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import Products from "./components/Products";
-import Brands from "./components/Brands";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import ComingSoon from "./components/ComingSoon";
-import ProductDetails from "./components/ProductDetails";
-import Cart from "./components/Cart";
-import Checkout from "./components/Checkout";
-import OrderHistory from "./components/OrderHistory";
-import initialProductData from "./components/productData";
 
-// NEW ADMIN IMPORTS
-import ProductForm from "./components/Admin/ProductForm"; // Updated import name
-import AdminProductsList from "./components/Admin/AdminProductsList";
+import React, { useState, useEffect, useMemo } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Import Home component
+import Home from './components/Home'; // Make sure this path is correct
+// ... other existing imports like Products, ProductDetails, Cart, Navbar, Footer etc.
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Products from './components/Products';
+import ProductDetails from './components/ProductDetails';
+import Cart from './components/Cart';
+import Brands from './components/Brands';
+import Contact from './components/Contact';
+import ComingSoon from './components/ComingSoon';
+import Checkout from './components/Checkout';
+import OrderHistory from './components/OrderHistory';
+import ProductForm from './components/Admin/ProductForm';
+import AdminProductsList from './components/Admin/AdminProductsList';
+import initialProductData from './components/productData';
+
 
 function App() {
+  // ... (all your existing state, useEffects, and handler functions)
+
   const [products, setProducts] = useState(() => {
     try {
       const localProducts = localStorage.getItem("mrstepup-products");
@@ -28,6 +33,7 @@ function App() {
       return initialProductData;
     }
   });
+
 
   useEffect(() => {
     localStorage.setItem("mrstepup-products", JSON.stringify(products));
@@ -54,17 +60,17 @@ function App() {
     }
   });
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("All");
-  const [selectedSize, setSelectedSize] = useState("All");
-  const [sortBy, setSortBy] = useState("default");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedBrand, setSelectedBrand] = useState('All');
+  const [selectedSize, setSelectedSize] = useState('All');
+  const [sortBy, setSortBy] = useState('default');
 
   useEffect(() => {
-    localStorage.setItem("mrstepup-cart", JSON.stringify(cartItems));
+    localStorage.setItem('mrstepup-cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
   useEffect(() => {
-    localStorage.setItem("mrstepup-past-orders", JSON.stringify(pastOrders));
+    localStorage.setItem('mrstepup-past-orders', JSON.stringify(pastOrders));
   }, [pastOrders]);
 
 
@@ -86,16 +92,16 @@ function App() {
   };
 
   const handleRemoveFromCart = (productId, selectedSize) => {
-    setCartItems(
-      cartItems.filter(
+    setCartItems((prevItems) =>
+      prevItems.filter(
         (item) => !(item.id === productId && item.selectedSize === selectedSize)
       )
     );
   };
 
   const handleUpdateQuantity = (productId, selectedSize, newQuantity) => {
-    setCartItems(
-      cartItems.map((item) =>
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
         item.id === productId && item.selectedSize === selectedSize
           ? { ...item, quantity: Math.max(1, newQuantity) }
           : item
@@ -116,7 +122,7 @@ function App() {
     setPastOrders((prevOrders) => [...prevOrders, newOrder]);
   };
 
-  // NEW/UPDATED: Handles both adding and updating a product
+
   const handleProductSubmit = (submittedProduct) => {
     setProducts((prevProducts) => {
       const existingProductIndex = prevProducts.findIndex(
@@ -124,23 +130,19 @@ function App() {
       );
 
       if (existingProductIndex > -1) {
-        // Update existing product
         const updatedProducts = [...prevProducts];
         updatedProducts[existingProductIndex] = submittedProduct;
         return updatedProducts;
       } else {
-        // Add new product (ID is already generated in ProductForm)
         return [...prevProducts, submittedProduct];
       }
     });
   };
 
-  // NEW: Handle product deletion
+
   const handleDeleteProduct = (productId) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      setProducts((prevProducts) =>
-        prevProducts.filter((p) => p.id !== productId)
-      );
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      setProducts((prevProducts) => prevProducts.filter((p) => p.id !== productId));
     }
   };
 
@@ -157,27 +159,27 @@ function App() {
       );
     }
 
-    if (selectedBrand !== "All") {
+    if (selectedBrand !== 'All') {
       currentProducts = currentProducts.filter((product) => product.brand === selectedBrand);
     }
 
-    if (selectedSize !== "All") {
+    if (selectedSize !== 'All') {
       currentProducts = currentProducts.filter(
-        (product) => product.sizes && product.sizes.includes(selectedSize)
+        (product) => product.sizes && product.sizes.includes(parseInt(selectedSize))
       );
     }
 
     switch (sortBy) {
-      case "price-asc":
+      case 'price-asc':
         currentProducts.sort((a, b) => a.price - b.price);
         break;
-      case "price-desc":
+      case 'price-desc':
         currentProducts.sort((a, b) => b.price - a.price);
         break;
-      case "name-asc":
+      case 'name-asc':
         currentProducts.sort((a, b) => a.name.localeCompare(b.name));
         break;
-      case "name-desc":
+      case 'name-desc':
         currentProducts.sort((a, b) => b.name.localeCompare(a.name));
         break;
       default:
@@ -189,12 +191,12 @@ function App() {
 
   const productsToDisplay = getFilteredAndSortedProducts();
 
-  const getUniqueBrands = () => {
+  const getUniqueBrands = useMemo(() => {
     const brands = new Set(products.map(product => product.brand));
     return ['All', ...Array.from(brands).sort()];
-  };
+  }, [products]);
 
-  const getUniqueSizes = () => {
+  const getUniqueSizes = useMemo(() => {
     const sizes = new Set();
     products.forEach(product => {
       if (product.sizes) {
@@ -202,7 +204,8 @@ function App() {
       }
     });
     return ['All', ...Array.from(sizes).sort((a, b) => parseFloat(a) - parseFloat(b))];
-  };
+  }, [products]);
+
 
   return (
     <Router>
@@ -211,84 +214,84 @@ function App() {
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
       />
-      <Routes>
-        <Route path="/" element={<Home onAddToCart={handleAddToCart} filteredProducts={productsToDisplay} />} />
-        <Route
-          path="/products"
-          element={
-            <Products
-              productsToDisplay={productsToDisplay}
-              onAddToCart={handleAddToCart}
-              selectedBrand={selectedBrand}
-              setSelectedBrand={setSelectedBrand}
-              selectedSize={selectedSize}
-              setSelectedSize={setSelectedSize}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              uniqueBrands={getUniqueBrands()}
-              uniqueSizes={getUniqueSizes()}
-            />
-          }
-        />
-        <Route path="/brands" element={<Brands onAddToCart={handleAddToCart} productsToDisplay={products} />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/coming-soon" element={<ComingSoon />} />
-        <Route
-          path="/product/:id"
-          element={<ProductDetails onAddToCart={handleAddToCart} products={products} />}
-        />
-        <Route
-          path="/cart"
-          element={
-            <Cart
-              cartItems={cartItems}
-              onRemoveFromCart={handleRemoveFromCart}
-              onUpdateQuantity={handleUpdateQuantity}
-            />
-          }
-        />
-        <Route
-          path="/checkout"
-          element={
-            <Checkout
-              cartItems={cartItems}
-              onClearCart={handleClearCart}
-              onAddPastOrder={handleAddPastOrder}
-            />
-          }
-        />
-        <Route
-          path="/order-history"
-          element={<OrderHistory pastOrders={pastOrders} />}
-        />
+      <main>
+        <Routes>
+          {/* Changed this line to render Home */}
+          <Route
+            path="/"
+            element={<Home onAddToCart={handleAddToCart} filteredProducts={productsToDisplay} />}
+          />
 
-        {/* UPDATED ADMIN ROUTES */}
-        <Route
-          path="/admin/products"
-          element={
-            <AdminProductsList
-              products={products}
-              onDeleteProduct={handleDeleteProduct}
-            />
-          }
-        />
-        <Route
-          path="/admin/add-product"
-          element={<ProductForm onSubmit={handleProductSubmit} products={products} />}
-        />
-        <Route
-          path="/admin/edit-product/:id"
-          // Crucial update: ProductForm now uses 'useParams' internally,
-          // so we only need to pass the 'products' array to it.
-          // It will find the specific product based on the URL's ID.
-          element={
-            <ProductForm
-              onSubmit={handleProductSubmit}
-              products={products}
-            />
-          }
-        />
-      </Routes>
+          <Route
+            path="/products"
+            element={
+              <Products
+                onAddToCart={handleAddToCart}
+                productsToDisplay={productsToDisplay}
+                selectedBrand={selectedBrand}
+                setSelectedBrand={setSelectedBrand}
+                selectedSize={selectedSize}
+                setSelectedSize={setSelectedSize}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                uniqueBrands={getUniqueBrands}
+                uniqueSizes={getUniqueSizes}
+              />
+            }
+          />
+          <Route
+            path="/product/:id"
+            element={<ProductDetails onAddToCart={handleAddToCart} products={products} />}
+          />
+          <Route
+            path="/brands"
+            element={<Brands onAddToCart={handleAddToCart} productsToDisplay={products} />}
+          />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/coming-soon" element={<ComingSoon />} />
+          <Route
+            path="/cart"
+            element={
+              <Cart
+                cartItems={cartItems}
+                onRemoveFromCart={handleRemoveFromCart}
+                onUpdateQuantity={handleUpdateQuantity}
+              />
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <Checkout
+                cartItems={cartItems}
+                onClearCart={handleClearCart}
+                onAddPastOrder={handleAddPastOrder}
+              />
+            }
+          />
+          <Route
+            path="/order-history"
+            element={<OrderHistory pastOrders={pastOrders} />}
+          />
+          <Route
+            path="/admin/products"
+            element={
+              <AdminProductsList
+                products={products}
+                onDeleteProduct={handleDeleteProduct}
+              />
+            }
+          />
+          <Route
+            path="/admin/add-product"
+            element={<ProductForm onSubmit={handleProductSubmit} products={products} />}
+          />
+          <Route
+            path="/admin/edit-product/:id"
+            element={<ProductForm onSubmit={handleProductSubmit} products={products} />}
+          />
+        </Routes>
+      </main>
       <Footer />
     </Router>
   );

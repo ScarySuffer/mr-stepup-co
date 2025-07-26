@@ -1,14 +1,16 @@
 .hero-section {
   position: relative;
-  height: 400px;
+  height: 60vh;
+  min-height: 320px;
+  max-height: 550px;
   overflow: hidden;
   border-radius: 1.5rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
   user-select: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000;
 }
 
-/* Optional gradient overlay for text visibility */
 .hero-section::before {
   content: "";
   position: absolute;
@@ -16,7 +18,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent 60%);
   z-index: 3;
 }
 
@@ -24,19 +26,18 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  background-color: #000;
   position: absolute;
   top: 0;
   left: 0;
   opacity: 0;
   transition: opacity 1s ease-in-out;
-  z-index: 0;
-    background-color: #000; /* Adds background behind letterboxing/pillars */
-
+  z-index: 1;
 }
 
 .hero-image.active {
   opacity: 1;
-  z-index: 5;
+  z-index: 2;
 }
 
 .arrow {
@@ -44,21 +45,21 @@
   top: 50%;
   transform: translateY(-50%);
   font-size: 2rem;
+  background: rgba(0, 0, 0, 0.6);
   color: white;
-  background: rgba(0, 0, 0, 0.4);
   border: none;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-  user-select: none;
-  z-index: 10;
+  cursor: pointer;
+  padding: 0.6rem 1rem;
+  opacity: 0.75;
+  transition: all 0.3s ease;
+  z-index: 5;
 }
 
 .arrow:hover,
 .arrow:focus {
   opacity: 1;
+  background: rgba(0, 0, 0, 0.8);
   outline: none;
 }
 
@@ -72,66 +73,59 @@
 
 .hero-content {
   position: relative;
-  z-index: 10;
+  z-index: 20;
   text-align: center;
-  padding-top: 100px;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 6.5rem 1rem 2rem; /* ⬅️ increased top padding */
   color: white;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
 }
 
 .hero-content h1 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 4vw, 3.25rem);
   font-weight: 800;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem; /* ⬅️ adds spacing before the button */
 }
 
 .cta-button {
-  background-color: #3b82f6;
+  background-color: var(--link-color, #3b82f6);
   color: white;
   padding: 0.75rem 2rem;
   border-radius: 9999px;
-  font-weight: bold;
+  font-weight: 600;
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  display: inline-block;
 }
 
 .cta-button:hover,
 .cta-button:focus {
-  background-color: #2563eb;
+  background-color: var(--link-hover, #2563eb);
   transform: scale(1.05);
   outline: none;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .hero-section {
-    height: 300px;
-  }
-
-  .hero-content h1 {
-    font-size: 2.25rem;
-  }
-
   .arrow {
     font-size: 1.5rem;
-    padding: 0.3rem 0.75rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .hero-content {
+    padding-top: 4rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero-content h1 {
-    font-size: 1.75rem;
+    font-size: 1.8rem;
   }
 
   .cta-button {
     font-size: 0.875rem;
-    padding: 0.5rem 1.25rem;
+    padding: 0.6rem 1.25rem;
   }
 
   .arrow {
-    padding: 0.75rem 1rem; /* Increased tap area on small screens */
+    padding: 0.75rem 1rem;
   }
 }

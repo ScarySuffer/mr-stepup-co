@@ -1,0 +1,181 @@
+/* src/components/NotFoundPage.css */
+
+/* Keyframe for a subtle fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Keyframe for a slight floating effect on the image */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Use min-height: 100vh for full viewport height, or calc for main content area below fixed navbar */
+  min-height: calc(100vh - var(--navbar-height, 68px) - var(--footer-height, 0px)); /* Adjust for navbar and footer height */
+  text-align: center;
+  padding: 3rem 1.5rem; /* Increased padding */
+  background-color: #f0f2f5; /* A slightly softer light background */
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: fadeIn 0.8s ease-out forwards; /* Apply fade-in to the whole container */
+}
+
+.not-found-image {
+  max-width: 250px; /* Adjust size as needed */
+  height: auto;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+  animation: float 3s ease-in-out infinite; /* Apply floating animation */
+}
+
+.not-found-title {
+  font-size: 5rem; /* Slightly adjusted size */
+  font-weight: 700;
+  color: #2563eb; /* Your brand blue */
+  margin-bottom: 1rem;
+  letter-spacing: -0.05em; /* A bit tighter for impact */
+  animation: fadeIn 0.9s ease-out forwards; /* Delayed fade-in */
+  animation-delay: 0.2s; /* Start after container animation */
+  opacity: 0; /* Hide initially for animation */
+}
+
+.not-found-message {
+  font-size: 1.6rem; /* Slightly adjusted size */
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 0.8rem;
+  animation: fadeIn 1s ease-out forwards; /* Delayed fade-in */
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+.not-found-description {
+  font-size: 1.05rem; /* Slightly adjusted size */
+  color: #666;
+  margin-bottom: 2.5rem; /* More space before links */
+  max-width: 650px;
+  line-height: 1.7;
+  animation: fadeIn 1.1s ease-out forwards; /* Delayed fade-in */
+  animation-delay: 0.6s;
+  opacity: 0;
+}
+
+.not-found-links {
+  display: flex;
+  flex-wrap: wrap; /* Allow links to wrap on smaller screens */
+  justify-content: center;
+  gap: 1.2rem; /* Space between the buttons */
+  margin-bottom: 3rem; /* Space before small print */
+  animation: fadeIn 1.2s ease-out forwards; /* Delayed fade-in */
+  animation-delay: 0.8s;
+  opacity: 0;
+}
+
+.not-found-cta-link {
+  display: inline-flex; /* For icon and text alignment */
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  padding: 0.9rem 2rem;
+  border-radius: 9999px; /* Pill shape */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: all 0.3s ease; /* Smooth transition for all properties */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 180px; /* Ensure buttons are not too small */
+  justify-content: center; /* Center text and icon in button */
+}
+
+.not-found-cta-link i {
+  margin-right: 5px; /* Adjust if using `gap` on parent */
+  font-size: 1.1em; /* Make icons slightly larger than text */
+}
+
+/* Primary Link Style */
+.not-found-cta-link.primary-link {
+  background-color: #2563eb; /* Your brand blue */
+  color: white;
+}
+
+.not-found-cta-link.primary-link:hover {
+  background-color: #1d4ed8; /* Darker blue */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Secondary Link Style (e.g., Products) */
+.not-found-cta-link.secondary-link {
+  background-color: #e2e8f0; /* Lighter grey */
+  color: #1f2937;
+  border: 1px solid #cbd5e1;
+}
+
+.not-found-cta-link.secondary-link:hover {
+  background-color: #cbd5e1; /* Slightly darker grey */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Tertiary Link Style (e.g., Contact) */
+.not-found-cta-link.tertiary-link {
+  background-color: transparent;
+  color: #2563eb; /* Blue text */
+  border: 1px solid #2563eb; /* Blue border */
+}
+
+.not-found-cta-link.tertiary-link:hover {
+  background-color: #eff6ff; /* Very light blue background on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.not-found-small-print {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 1rem;
+  animation: fadeIn 1.3s ease-out forwards; /* Delayed fade-in */
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .not-found-container {
+    padding: 2rem 1rem;
+  }
+  .not-found-title {
+    font-size: 3.5rem;
+  }
+  .not-found-message {
+    font-size: 1.2rem;
+  }
+  .not-found-description {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+  .not-found-links {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+    gap: 1rem;
+  }
+  .not-found-cta-link {
+    width: 100%; /* Full width buttons */
+    max-width: 300px; /* Max width for stacked buttons */
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Variable for navbar height - adjust in your global CSS if needed */
+:root {
+  --navbar-height: 68px; /* Example value, match your actual navbar height */
+  --footer-height: 0px; /* Add if your footer has a fixed height */
+}

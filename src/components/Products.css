@@ -2,54 +2,47 @@
 
 .products-section {
   padding: 3rem 1.5rem;
-  max-width: 1200px; /* Max width for the entire section */
+  max-width: 1200px;
   margin: 0 auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #1f2937;
+  color: var(--text-main);
 }
 
 .products-section h2 {
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 2.5rem;
-  color: #111827;
+  color: var(--heading-color);
 }
 
 .products-grid {
-  display: flex; /* Use flexbox for the grid container */
-  flex-wrap: wrap; /* Allow cards to wrap to the next line */
-  gap: 1.5rem; /* Space between cards */
-  justify-content: center; /* Center cards horizontally on smaller screens */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
   padding: 1rem 0;
 }
 
-/* Message when no products are found */
 .products-section p {
   text-align: center;
   font-size: 1.2rem;
-  color: #666;
+  color: var(--muted-text);
   margin-top: 2rem;
 }
 
-/* Responsive adjustments for the grid */
 @media (min-width: 768px) {
   .products-grid {
-    justify-content: flex-start; /* Align left on bigger screens */
+    justify-content: flex-start;
   }
 
-  /* Distribute cards for 3 per row with gaps */
   .product-card {
-    flex: 1 1 calc(33.333% - 1rem); /* 3 cards per row: (100% / 3) - (gap / 3 * 2) */
-    /* Calculation: 100% / 3 - (1.5rem * 2 / 3) = 33.333% - 1rem */
-    max-width: unset; /* Remove max-width from ProductCard, let flex control it */
-    min-width: 220px; /* Optional: maintain a minimum card width, adjust as needed */
+    flex: 1 1 calc(33.333% - 1rem);
+    min-width: 220px;
   }
 }
 
 @media (min-width: 1200px) {
-  /* Distribute cards for 4 per row with gaps */
   .product-card {
-    flex: 1 1 calc(25% - 1.125rem); /* 4 cards per row: (100% / 4) - (gap / 4 * 3) */
-    /* Calculation: 100% / 4 - (1.5rem * 3 / 4) = 25% - 1.125rem */
+    flex: 1 1 calc(25% - 1.125rem);
   }
 }

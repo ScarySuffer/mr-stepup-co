@@ -3,5 +3,7 @@
   margin: 0 auto;
   padding: 2rem 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #1f2937;
+  color: var(--text-main); /* dynamic text color */
+  background-color: var(--bg-main); /* optional: background for section/card */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

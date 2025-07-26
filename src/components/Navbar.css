@@ -1,108 +1,230 @@
-/* Override Bootstrap navbar background and text colors */
-.navbar {
-    background-color: #2563eb !important; /* your blue */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* src/components/Navbar.css */
+
+/* THEME VARIABLES */
+:root {
+  --navbar-background: #f8f9fa; /* light navbar bg */
+  --navbar-brand-color: #111827; /* dark text */
+  --navbar-link-color: #374151; /* medium gray */
+  --navbar-link-hover-color: #2563eb; /* bright blue */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  --cart-badge-bg: #ef4444; /* red */
+  --cart-badge-text: #fff;
+
+  --navbar-search-bg: #ffffff;
+  --navbar-search-text: #111827;
+  --navbar-search-placeholder: #6b7280;
+  --navbar-search-border: #ccc;
+
+  --navbar-toggler-icon-color: #374151;
+
+  --border-color: #ddd;
+
+  --navbar-dropdown-bg: #ffffff;
+  --navbar-dropdown-item-color: #374151;
+  --navbar-dropdown-hover-bg: #e0e7ff;
+
+  --heading-color: #111827;
+}
+
+[data-theme='dark'] {
+  --navbar-background: #1f2937; /* dark navbar bg */
+  --navbar-brand-color: #f3f4f6; /* light text */
+  --navbar-link-color: #fff; /* changed to white for dark mode */
+  --navbar-link-hover-color: #60a5fa; /* bright blue for hover */
+  --shadow-color: rgba(0, 0, 0, 0.8);
+
+  --cart-badge-bg: #ef4444; /* keep red */
+  --cart-badge-text: #fff;
+
+  --navbar-search-bg: #374151;
+  --navbar-search-text: #f3f4f6;
+  --navbar-search-placeholder: #9ca3af;
+  --navbar-search-border: #4b5563;
+
+  --navbar-toggler-icon-color: #d1d5db;
+
+  --border-color: #4b5563;
+
+  --navbar-dropdown-bg: #374151;
+  --navbar-dropdown-item-color: #f3f4f6;
+  --navbar-dropdown-hover-bg: #4f46e5;
+
+  --heading-color: #f3f4f6;
+}
+
+
+/* Using .app-navbar for custom styles that override Bootstrap,
+   making them theme-aware with CSS variables.
+*/
+
+.app-navbar {
+  background-color: var(--navbar-background);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Brand/logo style */
-.navbar-brand {
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-    color: white !important;
-    cursor: pointer;
+.app-navbar .navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--navbar-brand-color);
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 /* Nav links style */
-.nav-link {
-    color: white !important;
-    font-weight: 600;
-    font-size: 1rem; /* BASE SIZE: Increased for all screen sizes */
-    transition: color 0.3s ease, font-size 0.3s ease;
+.app-navbar .nav-link {
+  color: var(--navbar-link-color);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease, font-size 0.3s ease;
 }
 
 /* Hover and focus states */
-.nav-link:hover,
-.nav-link:focus {
-    color: #93c5fd !important; /* lighter blue */
-    outline: none;
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link:focus {
+  color: var(--navbar-link-hover-color);
+  outline: none;
 }
 
 /* Style for the active/current nav link */
-.nav-link.active {
-    color: #93c5fd !important; /* Lighter blue to highlight current page */
-    border-bottom: 2px solid #93c5fd; /* Add an underline for emphasis */
-    padding-bottom: 0.3rem; /* Adjust padding to make space for the underline */
+.app-navbar .nav-link.active {
+  color: var(--navbar-link-hover-color);
+  border-bottom: 2px solid var(--navbar-link-hover-color);
+  padding-bottom: 0.3rem;
 }
 
-
-/* Hover and focus states */
-.nav-link:hover,
-.nav-link:focus {
-    color: #93c5fd !important; /* lighter blue */
-    outline: none;
-}
-
-/* Optional: spacing between nav links handled by Bootstrap, but you can tweak if needed */
-.navbar-nav > li + li {
-    margin-left: 2rem;
+/* Spacing between nav links */
+.app-navbar .navbar-nav > li + li {
+  margin-left: 2rem;
 }
 
 /* Increase nav link and brand font size on larger screens */
 @media (min-width: 992px) {
-    .navbar .nav-link {
-        font-size: 1.15rem !important; /* Larger size for desktop */
-    }
-
-    /* Ensure active state also scales up */
-    .navbar .nav-link.active {
-        font-size: 1.15rem !important; /* Keep consistent font size for active on desktop */
-    }
-
-    .navbar .navbar-brand {
-        font-size: 1.75rem !important;
-    }
+  .app-navbar .nav-link {
+    font-size: 1.15rem;
+  }
+  .app-navbar .nav-link.active {
+    font-size: 1.15rem;
+  }
+  .app-navbar .navbar-brand {
+    font-size: 1.75rem;
+  }
 }
 
-/* Add to src/components/Navbar.css */
-
-.cart-icon-link {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 5px; /* Space between icon and text/badge */
-    font-size: 1.25rem !important; /* Make cart icon larger */
+/* Cart icon and badge */
+.app-navbar .cart-icon-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1.25rem;
+  color: var(--navbar-link-color);
 }
 
-.cart-badge {
-    background-color: #ef4444; /* Red badge */
-    color: white;
-    border-radius: 50%;
-    padding: 0.15rem 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    min-width: 20px; /* Ensure badge is round for single digits */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+.app-navbar .cart-icon-link:hover {
+  color: var(--navbar-link-hover-color);
 }
 
-/* src/components/Navbar.css */
-
-/* Add or adjust these for the search input */
-.navbar .form-control {
-    min-width: 180px; /* Ensure enough space for search input */
-    border-radius: 0.5rem; /* Match other design elements */
+.app-navbar .cart-badge {
+  background-color: var(--cart-badge-bg);
+  color: var(--cart-badge-text);
+  border-radius: 50%;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  min-width: 20px;
+  box-shadow: 0 1px 3px var(--shadow-color);
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Ensure search bar is visible and responsive */
-@media (min-width: 992px) { /* Adjust based on your navbar breakpoint */
-    .navbar .form-control {
-        min-width: 200px;
-    }
-    .navbar-nav .search-bar-item {
-        margin-right: 1.5rem; /* Add some space before other links */
-    }
+/* Search input */
+.app-navbar .form-control {
+  min-width: 180px;
+  border-radius: 0.5rem;
+  background-color: var(--navbar-search-bg);
+  color: var(--navbar-search-text);
+  border-color: var(--navbar-search-border);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* For smaller screens, the search bar will be full width due to Bootstrap's d-flex */
+.app-navbar .form-control::placeholder {
+  color: var(--navbar-search-placeholder);
+  opacity: 1;
+}
+
+@media (min-width: 992px) {
+  .app-navbar .form-control {
+    min-width: 200px;
+  }
+  .app-navbar .navbar-nav .search-bar-item {
+    margin-right: 1.5rem;
+  }
+}
+
+/* Toggler icon color for collapsed menu */
+.app-navbar .navbar-toggler {
+  border-color: var(--navbar-toggler-icon-color);
+}
+
+/* The toggler icon uses the CSS variable for stroke */
+/* Note: Replace {strokeColor} dynamically if needed, or hardcode color */
+.app-navbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23{strokeColor}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.5em 1.5em;
+}
+
+/* Mobile collapsed navbar background */
+@media (max-width: 991.98px) {
+  .app-navbar .navbar-collapse {
+    background-color: var(--navbar-background);
+    padding: 1rem 0;
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+}
+
+/* Dropdown specific styles */
+.app-navbar .dropdown-menu {
+  background-color: var(--navbar-dropdown-bg);
+  border-color: var(--navbar-search-border);
+  box-shadow: 0 4px 8px var(--shadow-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.app-navbar .dropdown-item {
+  color: var(--navbar-dropdown-item-color);
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.app-navbar .dropdown-item:hover,
+.app-navbar .dropdown-item:focus {
+  background-color: var(--navbar-dropdown-hover-bg);
+  color: var(--navbar-dropdown-item-color);
+}
+
+.app-navbar .dropdown-item.admin-link {
+  color: var(--heading-color);
+}
+
+.app-navbar .dropdown-item.admin-link:hover {
+  background-color: var(--navbar-dropdown-hover-bg);
+  color: var(--heading-color);
+}
+
+/* Add spacing below sticky navbar to prevent content overlap */
+body {
+  padding-top: 70px;
+}
+
+.main-content {
+  margin-top: 70px;
+}

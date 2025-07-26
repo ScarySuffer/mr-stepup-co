@@ -1,5 +1,75 @@
+/* THEME VARIABLES */
+:root {
+  --bg-main: #ffffff;                     /* Cards, modals, containers */
+  --bg-color: #ffffff;                   /* Page background */
+  --text-main: #111827;                  /* Main text */
+  --text-color: #000000;                 /* Fallback main text */
+  --text-color-secondary: #6b7280;       /* Secondary text, labels */
+  --link-color: #2563eb;                 /* Primary links / highlight */
+  --header-bg: #f1f5f9;                  /* Header background */
+  --navbar-bg: #f8f9fa;                  /* Navbar background */
+  --input-bg: #ffffff;                   /* Input background */
+  --border-color: #ccc;                  /* Border color */
+  --dashed-border-color: #a7c5ed;        /* Subtotals dashed border */
+}
+
+[data-theme='dark'] {
+  --bg-main: #121212;
+  --bg-color: #0f172a;                   /* Deep navy background */
+  --text-main: #cbd5e1;                  /* Slate text */
+  --text-color: #eaeaea;
+  --text-color-secondary: #94a3b8;       /* Muted blue-gray */
+  --link-color: #3b82f6;                 /* Sky blue */
+  --header-bg: #1e293b;                  /* Header dark navy */
+  --navbar-bg: #1f1f1f;
+  --input-bg: #1e293b;                   /* Dark slate input */
+  --border-color: #334155;
+  --dashed-border-color: #475569;
+}
+
+/* GLOBAL STYLES */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding-top: 72px; /* space for sticky navbar */
+}
+
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  transition: background-color 0.3s ease;
+}
+
+input[type="search"] {
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  border: 1.5px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+input[type="search"]:focus {
+  border-color: var(--link-color);
+  outline: none;
+  box-shadow: 0 0 8px 2px rgba(59, 130, 246, 0.4);
+  transform: translateY(-1px);
+  background-color: var(--input-bg);
+}
+
+/* APP-SPECIFIC STYLES */
 .App {
   text-align: center;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .App-logo {
@@ -14,20 +84,23 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--header-bg);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  transition: background-color 0.3s ease;
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--link-color);
+  text-decoration: underline;
+  transition: color 0.3s ease;
 }
 
+/* Logo animation */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

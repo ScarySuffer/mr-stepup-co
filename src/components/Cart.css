@@ -4,33 +4,35 @@
   max-width: 1000px;
   margin: 0 auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #1f2937;
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .cart-section h2 {
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 2.5rem;
-  color: #111827;
+  color: var(--text-main);
 }
 
 .empty-cart {
   text-align: center;
   padding: 3rem 1rem;
-  background-color: #f9fafb;
+  background-color: var(--input-bg);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  color: var(--text-main);
 }
 
 .empty-cart p {
   font-size: 1.25rem;
-  color: #4b5563;
+  color: var(--text-color-secondary, #6b7280); /* fallback gray */
   margin-bottom: 1.5rem;
 }
 
-/* Reusing cta-button style from Hero or defining here */
 .empty-cart .cta-button {
-  background-color: #2563eb;
+  background-color: var(--link-color);
   color: white;
   padding: 0.75rem 2rem;
   border-radius: 9999px;
@@ -45,7 +47,6 @@
   transform: scale(1.05);
 }
 
-
 /* Cart Items Container */
 .cart-items-container {
   display: flex;
@@ -58,12 +59,14 @@
   display: flex;
   flex-direction: column; /* Stack on small screens */
   align-items: center;
-  background-color: white;
+  background-color: var(--input-bg);
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   padding: 1rem;
   text-align: center;
   gap: 1rem;
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .cart-item-image {
@@ -71,30 +74,30 @@
   height: 120px;
   object-fit: contain;
   border-radius: 8px;
-  background-color: #f3f4f6; /* Light background for transparency */
-  flex-shrink: 0; /* Prevent image from shrinking */
+  background-color: var(--bg-main);
+  flex-shrink: 0;
 }
 
 .cart-item-details {
-  flex-grow: 1; /* Allows details to take up available space */
+  flex-grow: 1;
   text-align: center;
 }
 
 .cart-item-details h3 {
   font-size: 1.2rem;
   margin: 0 0 0.5rem;
-  color: #111827;
+  color: var(--text-main);
 }
 
 .cart-item-details p {
   font-size: 0.95rem;
-  color: #4b5563;
+  color: var(--text-color-secondary, #6b7280);
   margin: 0.2rem 0;
 }
 
 .item-price {
   font-weight: bold;
-  color: #2563eb;
+  color: var(--link-color);
   font-size: 1.1rem;
   margin-top: 0.5rem !important;
 }
@@ -104,30 +107,31 @@
   flex-direction: column;
   align-items: center;
   gap: 0.8rem;
-  width: 100%; /* Take full width on small screens */
+  width: 100%;
 }
 
 .quantity-control {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   overflow: hidden;
 }
 
 .quantity-control button {
-  background-color: #f0f0f0;
+  background-color: var(--input-bg);
   border: none;
   padding: 0.5rem 0.8rem;
   cursor: pointer;
   font-size: 1.1rem;
   font-weight: bold;
   transition: background-color 0.2s;
+  color: var(--text-main);
 }
 
 .quantity-control button:hover:not(:disabled) {
-  background-color: #e0e0e0;
+  background-color: var(--bg-main);
 }
 
 .quantity-control button:disabled {
@@ -142,6 +146,8 @@
   padding: 0.5rem 0;
   font-size: 1rem;
   -moz-appearance: textfield; /* Hide arrows in Firefox */
+  color: var(--text-main);
+  background-color: var(--input-bg);
 }
 
 /* Hide arrows in Chrome, Safari, Edge */
@@ -152,7 +158,7 @@
 }
 
 .remove-item-btn {
-  background-color: #ef4444; /* Red for remove */
+  background-color: #ef4444;
   color: white;
   border: none;
   border-radius: 5px;
@@ -160,7 +166,7 @@
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.2s;
-  width: 80%; /* Make button wider */
+  width: 80%;
 }
 
 .remove-item-btn:hover {
@@ -168,26 +174,27 @@
 }
 
 .item-subtotal {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #111827;
-    margin-top: 1rem;
-    width: 100%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--text-main);
+  margin-top: 1rem;
+  width: 100%;
 }
-
 
 /* Cart Summary */
 .cart-summary {
-  background-color: #e0e7ff; /* Light blue background for summary */
+  background-color: var(--input-bg);
   border-radius: 10px;
   padding: 1.5rem;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .cart-summary h3 {
   font-size: 1.8rem;
-  color: #111827;
+  color: var(--text-main);
   margin-bottom: 1.5rem;
 }
 
@@ -205,12 +212,12 @@
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s ease;
   display: inline-block;
-  width: 90%; /* Make buttons wider */
+  width: 90%;
   max-width: 300px;
 }
 
 .continue-shopping-btn {
-  background-color: #6b7280; /* Gray for continue shopping */
+  background-color: #6b7280;
   color: white;
 }
 
@@ -220,7 +227,7 @@
 }
 
 .checkout-btn {
-  background-color: #22c55e; /* Green for checkout */
+  background-color: #22c55e;
   color: white;
 }
 
@@ -232,10 +239,10 @@
 /* Responsive adjustments */
 @media (min-width: 600px) {
   .cart-item-card {
-    flex-direction: row; /* Row layout on larger screens */
+    flex-direction: row;
     text-align: left;
-    align-items: center; /* Center items vertically in row */
-    justify-content: space-between; /* Space out items */
+    align-items: center;
+    justify-content: space-between;
     padding: 1.5rem;
   }
 
@@ -245,21 +252,21 @@
   }
 
   .cart-item-image {
-    margin-right: 1.5rem; /* Space between image and details */
+    margin-right: 1.5rem;
   }
 
   .cart-item-controls {
-    flex-direction: row; /* Controls in a row */
-    width: auto; /* Auto width */
+    flex-direction: row;
+    width: auto;
     gap: 1rem;
-    flex-shrink: 0; /* Prevent controls from shrinking */
+    flex-shrink: 0;
   }
 
   .remove-item-btn {
-    width: auto; /* Auto width */
+    width: auto;
   }
   .item-subtotal {
-    text-align: right; /* Align subtotal to the right */
+    text-align: right;
     width: auto;
     flex-shrink: 0;
   }
@@ -267,7 +274,7 @@
 
 @media (min-width: 768px) {
   .cart-actions {
-    flex-direction: row; /* Buttons side-by-side */
+    flex-direction: row;
     justify-content: center;
     gap: 1.5rem;
   }

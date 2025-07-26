@@ -17,6 +17,12 @@ export default function Home({ onAddToCart, filteredProducts }) { // Receive fil
     <div className="home-container">
       <Hero />
       <section id="featured-products" className="products-section" style={{marginTop: '2rem'}}>
+        <div className="hero-content">
+        <h1>Step Up Your Sneaker Game</h1>
+        <a href="#products" className="cta-button">
+          Shop Now
+        </a>
+      </div>
         <h2>Featured Sneakers</h2>
         {productsToShow.length === 0 && (
             <p style={{textAlign: 'center', fontSize: '1.2rem', color: '#666', marginTop: '2rem'}}>
@@ -29,7 +35,6 @@ export default function Home({ onAddToCart, filteredProducts }) { // Receive fil
           ))}
         </div>
       </section>
-      {/* Other sections you might have in Home */}
     </div>
   );
 }

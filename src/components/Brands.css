@@ -1,125 +1,139 @@
 /* src/components/Brands.css */
 
+/* Brand Section Container */
 .brands-section {
-    padding: 3rem 1.5rem; /* More generous padding */
-    max-width: 1400px; /* Slightly wider for a grander feel */
-    margin: 0 auto;
-    font-family: 'Montserrat', sans-serif; /* Example: A modern, youthful font */
+  padding: 3rem 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
 }
 
 /* Main Page Title Styling */
 .brands-section .brands-title {
-    text-align: center;
-    margin-bottom: 3.5rem; /* More space below main title */
-    font-size: 3.2rem; /* Even larger, more impactful */
-    font-weight: 800; /* Extra bold */
-    color: #1a1a1a; /* Darker, punchier black */
-    text-transform: uppercase; /* All caps for a bold statement */
-    letter-spacing: 2px; /* A bit of spacing between letters */
-    position: relative; /* For the underline effect */
-    display: inline-block; /* To make underline apply only to text width */
-    padding-bottom: 1rem;
+  text-align: center;
+  margin-bottom: 3.5rem;
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 1rem;
 }
 
 .brands-section .brands-title::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-    width: 80px; /* Short, impactful underline */
-    height: 6px; /* Thicker underline */
-    background-color: #ff4081; /* A vibrant accent color (e.g., hot pink) */
-    border-radius: 3px; /* Slightly rounded ends for style */
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 80px;
+  height: 6px;
+  background-color: #ff4081; /* Accent color (hot pink) */
+  border-radius: 3px;
 }
 
-/* Styling for the container of each brand's products */
+/* Brand Group Container */
 .brands-section .brand-group {
-    margin-bottom: 5rem; /* More vertical separation between brands */
-    padding-top: 1.5rem; /* Space above each group's products */
-    border-top: 1px solid #eee; /* Subtle horizontal divider */
+  margin-bottom: 5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
 }
 
-/* Styling for individual brand headings */
+/* Brand Name Heading */
 .brands-section .brand-heading {
-    font-size: 2.5rem; /* Larger brand name headings */
-    font-weight: 700; /* Bold */
-    color: #333; /* Stronger color for brand names */
-    margin-top: 2rem;
-    margin-bottom: 2.5rem; /* Increased space below brand name */
-    text-align: left;
-    padding-left: 20px; /* More prominent indentation */
-    border-left: 8px solid #00c853; /* A contrasting vibrant accent color (e.g., vivid green) */
-    line-height: 1.2; /* Better spacing for multi-line names */
-    text-transform: uppercase; /* Make brand names stand out */
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
+  padding-left: 20px;
+  border-left: 8px solid #00c853; /* Accent green */
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
-/* Example: Basic responsive adjustments */
+/* Responsive Design */
 @media (max-width: 992px) {
-    .brands-section {
-        padding: 2.5rem 1rem;
-    }
-    .brands-section .brands-title {
-        font-size: 2.8rem;
-        margin-bottom: 3rem;
-    }
-    .brands-section .brands-title::after {
-        width: 70px;
-        height: 5px;
-    }
-    .brands-section .brand-heading {
-        font-size: 2.2rem;
-        margin-bottom: 2rem;
-        padding-left: 15px;
-        border-left-width: 7px;
-    }
+  .brands-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .brands-section .brands-title {
+    font-size: 2.8rem;
+    margin-bottom: 3rem;
+  }
+
+  .brands-section .brands-title::after {
+    width: 70px;
+    height: 5px;
+  }
+
+  .brands-section .brand-heading {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    padding-left: 15px;
+    border-left-width: 7px;
+  }
 }
 
 @media (max-width: 768px) {
-    .brands-section {
-        padding: 2rem 0.8rem;
-    }
-    .brands-section .brands-title {
-        font-size: 2.2rem;
-        margin-bottom: 2.5rem;
-    }
-    .brands-section .brands-title::after {
-        width: 60px;
-        height: 4px;
-    }
-    .brands-section .brand-group {
-        margin-bottom: 4rem;
-    }
-    .brands-section .brand-heading {
-        font-size: 1.8rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
-        padding-left: 10px;
-        border-left-width: 6px;
-    }
+  .brands-section {
+    padding: 2rem 0.8rem;
+  }
+
+  .brands-section .brands-title {
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .brands-section .brands-title::after {
+    width: 60px;
+    height: 4px;
+  }
+
+  .brands-section .brand-group {
+    margin-bottom: 4rem;
+  }
+
+  .brands-section .brand-heading {
+    font-size: 1.8rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-left: 10px;
+    border-left-width: 6px;
+  }
 }
 
 @media (max-width: 480px) {
-    .brands-section {
-        padding: 1.5rem 0.5rem;
-    }
-    .brands-section .brands-title {
-        font-size: 1.8rem;
-        letter-spacing: 1px;
-        margin-bottom: 2rem;
-    }
-    .brands-section .brands-title::after {
-        width: 50px;
-        height: 3px;
-    }
-    .brands-section .brand-group {
-        margin-bottom: 3rem;
-    }
-    .brands-section .brand-heading {
-        font-size: 1.5rem;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        padding-left: 8px;
-        border-left-width: 5px;
-    }
+  .brands-section {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .brands-section .brands-title {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+  }
+
+  .brands-section .brands-title::after {
+    width: 50px;
+    height: 3px;
+  }
+
+  .brands-section .brand-group {
+    margin-bottom: 3rem;
+  }
+
+  .brands-section .brand-heading {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 8px;
+    border-left-width: 5px;
+  }
 }

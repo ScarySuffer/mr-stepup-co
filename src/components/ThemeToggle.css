@@ -1,0 +1,32 @@
+/* src/components/ThemeToggle.css */
+
+.theme-toggle-button {
+  background-color: var(--secondary-button-bg); /* Uses theme variable */
+  color: var(--secondary-button-text); /* Uses theme variable */
+  border: 1px solid var(--border-color); /* Uses theme variable */
+  border-radius: 50%; /* Makes it round */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px var(--shadow-color); /* Uses theme variable */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none; /* Remove outline on focus */
+}
+
+.theme-toggle-button:hover {
+  background-color: var(--secondary-button-hover-bg); /* Uses theme variable */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+.theme-toggle-button:active {
+  transform: scale(0.95);
+}
+
+/* Specific styles for icons if needed */
+.theme-toggle-button .fas {
+  transition: color 0.3s ease;
+}

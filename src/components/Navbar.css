@@ -220,11 +220,3 @@
   color: var(--heading-color);
 }
 
-/* Add spacing below sticky navbar to prevent content overlap */
-body {
-  padding-top: 70px;
-}
-
-.main-content {
-  margin-top: 70px;
-}

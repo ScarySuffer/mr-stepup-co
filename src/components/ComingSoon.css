@@ -1,13 +1,21 @@
+/* src/components/ComingSoon.css */
+
 .coming-soon-section {
-  height: 100vh;
-  background-color: #121212; /* dark background */
+  min-height: 100%; 
+  width: 100%; 
+  
+  background-color: #000000; /* This should now take full effect */
+  
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; 
+  align-items: center; 
   color: #eee;
   text-align: center;
-  padding: 0 1rem;
+  
+  padding: 6rem 2rem; 
+  
+  transition: background-color 0.5s ease;
 }
 
 @keyframes glowPulse {
@@ -34,15 +42,55 @@
 }
 
 .glow-text {
-  font-size: 4rem;
+  font-size: 8rem;
   font-weight: 900;
   color: #00e5ff;
-  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
   animation: glowPulse 2s ease-in-out infinite;
+  max-width: 90vw;
+  line-height: 1;
 }
 
 .coming-soon-section p {
-  font-size: 1.25rem;
+  font-size: 2.5rem;
   color: #ccc;
-  max-width: 400px;
+  max-width: 900px;
+  line-height: 1.5;
+  padding: 0 2rem;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1024px) { 
+  .glow-text {
+    font-size: 6rem;
+  }
+  .coming-soon-section p {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .glow-text {
+    font-size: 4.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .coming-soon-section p {
+    font-size: 1.5rem;
+    max-width: 90%;
+    padding: 0 1rem;
+  }
+  .coming-soon-section {
+    padding: 4rem 1rem;
+  }
+}
+
+/* Even smaller screens */
+@media (max-width: 480px) {
+  .glow-text {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .coming-soon-section p {
+    font-size: 1.15rem;
+  }
 }

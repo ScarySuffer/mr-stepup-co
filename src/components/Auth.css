@@ -1,0 +1,214 @@
+/* src/components/Auth.css */
+
+/* REMOVED ALL BODY STYLES FROM HERE */
+
+/* New wrapper for the entire Auth page to make it full screen */
+.auth-page-wrapper {
+  min-height: calc(100vh - var(--navbar-height, 72px) - var(--footer-height, 0px)); /* Full height below navbar/above footer */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px; /* Some padding for very small screens */
+
+  /* Specific gradient background for the Auth page */
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* Deep blue gradient */
+  transition: background 0.5s ease; /* Smooth transition if user navigates away */
+
+  /* Optional: Dark mode consideration if you want a different gradient for dark mode */
+  /* This requires logic in Auth.js to apply a class to this wrapper,
+     or you can make the gradient part of your global theme variables.
+     For now, it's a fixed gradient.
+  */
+}
+
+/* Transparent container */
+.auth-container {
+  background: rgba(255, 255, 255, 0.1); /* transparent white */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  max-width: 400px; /* Slightly increased max-width for better desktop look */
+  width: 100%;
+  margin: auto; /* Ensure it stays centered within its wrapper */
+  padding: 40px 30px; /* Increased padding inside the form card */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3); /* More pronounced shadow */
+  color: #fff;
+  text-align: center; /* Center form content */
+}
+
+.auth-container h3 {
+  font-size: 2rem; /* Larger heading */
+  margin-bottom: 25px; /* More space below heading */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between icon and text */
+}
+
+/* Input group for icons */
+.input-group {
+  position: relative;
+  margin-bottom: 20px; /* More space between inputs */
+  display: flex;
+  align-items: center;
+}
+
+.input-group .input-icon {
+  position: absolute;
+  left: 15px; /* Position icon inside input */
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+}
+
+/* Inputs */
+.auth-input {
+  width: 100%;
+  padding: 12px 12px 12px 45px; /* Increased padding-left for icon */
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Softer border */
+  background: rgba(255, 255, 255, 0.15); /* More subtle background */
+  color: #fff;
+  outline: none;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.auth-input:focus {
+  border-color: rgba(255, 255, 255, 0.6); /* Lighter border on focus */
+  background: rgba(255, 255, 255, 0.25); /* Slightly less transparent on focus */
+}
+
+.auth-input::placeholder {
+  color: rgba(255, 255, 255, 0.6); /* Lighter placeholder */
+}
+
+/* Button */
+.auth-button {
+  width: 100%;
+  padding: 14px; /* TWEAK: Increased padding for a larger button */
+  font-size: 1.1rem; /* TWEAK: Slightly larger font for button text */
+  border-radius: 6px;
+  cursor: pointer;
+  background: #007bff;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s; /* Added transform transition */
+  display: flex; /* Make it a flex container for icon and text */
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between icon and text */
+}
+
+.auth-button:hover:not(:disabled) {
+  background: #0056b3;
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Welcome message for logged in state */
+.auth-container.logged-in-state .welcome-message {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.auth-container.logged-in-state .icon-large {
+  font-size: 1.8rem;
+  color: #ffd700; /* Gold color for welcome icon */
+}
+
+.auth-container.logged-in-state .logout-button {
+  background: #dc3545; /* Red for logout button */
+}
+
+.auth-container.logged-in-state .logout-button:hover {
+  background: #c82333;
+}
+
+
+/* Toggle text */
+.auth-toggle-text {
+  margin-top: 25px; /* Increased margin */
+  text-align: center;
+  font-size: 0.95rem; /* Slightly smaller text */
+}
+
+.auth-toggle-button {
+  cursor: pointer;
+  color: #ffd700; /* Gold for toggle button */
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1em;
+  font-weight: bold; /* Make toggle bold */
+  transition: color 0.2s ease;
+}
+
+.auth-toggle-button:hover:not(:disabled) {
+  text-decoration: underline;
+  color: #ffcc00; /* Lighter gold on hover */
+}
+
+.auth-error {
+  color: #ff4d4f; /* Red for errors */
+  margin-top: 15px; /* More space for error message */
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Disabled state */
+.auth-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.auth-input:disabled {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ccc;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Spinner for loading state */
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 30px 20px;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  }
+  .auth-container h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  .auth-input {
+    padding: 10px 10px 10px 40px;
+  }
+  .input-group .input-icon {
+    left: 10px;
+  }
+  .auth-button {
+    padding: 12px;
+    font-size: 1rem;
+  }
+  .auth-toggle-text {
+    font-size: 0.9rem;
+  }
+  .auth-error {
+    font-size: 0.85rem;
+  }
+}

@@ -1,73 +1,142 @@
 /* src/components/FilterSortBar.css */
+
+/* THEME VARIABLES (Retained for context, these should be defined globally) */
+:root {
+  --bg-primary: white; /* For dropdowns, inputs */
+  --bg-secondary: #f0f4f8; /* Light blue-gray for the bar background */
+  
+  --text-primary: #1f2937; /* Main text color */
+  --text-secondary: #4b5563; /* Secondary text, labels */
+  --link-color: #2563eb; /* Primary focus/border color */
+  
+  --border-light: #d1d5db; /* Input border */
+  
+  --shadow-base: rgba(0, 0, 0, 0.05); /* Base shadow */
+  --shadow-form-focus: rgba(37, 99, 235, 0.25); /* Focus shadow for inputs */
+}
+
+[data-theme='dark'] {
+  --bg-primary: #1f2937;
+  --bg-secondary: #374151;
+  
+  --text-primary: #d1d5db;
+  --text-secondary: #9ca3af;
+  --link-color: #60a5fa;
+  
+  --border-light: #4b5563;
+  
+  --shadow-base: rgba(255, 255, 255, 0.05);
+  --shadow-form-focus: rgba(96, 165, 250, 0.25);
+}
+
 .filter-sort-bar {
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping on small screens */
-  justify-content: center; /* Center items on small screens */
-  gap: 1rem; /* Space between filter groups */
-  padding: 1.5rem 1rem;
-  background-color: #f0f4f8; /* Light blue-gray background */
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 1rem; 
+  /* TWEAK: Increased top padding for consistent spacing below Navbar */
+  padding: 5rem 2rem 1.5rem 2rem; /* Top padding, horizontal padding, bottom padding */
+  /* REMOVED: max-width: 900px; */
+  /* REMOVED: margin: 2rem auto; */
+  width: 100%; /* Take full width of parent */
+  box-sizing: border-box; /* Include padding in width calculation */
+
+  /* TWEAK: Use theme variables for colors and shadows */
+  background-color: var(--bg-secondary); /* Use secondary background for the bar */
   border-radius: 10px;
-  margin: 2rem auto; /* Center the bar */
-  max-width: 900px; /* Limit width */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px var(--shadow-base); /* Use shadow variable */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-primary); /* Use primary text color for general text in the bar */
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .filter-group {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align label/select */
+  align-items: flex-start;
   gap: 0.5rem;
-  min-width: 150px; /* Ensure enough space for each filter */
+  min-width: 150px;
 }
 
 .filter-group label {
   font-weight: 600;
-  color: #374151;
+  /* TWEAK: Use theme variable for label color */
+  color: var(--text-secondary); /* Secondary text color for labels */
   font-size: 0.95rem;
 }
 
 .filter-group select {
   width: 100%;
   padding: 0.6rem 0.8rem;
-  border: 1px solid #d1d5db;
+  /* TWEAK: Use theme variables for border, color, background */
+  border: 1px solid var(--border-light); /* Light border color */
   border-radius: 8px;
   font-size: 1rem;
-  color: #1f2937;
-  background-color: white;
-  appearance: none; /* Remove default dropdown arrow */
+  color: var(--text-primary); /* Primary text color for select text */
+  background-color: var(--bg-primary); /* Primary background color for select */
+  appearance: none; 
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%00-13.2-6.5H18.6c-5%200-9.3%201.8-13.2%206.5A17.6%2017.6%200%20000%2082.2c0%205%201.8%209.3%206.5%2013.2L146.2%20287c4%204.3%209%206.5%2014.2%206.5s10.2-2.2%2014.2-6.5L287%2095.4a17.6%2017.6%200%20006.5-13.2c0-5-1.8-9.3-6.5-13.2z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
+  /* TWEAK: Use currentColor in SVG for dynamic arrow color */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%00-13.2-6.5H18.6c-5%200-9.3%201.8-13.2%206.5A17.6%2017.6%200%20000%2082.2c0%205%201.8%209.3%206.5%2013.2L146.2%20287c4%204.3%209%206.5%2014.2%206.5s10.2-2.2%2014.2-6.5L287%2095.4a17.6%2017.6%200%20006.5-13.2c0-5-1.8-9.3-6.5-13.2z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow, now uses select's text color */
   background-repeat: no-repeat;
   background-position: right 0.8rem center;
   background-size: 0.8em auto;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .filter-group select:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+  /* TWEAK: Use theme variables for focus border and shadow */
+  border-color: var(--link-color); /* Primary brand/link color */
+  box-shadow: 0 0 0 3px var(--shadow-form-focus); /* Consistent focus shadow */
 }
 
 /* Responsive adjustments */
 @media (min-width: 768px) {
   .filter-sort-bar {
-    justify-content: flex-start; /* Align left on larger screens */
-    padding-left: 2rem; /* More padding on sides */
-    padding-right: 2rem;
+    justify-content: flex-start;
+    /* TWEAK: Adjust horizontal padding for larger screens */
+    padding: 4rem 3rem 1.5rem 3rem; /* Top padding, horizontal padding, bottom padding */
   }
   .filter-group {
-    flex-direction: row; /* Label and select side-by-side */
+    flex-direction: row;
     align-items: center;
     gap: 0.8rem;
     min-width: unset;
   }
   .filter-group label {
-    margin-bottom: 0; /* Remove bottom margin for labels */
+    margin-bottom: 0;
   }
   .filter-group select {
-    width: auto; /* Adjust width to content */
-    min-width: 120px; /* Minimum width for readability */
+    width: auto;
+    min-width: 120px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .filter-sort-bar {
+    /* TWEAK: Adjust horizontal padding for very large screens */
+    padding: 5rem 4rem 1.5rem 4rem; /* Top padding, horizontal padding, bottom padding */
+  }
+}
+
+@media (max-width: 599px) { /* Smaller mobile screens */
+  .filter-sort-bar {
+    /* TWEAK: Adjust padding for very small screens */
+    padding: 4rem 1rem 1rem 1rem; /* Top padding, horizontal padding, bottom padding */
+    gap: 0.8rem;
+  }
+  .filter-group {
+    min-width: 120px;
+    font-size: 0.9rem;
+  }
+  .filter-group label {
+    font-size: 0.85rem;
+  }
+  .filter-group select {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.9rem;
+    background-position: right 0.6rem center;
   }
 }

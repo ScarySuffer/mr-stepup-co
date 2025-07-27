@@ -1,15 +1,17 @@
 /* src/components/Admin/AdminProductsList.css */
 
 .admin-products-section {
-    padding: 3rem 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
+    /* REMOVED: max-width: 900px; */
+    /* REMOVED: margin: 0 auto; */
+    width: 100%; /* Ensure it takes full width */
+    padding: 5rem 2rem; /* Keep some internal padding on the sides */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #1f2937;
     margin-bottom: 3rem;
     background-color: #fcfcfc;
     border-radius: 12px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
 .admin-products-section h2 {
@@ -26,7 +28,7 @@
 
 .admin-link-btn {
     display: inline-block;
-    background-color: #007bff; /* Blue for add product */
+    background-color: #007bff;
     color: white;
     padding: 0.8rem 1.8rem;
     border-radius: 9999px;
@@ -44,7 +46,7 @@
 
 .product-list-container {
     display: flex;
-    flex-direction: column; /* Stack products vertically */
+    flex-direction: column;
     gap: 1.5rem;
 }
 
@@ -57,7 +59,7 @@
     padding: 1rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.2s ease;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    flex-wrap: wrap;
 }
 
 .admin-product-item:hover {
@@ -71,12 +73,12 @@
     border-radius: 8px;
     margin-right: 1.5rem;
     border: 1px solid #f0f0f0;
-    flex-shrink: 0; /* Prevent image from shrinking */
+    flex-shrink: 0;
 }
 
 .admin-product-item .product-details {
-    flex-grow: 1; /* Allow details to take up available space */
-    min-width: 150px; /* Ensure details don't get too cramped */
+    flex-grow: 1;
+    min-width: 150px;
 }
 
 .admin-product-item .product-details h3 {
@@ -95,8 +97,8 @@
 .admin-product-item .product-actions {
     display: flex;
     gap: 0.75rem;
-    margin-left: auto; /* Push actions to the right */
-    flex-shrink: 0; /* Prevent buttons from shrinking */
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 .edit-btn, .delete-btn {
@@ -106,14 +108,14 @@
     cursor: pointer;
     font-weight: 500;
     transition: background-color 0.2s ease;
-    text-decoration: none; /* For Link component */
-    display: inline-flex; /* Align text vertically */
+    text-decoration: none;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
 
 .edit-btn {
-    background-color: #ffc107; /* Yellow for edit */
+    background-color: #ffc107;
     color: #333;
 }
 
@@ -122,7 +124,7 @@
 }
 
 .delete-btn {
-    background-color: #dc3545; /* Red for delete */
+    background-color: #dc3545;
     color: white;
 }
 
@@ -132,6 +134,9 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .admin-products-section {
+        padding: 4rem 1rem;
+    }
     .admin-product-item {
         flex-direction: column;
         align-items: flex-start;
@@ -140,20 +145,23 @@
     .admin-product-item img {
         margin-right: 0;
         margin-bottom: 1rem;
-        align-self: center; /* Center image when stacked */
+        align-self: center;
     }
     .admin-product-item .product-details {
-        width: 100%; /* Take full width */
+        width: 100%;
         margin-bottom: 1rem;
     }
     .admin-product-item .product-actions {
-        width: 100%; /* Take full width */
-        justify-content: center; /* Center buttons */
+        width: 100%;
+        justify-content: center;
         margin-left: 0;
     }
 }
 
 @media (max-width: 480px) {
+    .admin-products-section {
+        padding: 3rem 0.8rem;
+    }
     .admin-products-section h2 {
         font-size: 2rem;
     }

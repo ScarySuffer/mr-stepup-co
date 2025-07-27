@@ -1,9 +1,30 @@
 .footer {
+  /* Positioning and size */
+  width: 100%;
+  padding: 25px 0; /* Increased padding for better appearance */
   text-align: center;
-  padding: 1.5rem 0;
-  background-color: #2563eb;
-  color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 600;
-  user-select: none;
+  
+  /* Background properties for transparency and blur */
+  background-color: rgba(0, 0, 0, 0.4); /* Dark translucent background (adjust alpha for more/less transparency) */
+  backdrop-filter: blur(10px); /* Blurs the content behind the footer */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  
+  /* Text color for contrast */
+  color: #f0f0f0; /* Light grey text for better readability on dark blur */
+  
+  /* Ensure it's above other content if necessary, but typically not needed for a standard footer */
+  z-index: 1000; /* Adjust if other elements are overlapping */
+
+  /* Optional: Add some subtle shadow for depth */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  
+  /* Optional: Smooth transition for any future changes */
+  transition: background-color 0.3s ease;
+}
+
+/* Optional: Styles for the paragraph inside the footer */
+.footer p {
+  margin: 0; /* Remove default paragraph margin */
+  font-size: 0.95em; /* Slightly smaller font size */
+  line-height: 1.5;
 }

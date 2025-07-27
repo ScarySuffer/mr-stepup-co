@@ -1,44 +1,95 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext";
+
+import { auth } from "../firebase/firebaseConfig";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+
+// Import the new icons for light/dark mode
+import { FaSun, FaMoon } from 'react-icons/fa'; 
+
+const AuthLinks = ({ user, handleLogout, closeNavbar }) => {
+  if (!user) {
+    return (
+      <>
+        <li className="nav-item">
+          <Link className="nav-link" to="/login" onClick={closeNavbar}>
+            Login
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/signup" onClick={closeNavbar}>
+            Signup
+          </Link>
+        </li>
+      </>
+    );
+  }
+  return (
+    <>
+      <li className="nav-item nav-user-email">
+        <span className="nav-link disabled" tabIndex={-1}>
+          {user.email}
+        </span>
+      </li>
+      <li className="nav-item">
+        <button
+          className="btn btn-link nav-link"
+          onClick={async () => {
+            await handleLogout();
+            closeNavbar();
+          }}
+        >
+          Logout
+        </button>
+      </li>
+    </>
+  );
+};
 
 export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
   const navbarRef = useRef(null);
   const dropdownRef = useRef(null);
   const dropdownButtonRef = useRef(null);
   const navigate = useNavigate();
 
-  // Initialize dark mode from localStorage on mount
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const isDark = savedTheme === "dark";
-    setIsDarkMode(isDark);
-    document.documentElement.setAttribute("data-theme", savedTheme || "light");
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return unsubscribe;
   }, []);
 
-  // Toggle navbar collapse (mobile)
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   const toggleNavbar = () => {
     setIsCollapsed(!isCollapsed);
     setIsDropdownOpen(false);
   };
 
-  // Close navbar & dropdown
   const closeNavbar = () => {
     setIsCollapsed(true);
     setIsDropdownOpen(false);
   };
 
-  // Toggle dropdown menu inside navbar
   const toggleDropdown = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDropdownOpen((prev) => !prev);
   };
 
-  // Handle search input changes and navigate if needed
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
     if (window.location.pathname !== "/products") {
@@ -46,7 +97,6 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
     }
   };
 
-  // Prevent form submit default and navigate if needed
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (window.location.pathname !== "/products") {
@@ -54,16 +104,6 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
     }
   };
 
-  // Toggle dark mode
-  const toggleDarkMode = () => {
-    const newDarkMode = !isDarkMode;
-    setIsDarkMode(newDarkMode);
-    const theme = newDarkMode ? "dark" : "light";
-    localStorage.setItem("theme", theme);
-    document.documentElement.setAttribute("data-theme", theme);
-  };
-
-  // Close navbar and dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
       if (!isCollapsed && navbarRef.current && !navbarRef.current.contains(event.target)) {
@@ -83,7 +123,6 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isCollapsed, isDropdownOpen]);
 
-  // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -96,10 +135,7 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
   }, []);
 
   return (
-    <nav
-      className="navbar navbar-expand-lg bg-body-tertiary fixed-top app-navbar"
-      ref={navbarRef}
-    >
+    <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top app-navbar" ref={navbarRef}>
       <div className="container-fluid">
         <Link className="navbar-brand" to="/" onClick={closeNavbar}>
           Mr StepUp.co
@@ -116,9 +152,7 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
         </button>
 
         <div
-          className={`collapse navbar-collapse justify-content-center ${
-            isCollapsed ? "" : "show"
-          }`}
+          className={`collapse navbar-collapse justify-content-center ${isCollapsed ? "" : "show"}`}
           id="navbarNavDropdown"
         >
           {/* Search Bar */}
@@ -126,6 +160,7 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
             <li className="nav-item">
               <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>
                 <input
+                  name="search"
                   className="form-control me-2"
                   type="search"
                   placeholder="Search sneakers..."
@@ -210,7 +245,7 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
             </li>
           </ul>
 
-          {/* Right Nav: Cart and Dark Mode Toggle */}
+          {/* Right Nav: Cart, Dark Mode Toggle and Auth Links */}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
             <li className="nav-item">
               <Link className="nav-link cart-icon-link" to="/cart" onClick={closeNavbar}>
@@ -220,14 +255,22 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
             </li>
             <li className="nav-item">
               <button
-                className="btn btn-outline-secondary ms-2"
-                onClick={toggleDarkMode}
+                className="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center" // Added d-flex classes
+                onClick={toggleTheme}
                 aria-label="Toggle dark mode"
-                title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
-                {isDarkMode ? "☀️ Light" : "🌙 Dark"}
+                {/* TWEAK: Replaced text with FaSun/FaMoon icons */}
+                {theme === "dark" ? (
+                  <FaSun className="text-xl text-yellow-400" /> // Sun icon for light mode (when current theme is dark)
+                ) : (
+                  <FaMoon className="text-xl text-blue-800" /> // Moon icon for dark mode (when current theme is light)
+                )}
               </button>
             </li>
+
+            {/* Auth links */}
+            <AuthLinks user={user} handleLogout={handleLogout} closeNavbar={closeNavbar} />
           </ul>
         </div>
       </div>

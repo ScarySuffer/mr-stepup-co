@@ -1,32 +1,84 @@
 /* src/components/Contact.css */
 
+/* THEME VARIABLES (Retained for context, these should be defined globally) */
+:root {
+  --bg-primary: white; /* Main background for cards/sections */
+  --bg-secondary: #fcfcfc; /* Secondary background for nested elements */
+  
+  --text-primary: #1f2937; /* Main text color */
+  --text-secondary: #4b5563; /* Secondary text color */
+  --heading-color: #111827; /* Global heading color */
+
+  --link-color: #2563eb; /* Primary brand blue */
+  --link-hover-color: #1d4ed8; /* Darker blue for hover */
+
+  --shadow-base: rgba(0, 0, 0, 0.08); /* Base shadow */
+  --shadow-hover: rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+  --shadow-card-hover: rgba(0, 0, 0, 0.18); /* Card specific hover shadow */
+
+  /* Specific button colors (can be defined in a global theme file as well) */
+  --whatsapp-btn-bg: #25D366;
+  --whatsapp-btn-hover: #1DA851;
+  --instagram-btn-bg: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  --instagram-btn-hover: linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2366 50%, #bc1888 75%, #a6127e 100%);
+}
+
+[data-theme='dark'] {
+  --bg-primary: #1f2937;
+  --bg-secondary: #374151;
+  
+  --text-primary: #d1d5db;
+  --text-secondary: #9ca3af;
+  --heading-color: #f3f4f6;
+
+  --link-color: #60a5fa;
+  --link-hover-color: #3b82f6;
+
+  --shadow-base: rgba(255, 255, 255, 0.08);
+  --shadow-hover: rgba(255, 255, 255, 0.15);
+  --shadow-card-hover: rgba(255, 255, 255, 0.18);
+
+  --whatsapp-btn-bg: #25D366; /* Keep fixed for brand color */
+  --whatsapp-btn-hover: #1DA851; /* Keep fixed for brand color */
+  --instagram-btn-bg: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); /* Keep fixed for brand color */
+  --instagram-btn-hover: linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2366 50%, #bc1888 75%, #a6127e 100%); /* Keep fixed for brand color */
+}
+
+/* =======================
+    CONTACT SECTION STYLES
+========================= */
 .contact-section {
-  padding: 4rem 1.5rem;
+  /* TWEAK: Increased top padding for consistent spacing below Navbar */
+  padding: 5rem 2rem; /* Initial padding for full width with internal space */
+  /* REMOVED: max-width: 800px; */
+  /* REMOVED: margin: 0 auto; */
+  width: 100%; /* Take full width of parent */
+  box-sizing: border-box; /* Include padding in width calculation */
+  
+  /* TWEAK: Use theme variables for gradient background */
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary)); /* Use theme variables for gradient */
+  
   text-align: center;
-  background: linear-gradient(135deg, #e0f2ff, #c7d2fe); /* Light blue gradient */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-main);
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-[data-theme='dark'] .contact-section {
-  background: linear-gradient(135deg, #50535c, #6b8cd5); /* Blue theme for dark mode */
-  color: var(--text-main);
-}
+/* REMOVED: [data-theme='dark'] .contact-section as it's handled by main variable */
 
 .contact-section .section-title {
   font-size: 2.5rem;
-  color: var(--heading-color);
+  color: var(--heading-color); /* Use theme variable */
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
 .contact-section .section-description {
-  color: var(--text-main);
+  color: var(--text-primary); /* Use theme variable */
   font-size: 1.1rem;
   line-height: 1.6;
-  max-width: 700px;
-  margin: 0 auto 3rem auto;
+  max-width: 700px; /* Keep max-width for readability of text block */
+  margin: 0 auto 3rem auto; /* Center text block within full width */
 }
 
 .showcase-gallery {
@@ -39,18 +91,18 @@
 }
 
 .showcase-card {
-  max-width: 450px;
+  max-width: 450px; /* Keep max-width for card size */
   width: 100%;
-  background-color: var(--card-bg);
+  background-color: var(--bg-primary); /* Use theme variable */
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 25px var(--shadow-base); /* Use theme variable */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .showcase-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 12px 30px var(--shadow-card-hover); /* Use theme variable */
 }
 
 .showcase-card img {
@@ -64,7 +116,7 @@
 
 .caption {
   font-size: 1rem;
-  color: var(--text-main);
+  color: var(--text-secondary); /* Use theme variable */
   margin-top: 0.8rem;
   padding-bottom: 1rem;
   font-weight: 500;
@@ -78,7 +130,7 @@
 }
 
 .contact-btn {
-  background-color: #2563eb;
+  background-color: var(--link-color); /* Use theme variable */
   color: white;
   padding: 0.9rem 2.25rem;
   border-radius: 9999px;
@@ -87,7 +139,7 @@
   font-size: 1.1rem;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   min-width: 220px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px var(--shadow-base); /* Use theme variable */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -95,9 +147,24 @@
 }
 
 .contact-btn:hover {
-  background-color: #1d4ed8;
+  background-color: var(--link-hover-color); /* Use theme variable */
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 15px var(--shadow-hover); /* Use theme variable */
+}
+
+/* Specific brand buttons */
+.whatsapp-btn {
+  background-color: var(--whatsapp-btn-bg); /* Use theme variable */
+}
+.whatsapp-btn:hover {
+  background-color: var(--whatsapp-btn-hover); /* Use theme variable */
+}
+
+.instagram-btn {
+  background: var(--instagram-btn-bg); /* Use theme variable */
+}
+.instagram-btn:hover {
+  background: var(--instagram-btn-hover); /* Use theme variable */
 }
 
 .whatsapp-btn i,
@@ -105,7 +172,13 @@
   font-size: 1.3em;
 }
 
+/* ========================
+    MEDIA QUERIES
+========================== */
 @media (min-width: 768px) {
+  .contact-section {
+    padding: 4rem 3rem; /* More horizontal padding on desktop */
+  }
   .showcase-gallery {
     flex-direction: row;
     flex-wrap: wrap;
@@ -124,7 +197,7 @@
 
 @media (min-width: 1200px) {
   .contact-section {
-    padding: 5rem 3rem;
+    padding: 5rem 4rem; /* Even more horizontal padding on very large desktops */
   }
 
   .contact-section .section-title {
@@ -134,4 +207,26 @@
   .contact-section .section-description {
     font-size: 1.2rem;
   }
+}
+
+@media (max-width: 599px) { /* Smaller mobile screens */
+    .contact-section {
+        padding: 4rem 1rem; /* Adjust padding for small phones */
+    }
+    .contact-section .section-title {
+        font-size: 2rem;
+    }
+    .contact-section .section-description {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    .showcase-card {
+        max-width: 300px; /* Limit card width on small phones */
+    }
+    .contact-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        min-width: unset;
+        width: 90%; /* Take more width on small screens */
+    }
 }

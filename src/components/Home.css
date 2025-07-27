@@ -1,9 +1,20 @@
+/* src/components/Home.css */
+
 .home-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem 0;
+  /* REMOVED: max-width: 1280px; */
+  /* REMOVED: margin: 0 auto; */
+  width: 100%; /* Ensure it takes full width */
+  padding: 5rem 2rem; /* Keep some internal padding on the sides */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: var(--text-main); /* dynamic text color */
-  background-color: var(--bg-main); /* optional: background for section/card */
+  color: var(--text-main);
+  background-color: var(--bg-main);
   transition: background-color 0.3s ease, color 0.3s ease;
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Add responsive padding for smaller screens if needed */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 3rem 1rem;
+  }
 }

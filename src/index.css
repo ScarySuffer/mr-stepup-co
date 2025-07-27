@@ -1,5 +1,24 @@
-body {
+/* src/index.css */
+
+/* --- IMPORTANT: These lines are crucial for full page height and Tailwind CSS --- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* -------------------------------------------------------------------------------- */
+
+/* Ensure html, body, and the #root div (where your React app mounts) take full height */
+html, body, #root {
+  height: 100%; /* Makes them take 100% of their parent's height */
   margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevents horizontal scrollbars from content overflow */
+}
+
+body {
+  /* This is where your global site background is defined */
+  /* Default (Light Mode) background and text color */
+  @apply bg-amber-50 text-gray-900 transition-colors duration-500; /* Set to beige */
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,18 +26,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Dark Mode background and text color (activated when 'dark-mode' class is on <body>) */
+body.dark-mode {
+  @apply bg-gray-900 text-gray-100;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-/* src/App.css or src/index.css */
+
+/* Your other custom CSS (e.g., add-to-cart-confirmation-message) can go here */
 
 .add-to-cart-confirmation-message {
   position: fixed;
-  bottom: 20px; /* Position from bottom */
+  bottom: 20px;
   left: 50%;
-  transform: translateX(-50%); /* Center horizontally */
-  background-color: #28a745; /* Green background for success */
+  transform: translateX(-50%);
+  background-color: #28a745;
   color: white;
   padding: 12px 20px;
   border-radius: 8px;
@@ -26,9 +51,9 @@ code {
   display: flex;
   align-items: center;
   gap: 15px;
-  z-index: 1100; /* Ensure it's above other content like the navbar */
-  animation: slideInUp 0.3s ease-out, fadeOut 0.5s forwards ease-out 2.5s; /* Slide in, then fade out after duration */
-  opacity: 0; /* Start hidden for animation */
+  z-index: 1100;
+  animation: slideInUp 0.3s ease-out, fadeOut 0.5s forwards ease-out 2.5s;
+  opacity: 0;
 }
 
 .add-to-cart-confirmation-message p {
@@ -69,6 +94,6 @@ code {
   }
   to {
     opacity: 0;
-    visibility: hidden; /* Hide element completely after fade */
+    visibility: hidden;
   }
 }

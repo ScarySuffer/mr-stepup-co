@@ -1,6 +1,7 @@
 /* src/components/OrderHistory.css */
 
-/* THEME VARIABLES */
+/* THEME VARIABLES - (These should be defined globally, often in Navbar.css or a dedicated theme file) */
+/* This section is retained for context, but these variables are ideally not duplicated here. */
 :root {
   --bg-primary: white;
   --bg-secondary: #f9fafb;
@@ -49,7 +50,8 @@
 
 /* Container */
 .order-history-section {
-  padding: 3rem 1.5rem;
+  /* TWEAK: Increased top padding to 5rem (from 3rem) */
+  padding: 5rem 1.5rem; /* This will push the content down further */
   max-width: 900px;
   margin: 0 auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -64,7 +66,7 @@
   color: var(--text-strong, #111827);
   text-shadow:
     0 0 2px rgba(255,255,255,0.7), /* light glow */
-    0 0 4px rgba(0,0,0,0.15);       /* subtle dark shadow */
+    0 0 4px rgba(0,0,0,0.15);      /* subtle dark shadow */
 }
 
 
@@ -229,6 +231,10 @@
 
 /* Responsive adjustments for OrderHistory */
 @media (min-width: 768px) {
+  .order-history-section {
+    /* TWEAK: Adjusted top padding for larger screens */
+    padding: 4rem 1.5rem; /* Increased from 3rem */
+  }
   .order-card {
     padding: 2.5rem;
   }
@@ -251,5 +257,12 @@
   .customer-info,
   .order-items {
     padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-history-section {
+    /* TWEAK: Adjusted top padding for very small screens */
+    padding: 3rem 1rem; /* Increased from base 3rem */
   }
 }

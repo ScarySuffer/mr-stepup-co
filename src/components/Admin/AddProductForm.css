@@ -1,15 +1,17 @@
 /* src/components/Admin/AddProductForm.css */
 
 .add-product-section {
-  padding: 3rem 1.5rem;
-  max-width: 700px;
-  margin: 0 auto;
+  /* REMOVED: max-width: 700px; */
+  /* REMOVED: margin: 0 auto; */
+  width: 100%; /* Ensure it takes full width */
+  padding: 5rem 2rem; /* Keep some internal padding on the sides */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #1f2937;
   margin-bottom: 3rem;
   background-color: #f8f9fa;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
 .add-product-section h2 {
@@ -58,17 +60,17 @@
 }
 
 .form-group textarea {
-  resize: vertical; /* Allow vertical resizing */
+  resize: vertical;
   min-height: 80px;
 }
 
 .form-group .required {
-  color: #dc3545; /* Red asterisk */
+  color: #dc3545;
   margin-left: 0.25rem;
 }
 
 .submit-btn {
-  background-color: #28a745; /* Green for submit */
+  background-color: #28a745;
   color: white;
   padding: 1rem 1.5rem;
   border: none;
@@ -77,8 +79,8 @@
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  align-self: center; /* Center the button */
-  width: 100%;
+  align-self: center;
+  width: 100%; /* Ensure button takes full width within its own container */
   max-width: 300px;
   margin-top: 1rem;
 }
@@ -91,6 +93,12 @@
 /* Responsive adjustments */
 @media (min-width: 576px) {
   .add-product-section {
-    padding: 3.5rem 2rem;
+    padding: 4rem 1.5rem; /* Adjusted for consistency in media query */
+  }
+}
+
+@media (max-width: 480px) {
+  .add-product-section {
+    padding: 3rem 1rem; /* Adjusted for consistency */
   }
 }

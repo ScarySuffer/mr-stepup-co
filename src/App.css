@@ -1,48 +1,86 @@
 /* THEME VARIABLES */
 :root {
-  --bg-main: #ffffff;                     /* Cards, modals, containers */
-  --bg-color: #ffffff;                   /* Page background */
-  --text-main: #111827;                  /* Main text */
-  --text-color: #000000;                 /* Fallback main text */
-  --text-color-secondary: #6b7280;       /* Secondary text, labels */
-  --link-color: #2563eb;                 /* Primary links / highlight */
-  --header-bg: #f1f5f9;                  /* Header background */
-  --navbar-bg: #f8f9fa;                  /* Navbar background */
-  --input-bg: #ffffff;                   /* Input background */
-  --border-color: #ccc;                  /* Border color */
-  --dashed-border-color: #a7c5ed;        /* Subtotals dashed border */
+  /* Light Mode Variables - Focused on soft, modern beige/off-white tones */
+  --bg-color: #fcfbf8; /* Main page background - very light beige/off-white */
+  --bg-main: #ffffff; /* Card/Container background - pure white for contrast on beige */
+  
+  --text-main: #333333; /* Main text color - dark grey */
+  --text-color: #2b2b2b; /* Fallback main text - slightly darker */
+  --text-color-secondary: #707070; /* Secondary text, labels - medium grey */
+  
+  --link-color: #007bff; /* Primary links / highlight - standard blue */
+  
+  --header-bg: #f5f5f0; /* Header background - light beige for consistency */
+  --navbar-bg: #ffffff; /* Navbar background - pure white for clean look */
+  
+  --input-bg: #ffffff; /* Input background */
+  --border-color: #cccccc; /* Border color - light grey */
+  --dashed-border-color: #d0d0d0; /* Subtotals dashed border - lighter grey */
+
+  /* Specifics that were separate but fit here for light theme */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Soft shadows */
+  --cart-badge-bg: #ef4444; /* Red for badge */
+  --cart-badge-text: #fff; /* White for badge text */
+  --navbar-search-bg: #ffffff;
+  --navbar-search-text: #111827;
+  --navbar-search-placeholder: #6b7280;
+  --navbar-search-border: #ccc;
+  --navbar-toggler-icon-color: #374151;
+  --navbar-dropdown-bg: #ffffff;
+  --navbar-dropdown-item-color: #374151;
+  --navbar-dropdown-hover-bg: #e0e7ff; /* Light blue hover for dropdown */
+  --heading-color: #111827; /* Dark heading color */
 }
 
 [data-theme='dark'] {
-  --bg-main: #121212;
-  --bg-color: #0f172a;                   /* Deep navy background */
-  --text-main: #cbd5e1;                  /* Slate text */
-  --text-color: #eaeaea;
-  --text-color-secondary: #94a3b8;       /* Muted blue-gray */
-  --link-color: #3b82f6;                 /* Sky blue */
-  --header-bg: #1e293b;                  /* Header dark navy */
-  --navbar-bg: #1f1f1f;
-  --input-bg: #1e293b;                   /* Dark slate input */
-  --border-color: #334155;
-  --dashed-border-color: #475569;
+  /* Dark Mode Variables - Cohesive dark blue-grey palette */
+  --bg-color: #1a202c; /* Main page background - dark slate/navy */
+  --bg-main: #2d3748; /* Card/Container background - slightly lighter dark slate */
+  
+  --text-main: #e2e8f0; /* Main text color - very light grey */
+  --text-color: #f7fafc; /* Fallback main text - almost white */
+  --text-color-secondary: #a0aec0; /* Muted grey blue */
+  
+  --link-color: #63b3ed; /* Primary links / highlight - bright sky blue */
+  
+  --header-bg: #2d3748; /* Header dark slate */
+  --navbar-bg: #1f2937; /* Navbar dark blue-grey */
+  
+  --input-bg: #2d3748; /* Dark input background */
+  --border-color: #4a5568; /* Darker border color */
+  --dashed-border-color: #4f5f73; /* Darker dashed border */
+
+  /* Specifics that were separate but fit here for dark theme */
+  --shadow-color: rgba(0, 0, 0, 0.8);
+  --cart-badge-bg: #ef4444; /* Keep red */
+  --cart-badge-text: #fff;
+  --navbar-search-bg: #374151;
+  --navbar-search-text: #f3f4f6;
+  --navbar-search-placeholder: #9ca3af;
+  --navbar-search-border: #4b5563;
+  --navbar-toggler-icon-color: #d1d5db;
+  --navbar-dropdown-bg: #374151;
+  --navbar-dropdown-item-color: #f3f4f6;
+  --navbar-dropdown-hover-bg: #4f46e5; /* Darker blue hover for dropdown */
+  --heading-color: #f3f4f6; /* Light heading color */
 }
 
 /* GLOBAL STYLES */
 body {
-  background-color: var(--bg-color);
-  color: var(--text-main);
+  background-color: var(--bg-color); /* Uses the main page background variable */
+  color: var(--text-main); /* Uses the main text color variable */
   transition: background-color 0.3s ease, color 0.3s ease;
-  padding-top: 72px; /* space for sticky navbar */
+  padding-top: 72px; /* space for sticky navbar - confirm this value matches actual navbar height */
 }
 
 .navbar {
-  background-color: var(--navbar-bg) !important;
+  background-color: var(--navbar-bg) !important; /* Uses navbar background variable */
   transition: background-color 0.3s ease;
 }
 
 input[type="search"] {
   background-color: var(--input-bg);
-  color: var(--text-main);
+  color: var(--text-main); /* Use text-main for input text */
   border: 1.5px solid var(--border-color);
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -59,16 +97,20 @@ input[type="search"] {
 input[type="search"]:focus {
   border-color: var(--link-color);
   outline: none;
-  box-shadow: 0 0 8px 2px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 8px 2px var(--link-color-shadow-opacity, rgba(59, 130, 246, 0.4)); /* Use var for consistency or specific shadow */
   transform: translateY(-1px);
   background-color: var(--input-bg);
 }
 
 /* APP-SPECIFIC STYLES */
 .App {
-  text-align: center;
-  background-color: var(--bg-main);
-  color: var(--text-main);
+  /* It's usually better for .App to not set background-color directly if body is doing it,
+     unless .App is a specific container for content that should have a different background than the body.
+     If it's just a wrapper, remove its background-color here.
+     If it represents the main content area/cards background, then it's fine.
+     Assuming it's for main content area/cards as per your --bg-main comment. */
+  background-color: var(--bg-main); /* Uses card/container background variable */
+  color: var(--text-main); /* Uses main text color variable */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -84,7 +126,7 @@ input[type="search"]:focus {
 }
 
 .App-header {
-  background-color: var(--header-bg);
+  background-color: var(--header-bg); /* Uses header background variable */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -95,7 +137,7 @@ input[type="search"]:focus {
 }
 
 .App-link {
-  color: var(--link-color);
+  color: var(--link-color); /* Uses link color variable */
   text-decoration: underline;
   transition: color 0.3s ease;
 }

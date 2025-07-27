@@ -2,12 +2,14 @@
 
 /* Brand Section Container */
 .brands-section {
-  padding: 3rem 1.5rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  /* REMOVED: max-width: 1400px; */
+  /* REMOVED: margin: 0 auto; */
+  width: 100%; /* Ensure it takes full width */
+  padding: 7rem 2rem; /* Keep some internal padding on the sides */
   font-family: 'Montserrat', sans-serif;
   background-color: var(--bg-main);
   color: var(--text-main);
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
 /* Main Page Title Styling */
@@ -60,7 +62,7 @@
 /* Responsive Design */
 @media (max-width: 992px) {
   .brands-section {
-    padding: 2.5rem 1rem;
+    padding: 5rem 1.5rem; /* Adjusted for consistency in media query */
   }
 
   .brands-section .brands-title {
@@ -83,7 +85,7 @@
 
 @media (max-width: 768px) {
   .brands-section {
-    padding: 2rem 0.8rem;
+    padding: 4rem 1rem; /* Adjusted for consistency in media query */
   }
 
   .brands-section .brands-title {
@@ -111,7 +113,7 @@
 
 @media (max-width: 480px) {
   .brands-section {
-    padding: 1.5rem 0.5rem;
+    padding: 3.5rem 0.8rem; /* Adjusted for consistency in media query */
   }
 
   .brands-section .brands-title {

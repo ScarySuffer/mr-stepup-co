@@ -1,164 +1,203 @@
 /* src/components/ProductCard.css */
 
+/* THEME VARIABLES (These should ideally be defined globally, e.g., in Navbar.css or a dedicated theme.css) */
+/* This section is included for context, but avoid duplicating it if already global. */
+:root {
+    --bg-primary: white; /* Light mode main background for cards */
+    --bg-secondary: #f9fafb; /* Light mode secondary background for parts of cards/components */
+    --bg-image: #f3f4f6; /* Lighter background for images */
+
+    --text-primary: #1f2937; /* Light mode main text color */
+    --text-secondary: #4b5563; /* Light mode secondary text color */
+    --text-strong: #111827; /* Light mode strong text/headings */
+
+    --link-color: #2563eb; /* Primary brand blue */
+    --link-hover-color: #1d4ed8; /* Darker blue for hover */
+
+    --border-light: #e5e7eb; /* Light border color */
+
+    --shadow-base: rgba(0, 0, 0, 0.08); /* Base shadow color */
+    --shadow-hover: rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+    --shadow-selected: rgba(37, 99, 235, 0.4); /* Shadow for selected states */
+}
+
+[data-theme='dark'] {
+    --bg-primary: #1f2937; /* Dark mode main background for cards */
+    --bg-secondary: #374151; /* Dark mode secondary background for parts of cards/components */
+    --bg-image: #4b5563; /* Darker background for images */
+
+    --text-primary: #d1d5db; /* Dark mode main text color */
+    --text-secondary: #9ca3af; /* Dark mode secondary text color */
+    --text-strong: #f3f4f6; /* Dark mode strong text/headings */
+
+    --link-color: #60a5fa; /* Lighter blue for dark mode */
+    --link-hover-color: #3b82f6; /* Brighter blue for dark mode hover */
+
+    --border-light: #4b5563; /* Dark border color */
+
+    --shadow-base: rgba(255, 255, 255, 0.08); /* Lighter shadow for dark mode */
+    --shadow-hover: rgba(255, 255, 255, 0.15); /* Stronger lighter shadow on hover */
+    --shadow-selected: rgba(96, 165, 250, 0.4); /* Shadow for selected states in dark mode */
+}
+
+
 .product-card {
-    background-color: white;
-    border-radius: 0.75rem; /* Slightly smaller border-radius for a tighter look */
-    padding: 0.8rem; /* Reduced internal padding for compactness */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Softer, subtle shadow */
+    /* Using theme variables for colors and borders */
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 10px var(--shadow-base); /* Using shadow variable */
+
+    border-radius: 0.75rem;
+    padding: 1.2rem;
     text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; /* Faster, smoother transition */
-    border: 1px solid #e0e0e0; /* Lighter, more modern border */
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    /* Make the card a flex container to organize content vertically */
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Distributes space, pushing buttons to the bottom */
+    justify-content: space-between;
 
-    /* Crucial: Control the overall size of the card in a grid */
-    max-width: 250px; /* Example: Set a maximum width for individual cards */
-    width: 100%; /* Ensures it's responsive and scales down */
-    min-height: 380px; /* TWEAK: Set a minimum height for consistent card sizes in a grid */
+    max-width: 280px;
+    width: 100%;
+    min-height: 420px;
 }
 
 .product-card:hover,
 .product-card:focus-within {
-    transform: translateY(-4px); /* Slightly less lift for a subtle effect */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
-    border-color: #2563eb; /* Your brand blue border on hover */
-    outline: none; /* Relying on :focus-visible for accessibility */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-hover); /* Using hover shadow variable */
+    border-color: var(--link-color); /* Using link color for border on hover */
+    outline: none;
 }
 
-.product-card .product-main-image { /* Specific selector for the main image in ProductCard.js */
+.product-card .product-main-image {
     width: 100%;
-    max-height: 160px; /* IMPORTANT: Constrain the main image height to shorten the card */
-    object-fit: contain; /* Ensures the entire image is visible, padding if necessary */
-    border-radius: 0.5rem; /* Slightly smaller radius for image */
-    margin-bottom: 0.6rem; /* Reduced margin below image */
+    max-height: 180px;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    margin-bottom: 0.8rem;
     user-select: none;
-    background-color: #f9f9f9; /* Light background for images with transparency */
-    padding: 0.5rem; /* Small padding within the image area */
+    background-color: var(--bg-image); /* Using image background variable */
+    padding: 0.5rem;
 }
 
 /* --- Thumbnail Gallery (for ProductCard) --- */
 .thumbnail-gallery {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Allows thumbnails to wrap to the next line on smaller screens */
-    gap: 6px; /* Reduced gap between thumbnails */
-    margin-bottom: 0.8rem; /* Adjusted margin for better spacing */
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
 }
 
 .thumbnail {
-    /* CRITICAL TWEAK: Significantly reduce thumbnail dimensions for compactness */
-    width: 45px; /* Smaller, square thumbnails */
-    height: 45px; /* Significantly reduced height (was 150px!) */
-    object-fit: cover; /* Important: Fills the square area, cropping if necessary */
-    border-radius: 0.3rem; /* Slightly less rounded for a tighter look */
-    border: 1px solid #ddd; /* Lighter, subtle border */
-    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; /* Added box-shadow to transition */
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 0.3rem;
+    border: 1px solid var(--border-light); /* Using border variable */
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Very subtle default shadow */
+    box-shadow: 0 1px 3px var(--shadow-base); /* Using shadow variable */
 }
 
 .thumbnail:hover {
-    transform: scale(1.08); /* Slight pop on hover */
-    border-color: #2563eb; /* Brand blue on hover */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Enhanced shadow on hover */
+    transform: scale(1.08);
+    border-color: var(--link-color); /* Using link color for hover border */
+    box-shadow: 0 2px 5px var(--shadow-hover); /* Using hover shadow variable */
 }
 
-/* New wrapper for product details text content (from previous ProductCard.js tweak) */
+.thumbnail.selected-thumbnail {
+    border-color: var(--link-color); /* Highlight with theme blue */
+    box-shadow: 0 0 0 2px var(--shadow-selected); /* Using selected shadow variable */
+    transform: scale(1.02);
+}
+
+/* New wrapper for product details text content */
 .product-details-content {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Allows this section to take up available space, pushing buttons down */
-    justify-content: flex-start; /* Aligns text content to the top within its space */
+    flex-grow: 1;
+    justify-content: flex-start;
 }
 
 .product-card h3 {
-    font-size: 1.1rem; /* Slightly smaller font for product name */
+    font-size: 1.25rem;
     font-weight: 600;
-    color: #111827;
-    margin-bottom: 0.25rem; /* Reduced margin */
-    white-space: nowrap; /* Prevent product name from wrapping */
-    overflow: hidden; /* Hide overflow */
-    text-overflow: ellipsis; /* Add "..." for truncated names */
-    padding: 0 0.2rem; /* Small horizontal padding for ellipsis */
-}
-
-.product-card .product-brand { /* Specific style for brand (from ProductCard.js tweak) */
-    font-size: 0.9rem;
-    color: #6b7280;
+    color: var(--text-strong); /* Using strong text variable */
     margin-bottom: 0.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0.2rem;
 }
 
-.product-card .product-price { /* Specific style for price (from ProductCard.js tweak) */
+.product-card .product-brand {
+    font-size: 1rem;
+    color: var(--text-secondary); /* Using secondary text variable */
+    margin-bottom: 0.6rem;
+}
+
+.product-card .product-price {
     font-weight: bold;
-    color: #2563eb;
-    font-size: 1.05rem; /* Slightly smaller font for price */
-    margin-bottom: 0.75rem;
+    color: var(--link-color); /* Using link color variable */
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
 }
 
 .card-buttons {
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Slightly increased gap for visual separation between buttons */
-    margin-top: auto; /* IMPORTANT: This pushes the buttons to the bottom of the card */
+    gap: 10px;
+    margin-top: auto;
 }
 
 .view-details-btn {
     display: inline-block;
     text-align: center;
-    padding: 0.5rem 1.25rem; /* Consistent button padding */
-    background-color: #2563eb;
-    color: white;
+    padding: 0.6rem 1.5rem;
+    background-color: var(--link-color); /* Using link color variable */
+    color: white; /* Keep white text for contrast on primary button */
     text-decoration: none;
-    border-radius: 9999px; /* Consistent pill shape */
+    border-radius: 9999px;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    font-size: 0.95rem; /* Consistent font size */
+    font-size: 1rem;
 }
 
 .view-details-btn:hover {
-    background-color: #1d4ed8;
+    background-color: var(--link-hover-color); /* Using hover link color variable */
 }
 
-.add-to-cart-btn { /* Specific class for "Add to Cart" button (from ProductCard.js tweak) */
-    background-color: #2563eb;
-    color: white;
-    padding: 0.5rem 1.25rem; /* Consistent button padding */
+.add-to-cart-btn {
+    background-color: var(--link-color); /* Using link color variable */
+    color: white; /* Keep white text for contrast on primary button */
+    padding: 0.6rem 1.5rem;
     border-radius: 9999px;
     border: none;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 0.95rem; /* Consistent font size */
+    font-size: 1rem;
 }
 
 .add-to-cart-btn:hover,
 .add-to-cart-btn:focus {
-    background-color: #1d4ed8;
+    background-color: var(--link-hover-color); /* Using hover link color variable */
     outline: none;
 }
 
 /* Accessibility focus for the entire card (if it's a link or clickable div) */
 .product-card:focus-visible {
-    outline: 2px solid #2563eb;
+    outline: 2px solid var(--link-color); /* Using link color variable for outline */
     outline-offset: 3px;
 }
 
 /* Focus for buttons/links inside the card */
 .view-details-btn:focus-visible,
 .add-to-cart-btn:focus-visible {
-    outline: 2px solid #2563eb;
+    outline: 2px solid var(--link-color); /* Using link color variable for outline */
     outline-offset: 2px;
-}
-/* ProductCard.css (Add this to your existing styles) */
-
-.thumbnail.selected-thumbnail {
-    border-color: #2563eb; /* Highlight with your brand blue */
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.4); /* Add a subtle glow/outline */
-    transform: scale(1.02); /* Very slight scale to indicate selection */
 }

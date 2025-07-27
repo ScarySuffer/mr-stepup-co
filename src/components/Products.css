@@ -1,18 +1,23 @@
 /* src/components/Products.css */
 
 .products-section {
-  padding: 3rem 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  /* REMOVED: max-width: 1200px; */
+  /* REMOVED: margin: 0 auto; */
+  width: 100%; /* Ensure it takes full width of the viewport */
+  padding: 5rem 2rem; /* TWEAK: Generous top padding (5rem) and side padding (2rem) */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: var(--text-main);
+  color: var(--text-main); /* Uses theme variable */
+  box-sizing: border-box; /* Includes padding in the total width calculation */
+  
+  /* TWEAK: Set background color to match theme's main background/card color */
+  background-color: var(--bg-main); /* Now uses theme variable for main content background */
 }
 
 .products-section h2 {
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 2.5rem;
-  color: var(--heading-color);
+  color: var(--heading-color); /* Uses theme variable */
 }
 
 .products-grid {
@@ -20,29 +25,57 @@
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 1rem 0; /* Keep vertical padding */
+  max-width: 1200px; /* TWEAK: Added max-width here to contain the grid itself */
+  margin: 0 auto; /* TWEAK: Centered the grid within the full-width section */
 }
 
 .products-section p {
   text-align: center;
   font-size: 1.2rem;
-  color: var(--muted-text);
+  color: var(--muted-text); /* Uses theme variable */
   margin-top: 2rem;
 }
 
+/* Responsive adjustments */
 @media (min-width: 768px) {
+  .products-section {
+    padding: 4rem 3rem; /* TWEAK: More horizontal padding for larger screens */
+  }
   .products-grid {
     justify-content: flex-start;
   }
 
   .product-card {
-    flex: 1 1 calc(33.333% - 1rem);
+    flex: 1 1 calc(33.333% - 1rem); /* 3 cards per row, accounting for gap */
     min-width: 220px;
   }
 }
 
 @media (min-width: 1200px) {
-  .product-card {
-    flex: 1 1 calc(25% - 1.125rem);
+   .products-section {
+    padding: 5rem 4rem; /* TWEAK: Even more horizontal padding for very large screens */
   }
+  .products-grid {
+    flex: 1 1 calc(25% - 1.125rem); /* TWEAK: 4 cards per row, accounting for gap */
+  }
+}
+
+/* New: For smaller screens, adjust padding */
+@media (max-width: 599px) {
+    .products-section {
+        padding: 4rem 1rem; /* TWEAK: Adjust padding for small phones */
+    }
+    .products-section h2 {
+        font-size: 2rem;
+    }
+    .products-section p {
+        font-size: 1rem;
+    }
+    .products-grid {
+        gap: 1rem; /* Reduce gap on smaller screens */
+    }
+    .product-card {
+        flex: 1 1 calc(50% - 0.5rem); /* TWEAK: 2 cards per row on small screens */
+    }
 }

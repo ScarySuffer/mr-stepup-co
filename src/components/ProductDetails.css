@@ -1,14 +1,14 @@
-/* =======================
-   THEME VARIABLES
-========================= */
+/* src/components/ProductDetails.css */
 
+/* THEME VARIABLES (Retained for context, these should be global) */
 :root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #fcfcfc;
-  --bg-image: #f3f4f6;
+  --bg-primary: white;
+  --bg-secondary: #f9fafb;
+  --bg-image: #eef1f4;
 
   --text-primary: #1f2937;
   --text-secondary: #4b5563;
+  --text-tertiary: #6b7280;
   --text-strong: #111827;
 
   --blue-primary: #2563eb;
@@ -17,38 +17,49 @@
   --border-light: #eee;
   --border-medium: #ddd;
 
-  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-strong: rgba(0, 0, 0, 0.1);
+
+  --purple-primary: #4f46e5;
+  --purple-dark: #4338ca;
 }
 
 [data-theme='dark'] {
-  --bg-primary: #1f2937;
-  --bg-secondary: #374151;
-  --bg-image: #4b5563;
+  --bg-primary: #1f2937; /* dark bg */
+  --bg-secondary: #374151; /* darker secondary bg */
+  --bg-image: #4b5563; /* darker bg for images */
 
-  --text-primary: #d1d5db;
-  --text-secondary: #9ca3af;
-  --text-strong: #f3f4f6;
+  --text-primary: #d1d5db; /* light gray text */
+  --text-secondary: #9ca3af; /* medium light gray */
+  --text-tertiary: #6b7280; /* keep lighter gray */
+  --text-strong: #f3f4f6; /* near white */
 
-  --blue-primary: #60a5fa;
-  --blue-dark: #3b82f6;
+  --blue-primary: #60a5fa; /* lighter blue */
+  --blue-dark: #3b82f6; /* bright blue */
 
   --border-light: #4b5563;
   --border-medium: #6b7280;
 
-  --shadow-light: rgba(0, 0, 0, 0.8);
+  --shadow-light: rgba(0, 0, 0, 0.6);
+  --shadow-strong: rgba(0, 0, 0, 0.8);
+
+  --purple-primary: #8b5cf6;
+  --purple-dark: #7c3aed;
 }
 
 /* =======================
-   PRODUCT DETAILS STYLES
+    PRODUCT DETAILS STYLES
 ========================= */
 
 /* --- Page Heading (Product Details) --- */
+/* This is the outer page title, not part of the card itself */
 .product-details h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   text-align: center;
   color: var(--text-primary);
-  padding-top: 2rem;
+  /* TWEAK: Increased padding-top to match global spacing below Navbar */
+  padding-top: 5rem; /* Consistent with other pages */
 }
 
 /* --- Product Detail Card Container --- */
@@ -57,12 +68,15 @@
   flex-direction: column;
   background-color: var(--bg-primary);
   border-radius: 10px;
-  max-width: 900px;
-  width: 100%;
+  /* TWEAK: Removed max-width and margin: auto for full width */
+  /* max-width: 900px; */
+  width: 100%; /* Ensure it takes full available width */
   box-shadow: 0 4px 15px var(--shadow-light);
   overflow: hidden;
-  margin: 0 auto 2rem auto;
-  padding: 0 1rem;
+  /* TWEAK: Removed margin: 0 auto; as it's now full width. Added horizontal padding for content. */
+  margin: 0 0 2rem 0; /* Only bottom margin */
+  padding: 0; /* Reset global padding here, manage internal padding */
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
 /* --- Main Product Section (Image + Info) --- */
@@ -70,16 +84,17 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 1.5rem;
+  /* TWEAK: Added horizontal padding to main content */
+  padding: 1.5rem 2rem; /* Add horizontal padding for full-width content */
 }
 
 /* --- Main Product Image --- */
 .product-main img.main-image {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px; /* TWEAK: Increased max-width for main image */
   border-radius: 10px;
   object-fit: contain;
-  align-self: center;
+  align-self: center; /* Center image within the flex column */
   background-color: var(--bg-image);
   padding: 1rem;
 }
@@ -133,45 +148,47 @@ h4 {
   justify-content: center;
   min-width: 45px;
   padding: 0.6rem 1rem;
-  background-color: #e5e7eb;
-  border: 2px solid #e5e7eb;
+  background-color: var(--bg-image); /* Use theme variable for badge background */
+  border: 2px solid var(--bg-image); /* Use theme variable for badge border */
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-secondary); /* Use theme variable for badge text */
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   user-select: none;
 }
 
 .size-badge:hover {
-  background-color: #d1d5db;
+  background-color: var(--border-medium); /* Use a darker theme color on hover */
+  border-color: var(--border-medium);
 }
 
 .size-badge.selected {
   background-color: var(--blue-primary);
-  color: #ffffff;
+  color: #ffffff; /* Keep white text for selected badge */
   border-color: var(--blue-primary);
   transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3); /* This shadow should adapt with theme variables */
 }
 
-/* Dark mode overrides for size badges */
+/* Dark mode overrides for size badges (ensure consistency with theme variables) */
+/* These specific dark mode overrides can likely be removed if theme variables are robust */
+/* Example of using theme variables directly in base rules, removing overrides:
 [data-theme='dark'] .size-badge {
-  background-color: #4b5563;
-  border-color: #4b5563;
+  background-color: var(--bg-image);
+  border-color: var(--bg-image);
   color: var(--text-secondary);
 }
-
 [data-theme='dark'] .size-badge:hover {
-  background-color: #6b7280;
+  background-color: var(--border-medium);
 }
-
 [data-theme='dark'] .size-badge.selected {
   background-color: var(--blue-primary);
   border-color: var(--blue-primary);
   color: #ffffff;
 }
+*/
 
 /* --- Quantity Selector --- */
 .quantity-selector {
@@ -218,7 +235,7 @@ h4 {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   align-self: center;
-  margin: 1.5rem auto;
+  margin: 1.5rem auto; /* Center button horizontally in full width */
   width: 80%;
   max-width: 300px;
 }
@@ -233,7 +250,8 @@ h4 {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  padding: 1.5rem 2rem;
+  /* TWEAK: Ensure horizontal padding matches product-main section */
+  padding: 1.5rem 2rem; 
   justify-content: center;
   border-top: 1px solid var(--border-light);
   background-color: var(--bg-secondary);
@@ -270,13 +288,18 @@ h4 {
 }
 
 /* ========================
-   MEDIA QUERIES
+    MEDIA QUERIES
 ========================== */
 @media (min-width: 768px) {
+  /* TWEAK: Adjust horizontal padding for larger screens */
+  .product-detail-card {
+    padding: 0; /* No global card padding, internal sections control it */
+  }
   .product-main {
     flex-direction: row;
     align-items: flex-start;
     gap: 3rem;
+    padding: 2.5rem 3rem; /* More padding on desktop */
   }
 
   .product-main img.main-image {
@@ -295,18 +318,41 @@ h4 {
   .add-to-cart-btn {
     align-self: flex-start;
   }
+  .image-gallery {
+      padding: 1.5rem 3rem; /* Consistent padding */
+  }
 }
 
 @media (min-width: 1024px) {
   .product-main img.main-image {
-    max-width: 350px;
+    max-width: 350px; /* Keep a reasonable max-width for image to avoid stretching too much */
   }
 
   .product-details h2 {
     font-size: 3rem;
   }
 
-  .product-detail-card {
-    max-width: 1100px;
+  
+   .product-main {
+    padding: 3rem 4rem; /* Even more padding on very large screens */
+  }
+  .image-gallery {
+      padding: 1.5rem 4rem; /* Consistent padding */
+  }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 767px) {
+  .product-details h2 {
+    padding-top: 4rem; /* Adjust padding for mobile below navbar */
+  }
+  .product-main {
+    padding: 1.5rem 1.5rem; /* Default mobile padding */
+  }
+  .image-gallery {
+    padding: 1.5rem 1.5rem; /* Default mobile padding */
+  }
+  .add-to-cart-btn {
+    margin: 1.5rem auto; /* Keep centered on mobile */
   }
 }

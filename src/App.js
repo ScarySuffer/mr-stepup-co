@@ -1,7 +1,7 @@
 // src/App.js
 import './App.css';
 import React, { useState, useEffect, useMemo, useContext } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom'; // REMOVED: Navigate
 
 import { ThemeProvider, ThemeContext } from './context/ThemeContext';
 import { AuthProvider, AuthContext } from './context/AuthContext';
@@ -15,7 +15,7 @@ import ProductDetails from './components/ProductDetails';
 import Cart from './components/Cart';
 import Brands from './components/Brands';
 import Contact from './components/Contact';
-import ComingSoon from './components/ComingSoon'; // Import ComingSoon
+import ComingSoon from './components/ComingSoon';
 import Checkout from './components/Checkout';
 import OrderHistory from './components/OrderHistory';
 import ProductForm from './components/Admin/ProductForm';
@@ -262,9 +262,7 @@ function AppContent() {
         theme={theme}
         toggleTheme={toggleTheme}
       />
-      {/* TWEAK: Adjusted padding-top to pt-20 (80px) to prevent content cropping */}
-      {/* This ensures content below the fixed Navbar is visible. */}
-      <main className="flex-grow flex flex-col min-h-screen pt-20"> {/* Changed pt-16 to pt-20 */}
+      <main className="flex-grow flex flex-col min-h-screen pt-20">
         <Routes>
           <Route
             path="/"
@@ -361,6 +359,7 @@ function AppContent() {
               }
             />
 
+          {/* Auth routes */}
           <Route path="/login" element={<Auth mode="login" />} />
           <Route path="/signup" element={<Auth mode="signup" />} />
 

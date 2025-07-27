@@ -1,12 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import { auth } from "../firebase/firebaseConfig";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+// REMOVED: import { auth } from "../firebase/firebaseConfig"; // No longer needed here as context handles auth instance
+// REMOVED: import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, } from "firebase/auth"; // No longer needed as context provides methods
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 
 // Import React Icons
 import { FaUserPlus, FaSignInAlt, FaSignOutAlt, FaEnvelope, FaLock, FaSpinner, FaUserCheck } from 'react-icons/fa';
@@ -18,10 +14,18 @@ export default function Auth({ mode }) {
   const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(mode === 'signup');
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // Local loading state for Auth component's forms
 
-  const { currentUser, signIn: authContextSignIn, signUp: authContextSignUp, signOut: authContextSignOut } = useContext(AuthContext);
-  const navigate = useNavigate(); // Get navigate from react-router-dom
+  // Correctly destructure all properties from AuthContext
+  const { 
+    currentUser, 
+    signIn: authContextSignIn, 
+    signUp: authContextSignUp, 
+    signOut: authContextSignOut, 
+    loading: authContextLoading // Use loading from context for initial state
+  } = useContext(AuthContext); 
+
+  const navigate = useNavigate();
 
   // Use this useEffect to ensure isRegister state matches the URL mode
   useEffect(() => {
@@ -31,10 +35,11 @@ export default function Auth({ mode }) {
 
   // If user is already logged in, redirect them away from login/signup pages
   useEffect(() => {
-    if (currentUser) {
+    // Only redirect if authContextLoading is false (auth state is determined)
+    if (!authContextLoading && currentUser) {
       navigate("/"); // Redirect to home if user is already logged in
     }
-  }, [currentUser, navigate]);
+  }, [currentUser, navigate, authContextLoading]);
 
 
   const validateForm = () => {
@@ -49,49 +54,48 @@ export default function Auth({ mode }) {
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    setLoading(true);
+    setLoading(true); // Start local loading
     setError("");
     try {
       await authContextSignUp(email, password); // Use context's signUp method
-      // Context will handle navigation after successful sign up
+      // AuthContext's useEffect will handle navigation after successful sign up
     } catch (err) {
       setError(err.message);
     }
-    setLoading(false);
+    setLoading(false); // End local loading
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    setLoading(true);
+    setLoading(true); // Start local loading
     setError("");
     try {
       await authContextSignIn(email, password); // Use context's signIn method
-      // Context will handle navigation after successful login
+      // AuthContext's useEffect will handle navigation after successful login
     } catch (err) {
       setError(err.message);
     }
-    setLoading(false);
+    setLoading(false); // End local loading
   };
 
   const handleLogout = async () => {
-    setLoading(true);
+    setLoading(true); // Start local loading
     try {
       await authContextSignOut(); // Use context's signOut method
       setEmail("");
       setPassword("");
       setError("");
-      // Context will handle navigation after successful logout
+      // AuthContext's useEffect will handle navigation after successful logout
     } catch (err) {
       setError(err.message);
     }
-    setLoading(false);
+    setLoading(false); // End local loading
   };
 
   // Render when user is logged in (if they somehow navigate back to /login or /signup)
   if (currentUser) {
     return (
-      // New full-screen wrapper for the Auth component
       <div className="auth-page-wrapper">
         <div className="auth-container logged-in-state">
           <p className="welcome-message">
@@ -100,7 +104,7 @@ export default function Auth({ mode }) {
           <button
             onClick={handleLogout}
             className="auth-button logout-button"
-            disabled={loading}
+            disabled={loading} // Use local loading state
             aria-busy={loading}
           >
             {loading ? <FaSpinner className="spinner" /> : <FaSignOutAlt className="mr-2" />}
@@ -116,7 +120,6 @@ export default function Auth({ mode }) {
 
   // Render login/register form
   return (
-    // New full-screen wrapper for the Auth component
     <div className="auth-page-wrapper">
       <div className="auth-container">
         <h3 className="auth-title">
@@ -131,7 +134,7 @@ export default function Auth({ mode }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="auth-input"
-              disabled={loading}
+              disabled={loading} // Use local loading state
               required
             />
           </div>
@@ -143,14 +146,14 @@ export default function Auth({ mode }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="auth-input"
-              disabled={loading}
+              disabled={loading} // Use local loading state
               required
             />
           </div>
           <button
             type="submit"
             className="auth-button"
-            disabled={loading}
+            disabled={loading} // Use local loading state
             aria-busy={loading}
           >
             {loading ? (
@@ -177,7 +180,7 @@ export default function Auth({ mode }) {
                   setIsRegister(false);
                   setError("");
                 }}
-                disabled={loading}
+                disabled={loading} // Use local loading state
                 className="auth-toggle-button"
                 type="button"
               >
@@ -192,7 +195,7 @@ export default function Auth({ mode }) {
                   setIsRegister(true);
                   setError("");
                 }}
-                disabled={loading}
+                disabled={loading} // Use local loading state
                 className="auth-toggle-button"
                 type="button"
               >

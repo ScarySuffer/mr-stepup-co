@@ -6,7 +6,7 @@ import { auth } from "../firebase/firebaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 // Import the new icons for light/dark mode
-import { FaSun, FaMoon } from 'react-icons/fa'; 
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 const AuthLinks = ({ user, handleLogout, closeNavbar }) => {
   if (!user) {
@@ -57,6 +57,7 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
 
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [user, setUser] = useState(null);
+  const [togglerIconColor, setTogglerIconColor] = useState(''); // State to hold dynamic toggler color
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -64,6 +65,16 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
     });
     return unsubscribe;
   }, []);
+
+  // Effect to update toggler icon color when theme changes
+  useEffect(() => {
+    // Get the computed style of the document element to access CSS variables
+    const computedStyle = getComputedStyle(document.documentElement);
+    const color = computedStyle.getPropertyValue('--navbar-toggler-icon-color').trim();
+    // Bootstrap expects hex without '#', so remove it and encode
+    setTogglerIconColor(color.replace('#', ''));
+  }, [theme]); // Re-run when the theme changes
+
 
   const handleLogout = async () => {
     try {
@@ -134,6 +145,10 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  // Dynamically generate the toggler icon SVG background-image
+  const togglerIconSvg = `data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23${togglerIconColor}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e`;
+
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top app-navbar" ref={navbarRef}>
       <div className="container-fluid">
@@ -148,7 +163,8 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
           aria-label="Toggle navigation"
           onClick={toggleNavbar}
         >
-          <span className="navbar-toggler-icon" />
+          {/* Apply dynamic background image to the toggler icon span */}
+          <span className="navbar-toggler-icon" style={{ backgroundImage: `url("${togglerIconSvg}")` }} />
         </button>
 
         <div
@@ -255,16 +271,15 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
             </li>
             <li className="nav-item">
               <button
-                className="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center" // Added d-flex classes
+                className="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center theme-toggle-btn" // Added a new class `theme-toggle-btn`
                 onClick={toggleTheme}
                 aria-label="Toggle dark mode"
                 title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
-                {/* TWEAK: Replaced text with FaSun/FaMoon icons */}
                 {theme === "dark" ? (
-                  <FaSun className="text-xl text-yellow-400" /> // Sun icon for light mode (when current theme is dark)
+                  <FaSun className="theme-icon sun-icon" /> // Added classes for styling
                 ) : (
-                  <FaMoon className="text-xl text-blue-800" /> // Moon icon for dark mode (when current theme is light)
+                  <FaMoon className="theme-icon moon-icon" /> // Added classes for styling
                 )}
               </button>
             </li>

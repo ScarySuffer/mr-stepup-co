@@ -12,11 +12,11 @@
   --cart-badge-text: #fff;
 
   --navbar-search-bg: #ffffff;
-  --navbar-search-text: #111827;
-  --navbar-search-placeholder: #6b7280;
+  --navbar-search-text: #111827; /* Ensure this is a dark color for visibility on white background */
+  --navbar-search-placeholder: #6b7280; /* Ensure this is a dark color for visibility on white background */
   --navbar-search-border: #ccc;
 
-  --navbar-toggler-icon-color: #374151;
+  --navbar-toggler-icon-color: #374151; /* Color for the toggler lines (light theme) */
 
   --border-color: #ddd;
 
@@ -25,6 +25,10 @@
   --navbar-dropdown-hover-bg: #e0e7ff;
 
   --heading-color: #111827;
+
+  /* Theme Toggle Icon Colors */
+  --sun-icon-color: #f39c12; /* A nice orange/yellow for the sun */
+  --moon-icon-color: #4a69bd; /* A cool blue for the moon */
 }
 
 [data-theme='dark'] {
@@ -37,12 +41,14 @@
   --cart-badge-bg: #ef4444; /* keep red */
   --cart-badge-text: #fff;
 
-  --navbar-search-bg: #374151;
-  --navbar-search-text: #f3f4f6;
-  --navbar-search-placeholder: #9ca3af;
-  --navbar-search-border: #4b5563;
+  /* --- TWEAK: Search bar remains white in dark mode with dark text --- */
+  --navbar-search-bg: #ffffff; /* Keep white */
+  --navbar-search-text: #111827; /* Keep dark text for contrast on white */
+  --navbar-search-placeholder: #6b7280; /* Keep dark placeholder for contrast on white */
+  --navbar-search-border: #ccc; /* Keep light border for contrast on white */
+  /* --- END TWEAK --- */
 
-  --navbar-toggler-icon-color: #d1d5db;
+  --navbar-toggler-icon-color: #d1d5db; /* Color for the toggler lines (dark theme) */
 
   --border-color: #4b5563;
 
@@ -51,11 +57,15 @@
   --navbar-dropdown-hover-bg: #4f46e5;
 
   --heading-color: #f3f4f6;
+
+  /* Theme Toggle Icon Colors (Dark Mode) */
+  --sun-icon-color: #f1c40f; /* Slightly brighter yellow in dark mode */
+  --moon-icon-color: #6c5ce7; /* A bit more vibrant purple/blue for the moon */
 }
 
 
 /* Using .app-navbar for custom styles that override Bootstrap,
-   making them theme-aware with CSS variables.
+    making them theme-aware with CSS variables.
 */
 
 .app-navbar {
@@ -147,14 +157,16 @@
 .app-navbar .form-control {
   min-width: 180px;
   border-radius: 0.5rem;
-  background-color: var(--navbar-search-bg);
-  color: var(--navbar-search-text);
-  border-color: var(--navbar-search-border);
+  /* Add !important to ensure these styles take precedence */
+  background-color: var(--navbar-search-bg) !important;
+  color: var(--navbar-search-text) !important;
+  border-color: var(--navbar-search-border) !important;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .app-navbar .form-control::placeholder {
-  color: var(--navbar-search-placeholder);
+  /* Add !important to ensure placeholder color takes precedence */
+  color: var(--navbar-search-placeholder) !important;
   opacity: 1;
 }
 
@@ -172,10 +184,7 @@
   border-color: var(--navbar-toggler-icon-color);
 }
 
-/* The toggler icon uses the CSS variable for stroke */
-/* Note: Replace {strokeColor} dynamically if needed, or hardcode color */
 .app-navbar .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23{strokeColor}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 1.5em 1.5em;
@@ -220,3 +229,31 @@
   color: var(--heading-color);
 }
 
+/* --- Theme Toggle Button and Icon Styles --- */
+.theme-toggle-btn {
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--navbar-dropdown-hover-bg);
+  border-radius: 50%; 
+}
+
+/* Base styles for the icons */
+.theme-icon {
+  font-size: 1.5rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Specific colors for Sun and Moon icons based on theme */
+.sun-icon {
+  color: var(--sun-icon-color);
+}
+
+.moon-icon {
+  color: var(--moon-icon-color);
+}

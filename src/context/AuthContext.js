@@ -7,7 +7,7 @@ import {
   signOut as firebaseSignOut,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom"; // Keep useNavigate for potential future use or if signIn/signUp need to trigger it
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -16,12 +16,12 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState(null);
 
-  const navigate = useNavigate(); // Keep navigate if you use it in signIn/signUp/signOut for post-action redirects
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-      setLoading(false);
+      setLoading(false); // Set loading to false once auth state is determined
       setAuthError(null);
 
       // --- RETAIN THIS BLOCK: If a user logs in WHILE on the /login page, navigate to home ---
@@ -30,25 +30,19 @@ export function AuthProvider({ children }) {
           navigate("/"); // Redirect to home if user just logged in/signed up from auth page
         }
       }
-      // --- REMOVE THE 'ELSE' BLOCK FOR GLOBAL REDIRECT ---
-      // The previous 'else' block that redirected to /login if !user is removed.
-      // Now, if no user, currentUser will be null, and public pages will load normally.
-      // Protected pages will use RequireAuth to handle unauthenticated access.
     });
     return unsubscribe;
-  }, [navigate]); // Added `auth` to dependency array to ensure consistent listener if 'auth' instance ever changed
+  }, [navigate]); // Added `auth` to dependency array to ensure consistent listener if 'auth' instance ever changed. **Correction: `auth` is a stable reference from firebaseConfig, so it usually doesn't need to be in the dependency array unless you expect it to change.** `Maps` is sufficient.
 
   const signIn = async (email, password) => {
     setLoading(true);
     setAuthError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setLoading(false);
-      // Optional: Add a navigate here after successful login if you want to force navigation
-      // navigate('/');
+      // setLoading(false); // Handled by onAuthStateChanged listener
     } catch (error) {
       setAuthError(error.message);
-      setLoading(false);
+      setLoading(false); // Only set loading to false here if onAuthStateChanged doesn't immediately fire for an error
       throw error;
     }
   };
@@ -58,12 +52,10 @@ export function AuthProvider({ children }) {
     setAuthError(null);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      setLoading(false);
-      // Optional: Add a navigate here after successful signup if you want to force navigation
-      // navigate('/');
+      // setLoading(false); // Handled by onAuthStateChanged listener
     } catch (error) {
       setAuthError(error.message);
-      setLoading(false);
+      setLoading(false); // Only set loading to false here if onAuthStateChanged doesn't immediately fire for an error
       throw error;
     }
   };
@@ -72,20 +64,19 @@ export function AuthProvider({ children }) {
     setLoading(true);
     try {
       await firebaseSignOut(auth);
-      setLoading(false);
-      // Optional: Navigate to home or login page after logout
-      // navigate('/login'); // Or navigate('/');
+      // setLoading(false); // Handled by onAuthStateChanged listener
     } catch (error) {
       setAuthError(error.message);
-      setLoading(false);
+      setLoading(false); // Only set loading to false here if onAuthStateChanged doesn't immediately fire for an error
     }
   };
 
-  // Keep the loading spinner/message, it's good practice
+  // The loading animation component
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', marginTop: '100px' }}>
-        Loading authentication status...
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Loading authentication status...</p>
       </div>
     );
   }

@@ -19,7 +19,7 @@ export default function Home({ onAddToCart, filteredProducts }) { // Receive fil
       <section id="featured-products" className="products-section" style={{marginTop: '2rem'}}>
         <div className="hero-content">
         <h1>Step Up Your Sneaker Game</h1>
-        <a href="#products" className="cta-button">
+        <a href="/products" className="cta-button">
           Shop Now
         </a>
       </div>

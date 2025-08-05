@@ -19,7 +19,7 @@ export default function Products({
 }) {
   return (
     <section id="products" className="products-section">
-      <h2>Featured Sneakers</h2>
+      <h2>Our Complete Collection</h2>
       <FilterSortBar
         selectedBrand={selectedBrand}
         setSelectedBrand={setSelectedBrand}
@@ -32,7 +32,7 @@ export default function Products({
       />
 
       {productsToDisplay.length === 0 && (
-        <p style={{textAlign: 'center', fontSize: '1.2rem', color: '#666', marginTop: '2rem'}}>
+        <p className="no-products-message">
           No sneakers found matching your search, filters, or sorting criteria.
         </p>
       )}

@@ -41,6 +41,7 @@ export default function Hero() {
 
   return (
     <section className="hero-section" id="home">
+      {/* Background images for the slider */}
       {heroImages.map((src, i) => (
         <img
           key={i}
@@ -52,6 +53,7 @@ export default function Hero() {
         />
       ))}
 
+      {/* Navigation arrows for the slider */}
       <button
         className="arrow left-arrow"
         onClick={prevSlide}

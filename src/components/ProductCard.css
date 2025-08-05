@@ -1,48 +1,12 @@
 /* src/components/ProductCard.css */
 
-/* THEME VARIABLES (These should ideally be defined globally, e.g., in Navbar.css or a dedicated theme.css) */
-/* This section is included for context, but avoid duplicating it if already global. */
-:root {
-    --bg-primary: white; /* Light mode main background for cards */
-    --bg-secondary: #f9fafb; /* Light mode secondary background for parts of cards/components */
-    --bg-image: #f3f4f6; /* Lighter background for images */
-
-    --text-primary: #1f2937; /* Light mode main text color */
-    --text-secondary: #4b5563; /* Light mode secondary text color */
-    --text-strong: #111827; /* Light mode strong text/headings */
-
-    --link-color: #2563eb; /* Primary brand blue */
-    --link-hover-color: #1d4ed8; /* Darker blue for hover */
-
-    --border-light: #e5e7eb; /* Light border color */
-
-    --shadow-base: rgba(0, 0, 0, 0.08); /* Base shadow color */
-    --shadow-hover: rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
-    --shadow-selected: rgba(37, 99, 235, 0.4); /* Shadow for selected states */
-}
-
-[data-theme='dark'] {
-    --bg-primary: #1f2937; /* Dark mode main background for cards */
-    --bg-secondary: #374151; /* Dark mode secondary background for parts of cards/components */
-    --bg-image: #4b5563; /* Darker background for images */
-
-    --text-primary: #d1d5db; /* Dark mode main text color */
-    --text-secondary: #9ca3af; /* Dark mode secondary text color */
-    --text-strong: #f3f4f6; /* Dark mode strong text/headings */
-
-    --link-color: #60a5fa; /* Lighter blue for dark mode */
-    --link-hover-color: #3b82f6; /* Brighter blue for dark mode hover */
-
-    --border-light: #4b5563; /* Dark border color */
-
-    --shadow-base: rgba(255, 255, 255, 0.08); /* Lighter shadow for dark mode */
-    --shadow-hover: rgba(255, 255, 255, 0.15); /* Stronger lighter shadow on hover */
-    --shadow-selected: rgba(96, 165, 250, 0.4); /* Shadow for selected states in dark mode */
-}
-
+/*
+    NOTE: THEME VARIABLES should ideally be defined globally (e.g., in App.css or a dedicated theme.css).
+    They are removed from here to prevent duplication and ensure a single source of truth for your theme.
+*/
 
 .product-card {
-    /* Using theme variables for colors and borders */
+    /* Using theme variables for colors and borders - assuming they are global */
     background-color: var(--bg-primary);
     border: 1px solid var(--border-light);
     box-shadow: 0 4px 10px var(--shadow-base); /* Using shadow variable */
@@ -55,11 +19,16 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* Pushes buttons to the bottom */
 
-    max-width: 280px;
-    width: 100%;
-    min-height: 420px;
+    /* Adjusted for better responsiveness within a grid */
+    width: 100%; /* Take full width of its grid cell */
+    /* REMOVED: explicit max-width here, let the grid system handle max width of cells */
+    min-height: 400px; /* Slightly adjust min-height for consistent card size */
+    flex-grow: 1; /* Allow cards to grow if space allows in the grid */
+
+    /* Ensure padding is inside the element's width calculation */
+    box-sizing: border-box; /* This is crucial for elements within a grid */
 }
 
 .product-card:hover,
@@ -72,13 +41,15 @@
 
 .product-card .product-main-image {
     width: 100%;
-    max-height: 180px;
+    max-height: 180px; /* Keep max-height to prevent distortion */
     object-fit: contain;
     border-radius: 0.5rem;
     margin-bottom: 0.8rem;
     user-select: none;
     background-color: var(--bg-image); /* Using image background variable */
-    padding: 0.5rem;
+    padding: 0.5rem; /* TWEAK: Consider if this padding is necessary or if the image itself needs to be smaller */
+    flex-shrink: 0; /* Prevent image from shrinking if content below is too long */
+    box-sizing: border-box; /* Ensure padding is included in image's width */
 }
 
 /* --- Thumbnail Gallery (for ProductCard) --- */
@@ -88,6 +59,11 @@
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 1rem;
+    flex-shrink: 0; /* Prevent thumbnails from shrinking */
+    /* TWEAK: Add max-width to prevent overflow on very small cards */
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 5px; /* Small horizontal padding to prevent thumbnails touching edges */
 }
 
 .thumbnail {
@@ -99,6 +75,7 @@
     transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
     cursor: pointer;
     box-shadow: 0 1px 3px var(--shadow-base); /* Using shadow variable */
+    flex-shrink: 0; /* Ensure thumbnails don't shrink below their size */
 }
 
 .thumbnail:hover {
@@ -117,8 +94,13 @@
 .product-details-content {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex-grow: 1; /* Allows this content area to take up available space */
     justify-content: flex-start;
+    margin-bottom: 1rem; /* Space before buttons */
+    width: 100%; /* Ensure it takes full available width */
+    box-sizing: border-box;
+    /* TWEAK: Add a small horizontal padding here if text is still cutting off inside */
+    padding: 0 0.1rem; /* Very subtle padding to ensure text isn't flush */
 }
 
 .product-card h3 {
@@ -126,34 +108,52 @@
     font-weight: 600;
     color: var(--text-strong); /* Using strong text variable */
     margin-bottom: 0.4rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 0 0.2rem;
+    /* TWEAK: Allow title to wrap to 2 lines instead of being cut off with ellipsis */
+    white-space: normal; /* Allow text to wrap */
+    overflow: hidden; /* Still hide overflow if it goes beyond 2 lines */
+    text-overflow: ellipsis; /* Still apply ellipsis */
+    display: -webkit-box; /* For multi-line ellipsis */
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    padding: 0; /* REMOVED: Horizontal padding, let .product-details-content handle it */
+    line-height: 1.3; /* Adjust line height for wrapped text */
+    max-height: 3.25em; /* Approx height for 2 lines (1.25rem * 1.3 * 2) */
 }
 
 .product-card .product-brand {
     font-size: 1rem;
     color: var(--text-secondary); /* Using secondary text variable */
     margin-bottom: 0.6rem;
+    /* TWEAK: Also apply truncation if needed, but usually brands are shorter */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%; /* Ensure it's constrained by parent */
+    box-sizing: border-box;
 }
 
 .product-card .product-price {
     font-weight: bold;
     color: var(--link-color); /* Using link color variable */
     font-size: 1.15rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; /* Space below price */
+    margin-top: auto; /* Pushes price down if content above is shorter */
+    flex-shrink: 0; /* Prevent price from shrinking */
 }
 
 .card-buttons {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: auto;
+    margin-top: auto; /* Ensures buttons stick to the bottom of the card */
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+    width: 100%; /* Ensure buttons take full width of card's content area */
+    box-sizing: border-box;
 }
 
-.view-details-btn {
-    display: inline-block;
+.view-details-btn,
+.add-to-cart-btn {
+    display: inline-block; /* For view-details-btn which is an <a> */
     text-align: center;
     padding: 0.6rem 1.5rem;
     background-color: var(--link-color); /* Using link color variable */
@@ -164,29 +164,14 @@
     cursor: pointer;
     transition: background-color 0.2s ease;
     font-size: 1rem;
+    width: 100%; /* Make buttons take full width within the card */
+    box-sizing: border-box; /* Crucial for padding/border not to push outside */
+    border: none; /* Ensure no default border */
 }
 
-.view-details-btn:hover {
+.view-details-btn:hover,
+.add-to-cart-btn:hover {
     background-color: var(--link-hover-color); /* Using hover link color variable */
-}
-
-.add-to-cart-btn {
-    background-color: var(--link-color); /* Using link color variable */
-    color: white; /* Keep white text for contrast on primary button */
-    padding: 0.6rem 1.5rem;
-    border-radius: 9999px;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1rem;
-}
-
-.add-to-cart-btn:hover,
-.add-to-cart-btn:focus {
-    background-color: var(--link-hover-color); /* Using hover link color variable */
-    outline: none;
 }
 
 /* Accessibility focus for the entire card (if it's a link or clickable div) */

@@ -14,9 +14,9 @@ export default function Footer() {
           <a
             href="mailto:info.mrstepup@gmail.com"
             aria-label="Email"
-            className="icon-link" // Keep icon-link class for consistent styling
+            className="icon-link"
           >
-            <i className="bi bi-envelope"></i> {/* Email icon only */}
+            <i className="bi bi-envelope"></i>
           </a>
           {/* LinkedIn Link (Example - remember to replace with your actual URL) */}
           <a
@@ -37,6 +37,16 @@ export default function Footer() {
             className="icon-link"
           >
             <i className="bi bi-twitter"></i>
+          </a>
+          {/* --- TikTok Link (Already Added) --- */}
+          <a
+            href="https://www.tiktok.com/@Truthdecoded0" // TikTok profile URL
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+            className="icon-link"
+          >
+            <i className="bi bi-tiktok"></i> {/* TikTok icon */}
           </a>
         </div>
       </div>

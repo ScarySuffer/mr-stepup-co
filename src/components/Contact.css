@@ -1,288 +1,334 @@
 /* src/components/Contact.css */
 
-/* THEME VARIABLES (Retained for context, these should be defined globally) */
+/* THEME VARIABLES (Updated for TikTok) */
 :root {
-    --bg-primary: white;
-    --bg-secondary: #fcfcfc;
+  --bg-primary: white;
+  --bg-secondary: #fcfcfc;
 
-    --text-primary: #1f2937;
-    --text-secondary: #4b5563;
-    --heading-color: #111827;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --heading-color: #111827;
 
-    --link-color: #2563eb;
-    --link-hover-color: #1d4ed8;
+  --link-color: #2563eb;
+  --link-hover-color: #1d4ed8;
 
-    --shadow-base: rgba(0, 0, 0, 0.08);
-    --shadow-hover: rgba(0, 0, 0, 0.15);
-    --shadow-card-hover: rgba(0, 0, 0, 0.18);
+  --shadow-base: rgba(0, 0, 0, 0.08);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --shadow-card-hover: rgba(0, 0, 0, 0.18);
 
-    --whatsapp-btn-bg: #25D366;
-    --whatsapp-btn-hover: #1DA851;
-    --instagram-btn-bg: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    --instagram-btn-hover: linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2366 50%, #bc1888 75%, #a6127e 100%);
-    --email-btn-bg: #D44638;
-    --email-btn-hover: #C23B2B;
+  --whatsapp-btn-bg: #25D366;
+  --whatsapp-btn-hover: #1DA851;
+  --instagram-btn-bg: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  --instagram-btn-hover: linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2366 50%, #bc1888 75%, #a6127e 100%);
+  --email-btn-bg: #D44638;
+  --email-btn-hover: #C23B2B;
+
+  /* NEW: TikTok Button Colors */
+  --tiktok-btn-bg: #FE2C55; /* TikTok's primary red/pink */
+  --tiktok-btn-hover: #D82148; /* Slightly darker for hover */
 }
 
 [data-theme='dark'] {
-    --bg-primary: #1f2937;
-    --bg-secondary: #374151;
+  --bg-primary: #1f2937;
+  --bg-secondary: #374151;
 
-    --text-primary: #d1d5db;
-    --text-secondary: #9ca3af;
-    --heading-color: #f3f4f6;
+  --text-primary: #d1d5db;
+  --text-secondary: #9ca3af;
+  --heading-color: #f3f4f6;
 
-    --link-color: #60a5fa;
-    --link-hover-color: #3b82f6;
+  --link-color: #60a5fa;
+  --link-hover-color: #3b82f6;
 
-    --shadow-base: rgba(255, 255, 255, 0.08);
-    --shadow-hover: rgba(255, 255, 255, 0.15);
-    --shadow-card-hover: rgba(255, 255, 255, 0.18);
+  --shadow-base: rgba(255, 255, 255, 0.08);
+  --shadow-hover: rgba(255, 255, 255, 0.15);
+  --shadow-card-hover: rgba(255, 255, 255, 0.18);
 
-    --whatsapp-btn-bg: #25D366;
-    --whatsapp-btn-hover: #1DA851;
-    --instagram-btn-bg: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    --instagram-btn-hover: linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2766 50%, #bc1888 75%, #a6127e 100%);
-    --email-btn-bg: #D44638;
-    --email-btn-hover: #C23B2B;
+  --whatsapp-btn-bg: #25D366;
+  --whatsapp-btn-hover: #1DA851;
+  --instagram-btn-bg: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  --instagram-btn-hover: linear-gradient(45deg, #e6683c 0%, #dc2743 25%, #cc2766 50%, #bc1888 75%, #a6127e 100%);
+  --email-btn-bg: #D44638;
+  --email-btn-hover: #C23B2B;
+
+  /* NEW: TikTok Button Colors for Dark Theme (keeping consistent for now) */
+  --tiktok-btn-bg: #FE2C55;
+  --tiktok-btn-hover: #D82148;
 }
 
 /* =======================
     CONTACT SECTION STYLES
 ========================= */
 .contact-section {
-    padding: 5rem 2rem;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    box-sizing: border-box;
+  padding: 5rem 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-sizing: border-box;
 
-    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
 
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-primary);
-    transition: background 0.3s ease, color 0.3s ease;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .contact-section .section-title {
-    font-size: 2.5rem;
-    color: var(--heading-color);
-    margin-bottom: 1rem;
-    font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--heading-color);
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
 .contact-section .section-description {
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    line-height: 1.6;
-    max-width: 700px;
-    margin: 0 auto 3rem auto;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
 }
 
-/* NEW: Style for the bold text in the description */
+/* Style for the bold text in the description */
 .section-description .highlight-bold {
-    font-weight: bold; /* Make the text bold */
-    color: var(--heading-color); /* Optionally make it slightly darker/more prominent */
+  font-weight: bold;
+  color: var(--heading-color);
 }
 
 
 .showcase-gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 3.5rem;
-    width: 100%;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3.5rem;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .showcase-card {
-    max-width: 450px;
-    width: 100%;
-    background-color: var(--bg-primary);
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 8px 25px var(--shadow-base);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+  max-width: 450px;
+  width: 100%;
+  background-color: var(--bg-primary);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 8px 25px var(--shadow-base);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .showcase-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px var(--shadow-card-hover);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px var(--shadow-card-hover);
 }
 
 .showcase-card img {
-    width: 100%;
-    aspect-ratio: 4 / 3; /* For a 1280x960 image, 4:3 is its native aspect ratio */
-    object-fit: cover;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    display: block;
-    flex-shrink: 0;
-    box-sizing: border-box;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  display: block;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .caption {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin-top: 0.8rem;
-    padding-bottom: 1rem;
-    font-weight: 500;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 0.8rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-weight: 500;
+}
+
+/* --- NEW: Styles for Actual Contact Details --- */
+.actual-contact-details {
+  margin-top: 2rem; /* Space above this section */
+  margin-bottom: 3rem; /* Space below this section, before contact-links */
+  color: var(--text-primary);
+  font-size: 1.1em;
+  line-height: 1.8;
+  text-align: center;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+.actual-contact-details h3 {
+  font-size: 1.8rem;
+  color: var(--heading-color);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.actual-contact-details p {
+  margin-bottom: 0.5rem;
+}
+
+.actual-contact-details p strong {
+  color: var(--heading-color);
 }
 
 .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+  width: 100%;
 }
 
 .contact-btn {
-    background-color: var(--link-color);
-    color: white;
-    padding: 0.9rem 2.25rem;
-    border-radius: 9999px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    min-width: 220px;
-    box-shadow: 0 4px 10px var(--shadow-base);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-sizing: border-box;
+  background-color: var(--link-color);
+  color: white;
+  padding: 0.9rem 2.25rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 220px;
+  box-shadow: 0 4px 10px var(--shadow-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-sizing: border-box;
 }
 
 .contact-btn:hover {
-    background-color: var(--link-hover-color);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px var(--shadow-hover);
+  background-color: var(--link-hover-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
 /* Specific brand buttons */
 .whatsapp-btn {
-    background-color: var(--whatsapp-btn-bg);
+  background-color: var(--whatsapp-btn-bg);
 }
 .whatsapp-btn:hover {
-    background-color: var(--whatsapp-btn-hover);
+  background-color: var(--whatsapp-btn-hover);
 }
 
 .instagram-btn {
-    background: var(--instagram-btn-bg);
+  background: var(--instagram-btn-bg);
 }
 .instagram-btn:hover {
-    background: var(--instagram-btn-hover);
+  background: var(--instagram-btn-hover);
 }
 
 .email-btn {
-    background-color: var(--email-btn-bg);
+  background-color: var(--email-btn-bg);
 }
 .email-btn:hover {
-    background-color: var(--email-btn-hover);
+  background-color: var(--email-btn-hover);
+}
+
+/* Specific brand button for TikTok */
+.tiktok-btn {
+  background-color: var(--tiktok-btn-bg);
+}
+.tiktok-btn:hover {
+  background-color: var(--tiktok-btn-hover);
 }
 
 .whatsapp-btn i,
 .instagram-btn i,
-.email-btn i {
-    font-size: 1.3em;
+.email-btn i,
+.tiktok-btn i {
+  font-size: 1.3em;
 }
 
 /* ========================
     MEDIA QUERIES
 ========================== */
 @media (min-width: 768px) {
-    .contact-section {
-        padding: 4rem 3rem;
-    }
-    .showcase-gallery {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        max-width: 900px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+  .contact-section {
+    padding: 4rem 3rem;
+  }
+  .showcase-gallery {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    .showcase-card {
-        margin: 0 1rem 1.5rem 1rem;
-        flex: 1 1 calc(50% - 2rem);
-        min-width: 300px;
-    }
+  .showcase-card {
+    margin: 0 1rem 1.5rem 1rem;
+    flex: 1 1 calc(50% - 2rem);
+    min-width: 300px;
+  }
 
-    .contact-links {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.5rem;
-        max-width: 900px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .contact-btn {
-        min-width: unset;
-        flex: 1 1 auto;
-        max-width: 250px;
-    }
+  .contact-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-btn {
+    min-width: unset;
+    flex: 1 1 auto;
+    max-width: 250px;
+  }
 }
 
 @media (min-width: 1024px) {
-    .contact-section {
-        padding: 5rem 4rem;
-    }
-    .showcase-gallery {
-        max-width: 1200px;
-        gap: 2rem;
-    }
-    .showcase-card {
-        flex: 1 1 calc(33.333% - 2rem);
-    }
-    .contact-links {
-        max-width: 1000px;
-        gap: 2rem;
-    }
+  .contact-section {
+    padding: 5rem 4rem;
+  }
+  .showcase-gallery {
+    max-width: 1200px;
+    gap: 2rem;
+  }
+  .showcase-card {
+    flex: 1 1 calc(33.333% - 2rem);
+  }
+  .contact-links {
+    max-width: 1000px;
+    gap: 2rem;
+  }
 }
 
 
 @media (max-width: 599px) {
-    .contact-section {
-        padding: 4rem 1rem;
-    }
-    .contact-section .section-title {
-        font-size: 2rem;
-    }
-    .contact-section .section-description {
-        font-size: 1rem;
-        margin-bottom: 2rem;
-    }
-    .showcase-gallery {
-        gap: 1rem;
-    }
-    .showcase-card {
-        max-width: 100%;
-        margin-bottom: 1rem;
-    }
-    .showcase-card img {
-        height: 200px;
-    }
-    .caption {
-        font-size: 0.9rem;
-        padding-left: 0.8rem;
-        padding-right: 0.8rem;
-    }
-    .contact-btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-        min-width: unset;
-        width: 90%;
-    }
+  .contact-section {
+    padding: 4rem 1rem;
+  }
+  .contact-section .section-title {
+    font-size: 2rem;
+  }
+  .contact-section .section-description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .showcase-gallery {
+    gap: 1rem;
+  }
+  .showcase-card {
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+  .showcase-card img {
+    height: 200px;
+  }
+  .caption {
+    font-size: 0.9rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+  .contact-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    min-width: unset;
+    width: 90%;
+  }
 }

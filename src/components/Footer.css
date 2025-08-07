@@ -1,79 +1,79 @@
-/* src/components/Footer.css */
+  /* src/components/Footer.css */
 
-.footer {
-  /* Positioning and size */
-  width: 100%;
-  padding: 25px 20px; /* Provides internal spacing */
-  text-align: center; /* Centers content horizontally by default */
-  position: relative; /* Ensures z-index works predictably if needed */
+  .footer {
+    /* Positioning and size */
+    width: 100%;
+    padding: 25px 20px; /* Provides internal spacing */
+    text-align: center; /* Centers content horizontally by default */
+    position: relative; /* Ensures z-index works predictably if needed */
 
-  /* Background properties for transparency and blur */
-  background-color: rgba(0, 0, 0, 0.4); /* Dark translucent background */
-  backdrop-filter: blur(10px); /* Blurs content behind the footer */
-  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    /* Background properties for transparency and blur */
+    background-color: rgba(0, 0, 0, 0.4); /* Dark translucent background */
+    backdrop-filter: blur(10px); /* Blurs content behind the footer */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
 
-  /* Text color for contrast */
-  color: #f0f0f0; /* Light grey text for readability */
+    /* Text color for contrast */
+    color: #f0f0f0; /* Light grey text for readability */
 
-  /* Ensure it's above other content if necessary */
-  z-index: 1000;
+    /* Ensure it's above other content if necessary */
+    z-index: 1000;
 
-  /* Optional: Add some subtle shadow for depth */
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    /* Optional: Add some subtle shadow for depth */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
 
-  /* Optional: Smooth transition for any future changes */
-  transition: background-color 0.3s ease;
-}
+    /* Optional: Smooth transition for any future changes */
+    transition: background-color 0.3s ease;
+  }
 
-.footer-content {
-  max-width: 1200px; /* Limits the content width for better readability */
-  margin: 0 auto; /* Centers the content block */
-  display: flex;
-  flex-direction: column; /* Stacks items vertically on small screens */
-  align-items: center; /* Centers items horizontally within the flex container */
-  gap: 15px; /* Adds space between the copyright text and social links */
-}
-
-/* Styles for the copyright paragraph */
-.footer p {
-  margin: 0; /* Removes default paragraph margin */
-  font-size: 0.95em; /* Slightly smaller font size */
-  line-height: 1.5; /* Improves line spacing for readability */
-}
-
-.social-links {
-  display: flex;
-  gap: 20px; /* Space between each social icon */
-  align-items: center; /* Vertically aligns icons */
-  flex-wrap: wrap; /* Allows icons to wrap to the next line on smaller screens */
-  justify-content: center; /* Centers icons if they wrap */
-}
-
-.icon-link {
-  color: #f0f0f0; /* Icon color */
-  font-size: 2.2rem; /* Increased icon size from 1.8rem to 2.2rem */
-  text-decoration: none; /* Removes underline from links */
-  /* Smooth transition for hover effects on color and transform */
-  transition: color 0.3s ease, transform 0.3s ease;
-  display: flex; /* Makes the link a flex container for consistent alignment */
-  align-items: center; /* Ensures the icon is vertically centered within the link */
-}
-
-/* Hover effects for all icons */
-.icon-link:hover {
-  color: #00bcd4; /* A vibrant blue for hover */
-  transform: translateY(-3px); /* Subtle lift effect on hover */
-}
-
-/* --- Media Queries for Responsiveness --- */
-
-@media (min-width: 768px) {
   .footer-content {
-    flex-direction: row; /* Arranges items horizontally on larger screens */
-    justify-content: space-between; /* Pushes copyright to one end, social links to the other */
+    max-width: 1200px; /* Limits the content width for better readability */
+    margin: 0 auto; /* Centers the content block */
+    display: flex;
+    flex-direction: column; /* Stacks items vertically on small screens */
+    align-items: center; /* Centers items horizontally within the flex container */
+    gap: 15px; /* Adds space between the copyright text and social links */
   }
 
+  /* Styles for the copyright paragraph */
   .footer p {
-    margin-bottom: 0; /* Removes bottom margin when items are in a row */
+    margin: 0; /* Removes default paragraph margin */
+    font-size: 0.95em; /* Slightly smaller font size */
+    line-height: 1.5; /* Improves line spacing for readability */
   }
-}
+
+  .social-links {
+    display: flex;
+    gap: 20px; /* Space between each social icon */
+    align-items: center; /* Vertically aligns icons */
+    flex-wrap: wrap; /* Allows icons to wrap to the next line on smaller screens */
+    justify-content: center; /* Centers icons if they wrap */
+  }
+
+  .icon-link {
+    color: #f0f0f0; /* Icon color */
+    font-size: 2.2rem; /* Increased icon size from 1.8rem to 2.2rem */
+    text-decoration: none; /* Removes underline from links */
+    /* Smooth transition for hover effects on color and transform */
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex; /* Makes the link a flex container for consistent alignment */
+    align-items: center; /* Ensures the icon is vertically centered within the link */
+  }
+
+  /* Hover effects for all icons */
+  .icon-link:hover {
+    color: #00bcd4; /* A vibrant blue for hover */
+    transform: translateY(-3px); /* Subtle lift effect on hover */
+  }
+
+  /* --- Media Queries for Responsiveness --- */
+
+  @media (min-width: 768px) {
+    .footer-content {
+      flex-direction: row; /* Arranges items horizontally on larger screens */
+      justify-content: space-between; /* Pushes copyright to one end, social links to the other */
+    }
+
+    .footer p {
+      margin-bottom: 0; /* Removes bottom margin when items are in a row */
+    }
+  }

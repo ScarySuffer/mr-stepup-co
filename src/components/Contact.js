@@ -18,10 +18,10 @@ export default function Contact() {
         <div className="showcase-card">
           <img src="/assets/showcase/nike-af1.jpg" alt="Nike Air Force 1 dancing in urban setting" />
           <p className="caption">New Arrivals: Nike Air Force 1</p>
-        !</div>
+        </div>
       </div>
 
-      {/* --- NEW: Actual Contact Details in Full --- */}
+      {/* Actual Contact Details */}
       <div className="actual-contact-details">
         <h3>Direct Contact Information</h3>
         <p><strong>WhatsApp:</strong> 063 614 0298</p>
@@ -29,7 +29,6 @@ export default function Contact() {
         <p><strong>TikTok:</strong> @Truthdecoded0</p>
         <p><strong>Instagram:</strong> @MrStepUpSneakers</p>
       </div>
-      {/* --- END NEW --- */}
 
       <div className="contact-links">
         <a
@@ -51,7 +50,8 @@ export default function Contact() {
         </a>
 
         <a
-          href="https://instagram.com/YOURINSTAGRAMHANDLE" 
+          href="https://instagram.com/MrStepUpSneakers" 
+          target="_blank"
           rel="noopener noreferrer"
           className="contact-btn instagram-btn"
           aria-label="Connect on Instagram"

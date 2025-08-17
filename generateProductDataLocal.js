@@ -1,24 +1,19 @@
 // generateProductDataLocal.js
-// Usage: node generateProductDataLocal.js
-
 const fs = require('fs');
 const path = require('path');
 
-const assetsDir = path.join(__dirname, 'public', 'assets'); // public folder
+const assetsDir = path.join(__dirname, 'public', 'assets');
 const brandFolders = ['Puma', 'adidas', 'Converse', 'New-Balance', 'nike'];
 
-// Helper to slugify IDs
+// Helpers
 function slugify(text) {
-  return text
-    .toString()
-    .toLowerCase()
+  return text.toString().toLowerCase()
     .replace(/[\s_]+/g, '-')
     .replace(/[^\w\-]+/g, '')
     .replace(/\-\-+/g, '-')
     .replace(/-+$/, '');
 }
 
-// Capitalize words for display name
 function capitalizeWords(str) {
   return str.replace(/[-_]/g, ' ')
             .split(' ')
@@ -26,8 +21,9 @@ function capitalizeWords(str) {
             .join(' ');
 }
 
-// Read files in folder
+// Read image files in a folder
 function readFiles(folderPath) {
+  if (!fs.existsSync(folderPath)) return [];
   return fs.readdirSync(folderPath).filter(f => {
     const stat = fs.statSync(path.join(folderPath, f));
     return stat.isFile() && /\.(jpg|jpeg|png|webp)$/i.test(f);
@@ -40,46 +36,51 @@ for (const brand of brandFolders) {
   const brandPath = path.join(assetsDir, brand);
   if (!fs.existsSync(brandPath)) continue;
 
-  const files = readFiles(brandPath);
+  const subFolders = ['front', 'left', 'right', 'otherViews'];
+  const productMap = {};
 
-  // Group by product base name
-  const productsMap = {};
+  subFolders.forEach(sub => {
+    const subPath = path.join(brandPath, sub);
+    if (!fs.existsSync(subPath)) return;
 
-  files.forEach(file => {
-    let baseName = file.split('.')[0].toLowerCase();
+    const files = readFiles(subPath);
+    files.forEach(file => {
+      let baseName = file.replace(/\.(jpg|jpeg|png|webp)$/i, '')
+                         .replace(/-(front|left|right|side|top|bottom|upside|showcase)$/i, '')
+                         .trim()
+                         .toLowerCase();
 
-    // Remove common variations
-    baseName = baseName.replace(/-(back|front|left|right|side|top|bottom|upside|showcase|both|fitted|up|upclose|single)$/i, '').trim();
+      if (!productMap[baseName]) productMap[baseName] = { brand, baseName, images: [] };
 
-    if (!productsMap[baseName]) {
-      productsMap[baseName] = {
-        brand,
-        baseName,
-        images: []
-      };
-    }
-
-    // Store path for public access
-    productsMap[baseName].images.push(`/assets/${brand}/${file}`);
+      const publicPath = `/assets/${brand}/${sub}/${file}`;
+      if (sub === 'front') productMap[baseName].frontImage = publicPath;
+      else if (sub === 'left') productMap[baseName].leftImage = publicPath;
+      else if (sub === 'right') productMap[baseName].rightImage = publicPath;
+      else productMap[baseName].images.push(publicPath); // otherViews
+    });
   });
 
-  Object.values(productsMap).forEach(product => {
-    product.images.sort();
-    const id = slugify(`${product.brand}-${product.baseName}`);
+  Object.values(productMap).forEach(prod => {
+    const id = slugify(`${prod.brand}-${prod.baseName}`);
     allProducts.push({
       id,
-      brand: product.brand,
-      name: capitalizeWords(product.baseName),
-      price: 999.99, // dummy price
-      image: product.images[0],
-      description: `High-quality sneaker from ${product.brand}.`,
+      brand: prod.brand,
+      name: capitalizeWords(prod.baseName),
+      price: 999.99,
+      image: prod.frontImage || prod.leftImage || prod.rightImage || prod.images[0],
+      secondaryImage: prod.rightImage || prod.leftImage || prod.frontImage || prod.images[1] || prod.images[0],
+      description: `High-quality sneaker from ${prod.brand}.`,
       sizes: [6,7,8,9,10,11],
-      otherImages: product.images.slice(1)
+      otherImages: [
+        ...(prod.leftImage ? [prod.leftImage] : []),
+        ...(prod.rightImage ? [prod.rightImage] : []),
+        ...prod.images
+      ]
     });
   });
 }
 
-// Write the file in single-line JSON for each product
+// Write the file
 const outputFile = path.join(__dirname, 'src', 'components', 'productData.js');
 const content =
 `// Auto-generated product data from local assets\n\n` +

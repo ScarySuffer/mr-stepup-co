@@ -258,6 +258,62 @@
     margin-left: auto;
     margin-right: auto;
   }
+  @media (min-width: 1024px) {
+  .contact-main-columns {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4rem;
+    text-align: left;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+  .contact-main-columns {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .actual-contact-details,
+  .contact-links {
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+    text-align: center;
+    align-items: center;
+  }
+
+  .contact-links {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+}
+
+  .actual-contact-details,
+  .contact-links {
+    flex: 1 1 400px;
+    max-width: 500px;
+    margin: 0;
+  }
+
+  .contact-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .showcase-gallery {
+    max-width: 1200px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 4rem;
+    gap: 2rem;
+  }
+
+  .showcase-card {
+    flex: 1 1 calc(33.333% - 2rem);
+  }
+}
 
   .showcase-card {
     margin: 0 1rem 1.5rem 1rem;
@@ -332,3 +388,4 @@
     width: 90%;
   }
 }
+

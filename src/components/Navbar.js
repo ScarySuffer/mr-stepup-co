@@ -7,6 +7,8 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 
 // Import the new icons for light/dark mode
 import { FaSun, FaMoon } from 'react-icons/fa';
+// at the top with other imports
+import logo from "../assets/mr-step-up-logo.jpg";
 
 const AuthLinks = ({ user, handleLogout, closeNavbar }) => {
   if (!user) {
@@ -153,8 +155,14 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
     <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top app-navbar" ref={navbarRef}>
       <div className="container-fluid">
         <Link className="navbar-brand" to="/" onClick={closeNavbar}>
-          Mr StepUp.co
+          <img
+            src={logo}
+            alt="Mr StepUp Logo"
+            className="navbar-logo"
+            style={{ height: "40px", objectFit: "contain" }} // adjust as needed
+          />
         </Link>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -163,7 +171,6 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
           aria-label="Toggle navigation"
           onClick={toggleNavbar}
         >
-          {/* Apply dynamic background image to the toggler icon span */}
           <span className="navbar-toggler-icon" style={{ backgroundImage: `url("${togglerIconSvg}")` }} />
         </button>
 
@@ -271,15 +278,15 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
             </li>
             <li className="nav-item">
               <button
-                className="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center theme-toggle-btn" // Added a new class `theme-toggle-btn`
+                className="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center theme-toggle-btn"
                 onClick={toggleTheme}
                 aria-label="Toggle dark mode"
                 title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
                 {theme === "dark" ? (
-                  <FaSun className="theme-icon sun-icon" /> // Added classes for styling
+                  <FaSun className="theme-icon sun-icon" />
                 ) : (
-                  <FaMoon className="theme-icon moon-icon" /> // Added classes for styling
+                  <FaMoon className="theme-icon moon-icon" />
                 )}
               </button>
             </li>

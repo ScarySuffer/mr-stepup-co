@@ -20,7 +20,6 @@ const remoteImages = [
   "https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=1350&q=80",
   "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1350&q=80",
 ];
-
 const heroImages = [...localHeroImages, ...remoteImages];
 
 export default function Hero() {

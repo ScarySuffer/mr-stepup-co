@@ -3,5 +3,9 @@ http://mrstepup.co.za/*        https://www.mrstepup.co.za/:splat 301
 https://mrstepup.co.za/*       https://www.mrstepup.co.za/:splat 301
 http://www.mrstepup.co.za/*    https://www.mrstepup.co.za/:splat 301
 
+# Sitemap and robots.txt
+/sitemap.xml    /sitemap.xml   200
+/robots.txt     /robots.txt    200
+
 # SPA fallback
 /*    /index.html   200

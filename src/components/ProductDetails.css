@@ -17,8 +17,9 @@
   --border-light: #eee;
   --border-medium: #ddd;
 
-  --shadow-light: rgba(0, 0, 0, 0.05);
-  --shadow-strong: rgba(0, 0, 0, 0.1);
+  --shadow-base: rgba(0, 0, 0, 0.05);
+  --shadow-hover: rgba(0, 0, 0, 0.1);
+  --shadow-strong: rgba(0, 0, 0, 0.2);
 
   --purple-primary: #4f46e5;
   --purple-dark: #4338ca;
@@ -40,7 +41,8 @@
   --border-light: #4b5563;
   --border-medium: #6b7280;
 
-  --shadow-light: rgba(0, 0, 0, 0.6);
+  --shadow-base: rgba(0, 0, 0, 0.6);
+  --shadow-hover: rgba(0, 0, 0, 0.7);
   --shadow-strong: rgba(0, 0, 0, 0.8);
 
   --purple-primary: #8b5cf6;
@@ -51,15 +53,16 @@
     PRODUCT DETAILS STYLES
 ========================= */
 
-/* --- Page Heading (Product Details) --- */
-/* This is the outer page title, not part of the card itself */
-.product-details h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
+/* --- Outer Container --- */
+.product-details {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-primary);
-  /* TWEAK: Increased padding-top to match global spacing below Navbar */
-  padding-top: 5rem; /* Consistent with other pages */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem; /* Consistent padding */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* --- Product Detail Card Container --- */
@@ -68,15 +71,11 @@
   flex-direction: column;
   background-color: var(--bg-primary);
   border-radius: 10px;
-  /* TWEAK: Removed max-width and margin: auto for full width */
-  /* max-width: 900px; */
-  width: 100%; /* Ensure it takes full available width */
-  box-shadow: 0 4px 15px var(--shadow-light);
+  width: 100%;
+  box-shadow: 0 4px 15px var(--shadow-base);
   overflow: hidden;
-  /* TWEAK: Removed margin: 0 auto; as it's now full width. Added horizontal padding for content. */
-  margin: 0 0 2rem 0; /* Only bottom margin */
-  padding: 0; /* Reset global padding here, manage internal padding */
-  box-sizing: border-box; /* Include padding in width calculation */
+  margin-bottom: 2rem;
+  box-sizing: border-box;
 }
 
 /* --- Main Product Section (Image + Info) --- */
@@ -84,17 +83,16 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  /* TWEAK: Added horizontal padding to main content */
-  padding: 1.5rem 2rem; /* Add horizontal padding for full-width content */
+  padding: 1.5rem 2rem;
 }
 
 /* --- Main Product Image --- */
 .product-main img.main-image {
   width: 100%;
-  max-width: 450px; /* TWEAK: Increased max-width for main image */
+  max-width: 450px;
   border-radius: 10px;
   object-fit: contain;
-  align-self: center; /* Center image within the flex column */
+  align-self: center;
   background-color: var(--bg-image);
   padding: 1rem;
 }
@@ -111,6 +109,7 @@
   margin: 0;
   color: var(--text-strong);
   text-align: center;
+  line-height: 1.2;
 }
 
 .product-info .description {
@@ -129,7 +128,7 @@
 /* --- Headings (e.g., 'Available Sizes') --- */
 h4 {
   font-size: 1.25rem;
-  color: var(--text-main);
+  color: var(--text-strong);
   margin: 1rem 0 0.8rem;
 }
 
@@ -148,47 +147,31 @@ h4 {
   justify-content: center;
   min-width: 45px;
   padding: 0.6rem 1rem;
-  background-color: var(--bg-image); /* Use theme variable for badge background */
-  border: 2px solid var(--bg-image); /* Use theme variable for badge border */
+  background-color: var(--bg-image);
+  border: 2px solid var(--bg-image);
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 500;
-  color: var(--text-secondary); /* Use theme variable for badge text */
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   user-select: none;
 }
 
 .size-badge:hover {
-  background-color: var(--border-medium); /* Use a darker theme color on hover */
+  background-color: var(--border-medium);
   border-color: var(--border-medium);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px var(--shadow-base);
 }
 
 .size-badge.selected {
   background-color: var(--blue-primary);
-  color: #ffffff; /* Keep white text for selected badge */
+  color: #ffffff;
   border-color: var(--blue-primary);
   transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3); /* This shadow should adapt with theme variables */
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
-
-/* Dark mode overrides for size badges (ensure consistency with theme variables) */
-/* These specific dark mode overrides can likely be removed if theme variables are robust */
-/* Example of using theme variables directly in base rules, removing overrides:
-[data-theme='dark'] .size-badge {
-  background-color: var(--bg-image);
-  border-color: var(--bg-image);
-  color: var(--text-secondary);
-}
-[data-theme='dark'] .size-badge:hover {
-  background-color: var(--border-medium);
-}
-[data-theme='dark'] .size-badge.selected {
-  background-color: var(--blue-primary);
-  border-color: var(--blue-primary);
-  color: #ffffff;
-}
-*/
 
 /* --- Quantity Selector --- */
 .quantity-selector {
@@ -233,16 +216,18 @@ h4 {
   font-weight: 700;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   align-self: center;
-  margin: 1.5rem auto; /* Center button horizontally in full width */
+  margin: 1.5rem auto;
   width: 80%;
   max-width: 300px;
+  box-shadow: 0 4px 10px var(--shadow-base);
 }
 
 .add-to-cart-btn:hover {
   background-color: var(--blue-dark);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 15px var(--shadow-hover);
 }
 
 /* --- Image Gallery --- */
@@ -250,8 +235,7 @@ h4 {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  /* TWEAK: Ensure horizontal padding matches product-main section */
-  padding: 1.5rem 2rem; 
+  padding: 1.5rem 2rem;
   justify-content: center;
   border-top: 1px solid var(--border-light);
   background-color: var(--bg-secondary);
@@ -263,13 +247,19 @@ h4 {
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid var(--border-medium);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 }
 
 .image-gallery img:hover {
   transform: scale(1.08);
   border-color: var(--blue-primary);
+  box-shadow: 0 2px 5px var(--shadow-base);
+}
+
+.image-gallery img.selected-thumbnail {
+  border-color: var(--blue-primary);
+  box-shadow: 0 0 0 3px var(--blue-primary);
 }
 
 /* --- Back Button --- */
@@ -285,74 +275,86 @@ h4 {
 
 .back-btn:hover {
   color: var(--blue-dark);
+  text-decoration: underline;
 }
 
 /* ========================
     MEDIA QUERIES
 ========================== */
 @media (min-width: 768px) {
-  /* TWEAK: Adjust horizontal padding for larger screens */
-  .product-detail-card {
-    padding: 0; /* No global card padding, internal sections control it */
-  }
   .product-main {
     flex-direction: row;
     align-items: flex-start;
     gap: 3rem;
-    padding: 2.5rem 3rem; /* More padding on desktop */
+    padding: 2.5rem 3rem;
   }
-
   .product-main img.main-image {
     max-width: 40%;
     flex-shrink: 0;
   }
-
   .product-info {
     flex: 1;
   }
-
   .product-info h2 {
     text-align: left;
   }
-
   .add-to-cart-btn {
     align-self: flex-start;
   }
   .image-gallery {
-      padding: 1.5rem 3rem; /* Consistent padding */
+    padding: 1.5rem 3rem;
   }
 }
-
 @media (min-width: 1024px) {
   .product-main img.main-image {
-    max-width: 350px; /* Keep a reasonable max-width for image to avoid stretching too much */
+    max-width: 350px;
   }
-
-  .product-details h2 {
+  .product-info h2 {
     font-size: 3rem;
   }
-
-  
-   .product-main {
-    padding: 3rem 4rem; /* Even more padding on very large screens */
+  .product-main {
+    padding: 3rem 4rem;
   }
   .image-gallery {
-      padding: 1.5rem 4rem; /* Consistent padding */
+    padding: 1.5rem 4rem;
   }
 }
-
-/* Responsive adjustments for smaller screens */
 @media (max-width: 767px) {
   .product-details h2 {
-    padding-top: 4rem; /* Adjust padding for mobile below navbar */
+    padding-top: 4rem;
   }
   .product-main {
-    padding: 1.5rem 1.5rem; /* Default mobile padding */
+    padding: 1.5rem;
   }
   .image-gallery {
-    padding: 1.5rem 1.5rem; /* Default mobile padding */
+    padding: 1.5rem;
   }
   .add-to-cart-btn {
-    margin: 1.5rem auto; /* Keep centered on mobile */
+    margin: 1.5rem auto;
   }
+}
+/* Image fade-in/out */
+.main-image.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.4s forwards;
+}
+
+.main-image.fade-out {
+  opacity: 1;
+  animation: fadeOut 0.4s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+/* Optional: hover effect for gallery thumbnails */
+.image-gallery img:hover {
+  transform: scale(1.1);
+  border-color: var(--blue-primary);
+  box-shadow: 0 2px 8px var(--shadow-base);
 }

@@ -1,188 +1,196 @@
-/* src/components/ProductCard.css */
-
-/*
-    NOTE: THEME VARIABLES should ideally be defined globally (e.g., in App.css or a dedicated theme.css).
-    They are removed from here to prevent duplication and ensure a single source of truth for your theme.
-*/
-
-.product-card {
-    /* Using theme variables for colors and borders - assuming they are global */
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-light);
-    box-shadow: 0 4px 10px var(--shadow-base); /* Using shadow variable */
-
-    border-radius: 0.75rem;
-    padding: 1.2rem;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Pushes buttons to the bottom */
-
-    /* Adjusted for better responsiveness within a grid */
-    width: 100%; /* Take full width of its grid cell */
-    /* REMOVED: explicit max-width here, let the grid system handle max width of cells */
-    min-height: 400px; /* Slightly adjust min-height for consistent card size */
-    flex-grow: 1; /* Allow cards to grow if space allows in the grid */
-
-    /* Ensure padding is inside the element's width calculation */
-    box-sizing: border-box; /* This is crucial for elements within a grid */
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  min-height: 480px;
+  perspective: 1200px; /* Slightly stronger 3D effect */
+  border-radius: 1rem;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.3s ease;
 }
 
-.product-card:hover,
-.product-card:focus-within {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px var(--shadow-hover); /* Using hover shadow variable */
-    border-color: var(--link-color); /* Using link color for border on hover */
-    outline: none;
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  border-radius: 1rem;
 }
 
-.product-card .product-main-image {
-    width: 100%;
-    max-height: 180px; /* Keep max-height to prevent distortion */
-    object-fit: contain;
-    border-radius: 0.5rem;
-    margin-bottom: 0.8rem;
-    user-select: none;
-    background-color: var(--bg-image); /* Using image background variable */
-    padding: 0.5rem; /* TWEAK: Consider if this padding is necessary or if the image itself needs to be smaller */
-    flex-shrink: 0; /* Prevent image from shrinking if content below is too long */
-    box-sizing: border-box; /* Ensure padding is included in image's width */
+/* Flip on hover for desktop */
+@media (hover: hover) and (pointer: fine) {
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
 }
 
-/* --- Thumbnail Gallery (for ProductCard) --- */
-.thumbnail-gallery {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 1rem;
-    flex-shrink: 0; /* Prevent thumbnails from shrinking */
-    /* TWEAK: Add max-width to prevent overflow on very small cards */
-    max-width: 100%;
-    box-sizing: border-box;
-    padding: 0 5px; /* Small horizontal padding to prevent thumbnails touching edges */
+/* FRONT & BACK */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
-.thumbnail {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 0.3rem;
-    border: 1px solid var(--border-light); /* Using border variable */
-    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-    cursor: pointer;
-    box-shadow: 0 1px 3px var(--shadow-base); /* Using shadow variable */
-    flex-shrink: 0; /* Ensure thumbnails don't shrink below their size */
+.flip-card-back {
+  transform: rotateY(180deg);
+  justify-content: center;
+  gap: 1rem;
+  background-color: #f4f6f8;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 1rem;
 }
 
-.thumbnail:hover {
-    transform: scale(1.08);
-    border-color: var(--link-color); /* Using link color for hover border */
-    box-shadow: 0 2px 5px var(--shadow-hover); /* Using hover shadow variable */
+/* Product Images */
+.product-main-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.thumbnail.selected-thumbnail {
-    border-color: var(--link-color); /* Highlight with theme blue */
-    box-shadow: 0 0 0 2px var(--shadow-selected); /* Using selected shadow variable */
-    transform: scale(1.02);
+.product-image-link:hover .product-main-image {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* New wrapper for product details text content */
-.product-details-content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Allows this content area to take up available space */
-    justify-content: flex-start;
-    margin-bottom: 1rem; /* Space before buttons */
-    width: 100%; /* Ensure it takes full available width */
-    box-sizing: border-box;
-    /* TWEAK: Add a small horizontal padding here if text is still cutting off inside */
-    padding: 0 0.1rem; /* Very subtle padding to ensure text isn't flush */
+/* FRONT Details */
+.product-details-content h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-top: 0.8rem;
+  text-align: center;
 }
 
-.product-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-strong); /* Using strong text variable */
-    margin-bottom: 0.4rem;
-    /* TWEAK: Allow title to wrap to 2 lines instead of being cut off with ellipsis */
-    white-space: normal; /* Allow text to wrap */
-    overflow: hidden; /* Still hide overflow if it goes beyond 2 lines */
-    text-overflow: ellipsis; /* Still apply ellipsis */
-    display: -webkit-box; /* For multi-line ellipsis */
-    -webkit-line-clamp: 2; /* Limit to 2 lines */
-    -webkit-box-orient: vertical;
-    padding: 0; /* REMOVED: Horizontal padding, let .product-details-content handle it */
-    line-height: 1.3; /* Adjust line height for wrapped text */
-    max-height: 3.25em; /* Approx height for 2 lines (1.25rem * 1.3 * 2) */
+.product-brand {
+  color: #4a5568;
+  font-size: 0.9rem;
 }
 
-.product-card .product-brand {
-    font-size: 1rem;
-    color: var(--text-secondary); /* Using secondary text variable */
-    margin-bottom: 0.6rem;
-    /* TWEAK: Also apply truncation if needed, but usually brands are shorter */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%; /* Ensure it's constrained by parent */
-    box-sizing: border-box;
+.product-price {
+  color: #3b82f6;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: auto;
 }
 
-.product-card .product-price {
-    font-weight: bold;
-    color: var(--link-color); /* Using link color variable */
-    font-size: 1.15rem;
-    margin-bottom: 1rem; /* Space below price */
-    margin-top: auto; /* Pushes price down if content above is shorter */
-    flex-shrink: 0; /* Prevent price from shrinking */
+/* BACK CONTENT */
+.flip-back-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+  width: 100%;
 }
 
-.card-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: auto; /* Ensures buttons stick to the bottom of the card */
-    flex-shrink: 0; /* Prevent buttons from shrinking */
-    width: 100%; /* Ensure buttons take full width of card's content area */
-    box-sizing: border-box;
+.size-selector {
+  margin: 0.5rem 0;
 }
 
-.view-details-btn,
-.add-to-cart-btn {
-    display: inline-block; /* For view-details-btn which is an <a> */
-    text-align: center;
-    padding: 0.6rem 1.5rem;
-    background-color: var(--link-color); /* Using link color variable */
-    color: white; /* Keep white text for contrast on primary button */
-    text-decoration: none;
-    border-radius: 9999px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-size: 1rem;
-    width: 100%; /* Make buttons take full width within the card */
-    box-sizing: border-box; /* Crucial for padding/border not to push outside */
-    border: none; /* Ensure no default border */
+.size-selector select {
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e0;
 }
 
-.view-details-btn:hover,
-.add-to-cart-btn:hover {
-    background-color: var(--link-hover-color); /* Using hover link color variable */
+/* Buttons */
+.add-to-cart-btn,
+.view-details-btn {
+  padding: 0.6rem 1.5rem;
+  width: 100%;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: #3b82f6;
+  color: #fff;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* Accessibility focus for the entire card (if it's a link or clickable div) */
-.product-card:focus-visible {
-    outline: 2px solid var(--link-color); /* Using link color variable for outline */
-    outline-offset: 3px;
+.add-to-cart-btn:hover,
+.view-details-btn:hover {
+  transform: scale(1.04);
+  background-color: #2563eb;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-/* Focus for buttons/links inside the card */
-.view-details-btn:focus-visible,
-.add-to-cart-btn:focus-visible {
-    outline: 2px solid var(--link-color); /* Using link color variable for outline */
-    outline-offset: 2px;
+/* BACK THUMBNAILS */
+.thumbnail-gallery-back {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.thumbnail-gallery-back .thumbnail {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.thumbnail-gallery-back .thumbnail:hover {
+  transform: scale(1.1);
+  border-color: #a0aec0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.thumbnail-gallery-back .selected-thumbnail {
+  border-color: #3b82f6;
+  transform: scale(1.05);
+  box-shadow: 0 2px 6px rgba(59,130,246,0.4);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .flip-card-inner {
+    transform: none; /* Disable hover flip on mobile */
+  }
+  .flip-card-front, .flip-card-back {
+    position: relative;
+  }
+  .flip-card-back {
+    margin-top: 1rem;
+  }
+}
+/* Image fade-in/out */
+.product-main-image.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.4s forwards;
+}
+
+.product-main-image.fade-out {
+  opacity: 1;
+  animation: fadeOut 0.4s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
 }

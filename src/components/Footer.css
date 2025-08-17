@@ -1,79 +1,87 @@
-  /* src/components/Footer.css */
+/* Ensure full height layout */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  .footer {
-    /* Positioning and size */
-    width: 100%;
-    padding: 25px 20px; /* Provides internal spacing */
-    text-align: center; /* Centers content horizontally by default */
-    position: relative; /* Ensures z-index works predictably if needed */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 100px; /* Reserve space for floating footer */
+}
 
-    /* Background properties for transparency and blur */
-    background-color: rgba(0, 0, 0, 0.4); /* Dark translucent background */
-    backdrop-filter: blur(10px); /* Blurs content behind the footer */
-    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+/* Floating Footer */
+.footer {
+  position: fixed;       /* Float over content */
+  bottom: 0;             /* Stick to bottom */
+  left: 0;
+  width: 100%;
+  padding: 20px 25px;
+  text-align: center;
 
-    /* Text color for contrast */
-    color: #f0f0f0; /* Light grey text for readability */
+  /* Glassmorphic style */
+  background-color: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 
-    /* Ensure it's above other content if necessary */
-    z-index: 1000;
+  color: #f0f0f0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  border-radius: 12px 12px 0 0; /* Rounded top corners for floating effect */
+}
 
-    /* Optional: Add some subtle shadow for depth */
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+/* Footer content alignment */
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
-    /* Optional: Smooth transition for any future changes */
-    transition: background-color 0.3s ease;
-  }
+.footer p {
+  margin: 0;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
 
+/* Social links styling */
+.social-links {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.icon-link {
+  color: #f0f0f0;
+  font-size: 2.2rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.icon-link:hover {
+  color: #00bcd4;
+  transform: translateY(-3px) scale(1.15);
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
   .footer-content {
-    max-width: 1200px; /* Limits the content width for better readability */
-    margin: 0 auto; /* Centers the content block */
-    display: flex;
-    flex-direction: column; /* Stacks items vertically on small screens */
-    align-items: center; /* Centers items horizontally within the flex container */
-    gap: 15px; /* Adds space between the copyright text and social links */
+    flex-direction: row;
+    justify-content: space-between;
   }
 
-  /* Styles for the copyright paragraph */
   .footer p {
-    margin: 0; /* Removes default paragraph margin */
-    font-size: 0.95em; /* Slightly smaller font size */
-    line-height: 1.5; /* Improves line spacing for readability */
+    margin-bottom: 0;
   }
-
-  .social-links {
-    display: flex;
-    gap: 20px; /* Space between each social icon */
-    align-items: center; /* Vertically aligns icons */
-    flex-wrap: wrap; /* Allows icons to wrap to the next line on smaller screens */
-    justify-content: center; /* Centers icons if they wrap */
-  }
-
-  .icon-link {
-    color: #f0f0f0; /* Icon color */
-    font-size: 2.2rem; /* Increased icon size from 1.8rem to 2.2rem */
-    text-decoration: none; /* Removes underline from links */
-    /* Smooth transition for hover effects on color and transform */
-    transition: color 0.3s ease, transform 0.3s ease;
-    display: flex; /* Makes the link a flex container for consistent alignment */
-    align-items: center; /* Ensures the icon is vertically centered within the link */
-  }
-
-  /* Hover effects for all icons */
-  .icon-link:hover {
-    color: #00bcd4; /* A vibrant blue for hover */
-    transform: translateY(-3px); /* Subtle lift effect on hover */
-  }
-
-  /* --- Media Queries for Responsiveness --- */
-
-  @media (min-width: 768px) {
-    .footer-content {
-      flex-direction: row; /* Arranges items horizontally on larger screens */
-      justify-content: space-between; /* Pushes copyright to one end, social links to the other */
-    }
-
-    .footer p {
-      margin-bottom: 0; /* Removes bottom margin when items are in a row */
-    }
-  }
+}

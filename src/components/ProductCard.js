@@ -1,74 +1,93 @@
-// src/components/ProductCard.js
-import React, { useState } from "react"; // Import useState hook
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
 
 export default function ProductCard({ product, onAddToCart }) {
-  const {
-    id,
-    name,
-    brand,
-    price,
-    image, // This is the default/main image
-    otherImages = [],
-    sizes = [],
-  } = product;
+  const safeProduct = product || {
+    id: "",
+    name: "",
+    brand: "",
+    price: 0,
+    image: "",
+    otherImages: [],
+    sizes: [],
+  };
 
-  // Use state to manage the currently displayed main image
-  // Initialize it with the product's default 'image'
-  const [currentMainImage, setCurrentMainImage] = useState(image);
+  const { id, name, brand, price, image, otherImages = [], sizes = [] } = safeProduct;
 
-  // Function to handle thumbnail clicks
+  const getImagePath = (path) => (path?.startsWith("/") ? path : `/${path}`);
+  const mainImage = getImagePath(image);
+  const otherImgs = otherImages.map(getImagePath);
+
+  const [currentMainImage, setCurrentMainImage] = useState(mainImage);
+  const [prevImage, setPrevImage] = useState(null); // for smooth transition
+
+  useEffect(() => {
+    setCurrentMainImage(mainImage);
+  }, [mainImage]);
+
   const handleThumbnailClick = (imgUrl) => {
-    setCurrentMainImage(imgUrl); // Update the state to the clicked thumbnail's URL
+    if (imgUrl !== currentMainImage) {
+      setPrevImage(currentMainImage);
+      setCurrentMainImage(imgUrl);
+    }
   };
 
   return (
-    <div className="product-card">
-      {/* Link around the main image for navigation to product details */}
-      <Link to={`/product/${id}`} className="product-image-link">
-        <img
-          src={currentMainImage} // Now dynamically set by state
-          alt={name}
-          className="product-main-image"
-        />
-      </Link>
-
-      {/* Thumbnail gallery: Show if there are any otherImages */}
-      {otherImages.length > 0 && (
-        <div className="thumbnail-gallery">
-          {/* Include the main image as the first thumbnail for consistency, if desired.
-              Otherwise, just map otherImages.
-              Here, we'll map `image` and then `otherImages.slice(0, 2)` to show a total of 3.
-              Or, show up to 3 thumbnails from `otherImages`
-          */}
-          {otherImages.slice(0, 3).map((imgUrl, idx) => (
-            <img
-              key={idx} // Using index as key is fine for static lists
-              src={imgUrl}
-              alt={`${name} thumbnail ${idx + 1}`}
-              className={`thumbnail ${currentMainImage === imgUrl ? 'selected-thumbnail' : ''}`} // Add a class for selected thumbnail
-              onClick={() => handleThumbnailClick(imgUrl)} // Add onClick handler
-            />
-          ))}
-        </div>
-      )}
-
-      <div className="product-details-content">
-        <h3>{name}</h3>
-        <p className="product-brand">{brand}</p>
-        <p className="product-price">R{price.toFixed(2)}</p>
-
-        <div className="card-buttons">
-          <Link to={`/product/${id}`} className="view-details-btn">
-            View Details
+    <div className="flip-card">
+      <div className="flip-card-inner">
+        {/* FRONT */}
+        <div className="flip-card-front">
+          <Link to={`/product/${id}`} className="product-image-link">
+            {prevImage && (
+              <img
+                src={prevImage}
+                alt={name}
+                className="product-main-image fade-out"
+                onAnimationEnd={() => setPrevImage(null)}
+              />
+            )}
+            <img src={currentMainImage} alt={name} className="product-main-image fade-in" />
           </Link>
-          <button
-            className="add-to-cart-btn"
-            onClick={() => onAddToCart(product, sizes[0] || '', 1)}
-          >
-            Add to Cart
-          </button>
+          <div className="product-details-content">
+            <h3>{name}</h3>
+            <p className="product-brand">{brand}</p>
+            <p className="product-price">R{price.toFixed(2)}</p>
+          </div>
+        </div>
+
+        {/* BACK */}
+        <div className="flip-card-back">
+          <div className="flip-back-content">
+            {otherImgs.length > 0 && (
+              <div className="thumbnail-gallery-back">
+                {otherImgs.map((imgUrl, idx) => (
+                  <img
+                    key={idx}
+                    src={imgUrl}
+                    alt={`${name} thumbnail ${idx + 1}`}
+                    className={`thumbnail ${currentMainImage === imgUrl ? "selected-thumbnail" : ""}`}
+                    onClick={() => handleThumbnailClick(imgUrl)}
+                  />
+                ))}
+              </div>
+            )}
+            <div className="size-selector">
+              <select>
+                {sizes.map((size, idx) => (
+                  <option key={idx} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button className="add-to-cart-btn" onClick={() => onAddToCart(safeProduct, sizes[0] || "", 1)}>
+              Add to Cart
+            </button>
+            <Link to={`/product/${id}`} className="view-details-btn">
+              View Details
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -1,115 +1,88 @@
-/* src/components/Products.css */
-
 .products-section {
-  width: 100%; /* Take full available width */
-  max-width: 1400px; /* Max width for the entire content block */
-  margin: 0 auto; /* Center the entire section on the page */
-  min-height: calc(100vh - var(--navbar-height, 72px)); /* Ensure it fills viewport height */
-  padding: 3rem 1.5rem; /* Vertical and horizontal padding INSIDE the section */
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  min-height: calc(100vh - var(--navbar-height, 72px));
+  padding: 4rem 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-main);
-  box-sizing: border-box; /* VERY IMPORTANT: includes padding in total width/height */
-  background-color: var(--bg-main);
-
-  display: flex; /* Flexbox for column layout of main elements */
+  background-color: var(--bg-main, #f8f8f8);
+  box-sizing: border-box;
+  display: flex;
   flex-direction: column;
-  align-items: center; /* Centers children horizontally within the section's max-width */
+  align-items: center;
 }
 
-.products-section h2 {
-  font-size: 2.5rem;
+.products-header {
   text-align: center;
-  margin-bottom: 2.5rem;
-  color: var(--heading-color);
-  width: 100%; /* Takes full width of the parent's content area */
-  /* No additional horizontal padding needed here as parent .products-section padding handles it */
+  margin-bottom: 3rem;
+}
+
+.products-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--heading-color, #111827);
+}
+
+.products-header .subtext {
+  font-size: 1.2rem;
+  color: var(--text-color-secondary, #6b7280);
 }
 
 .products-grid {
   display: grid;
-  /*
-    TWEAK: `minmax(min-content, 1fr)` or a slightly smaller fixed min-width,
-    along with a tighter gap, can help prevent content from pushing out.
-    `auto-fit` works well, but sometimes `minmax` on `1fr` can make cells
-    too wide if the content (like `ProductCard`'s fixed min-width) doesn't allow it.
-    Let's keep `auto-fit` with a slightly adjusted `minmax` for now.
-  */
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Slightly smaller min-width for flexibility */
-  gap: 1.5rem; /* Consistent gap between cards */
-  justify-items: center; /* Centers ProductCards within their grid cells */
-  width: 100%; /* Takes full width within the .products-section's padded area */
-  padding: 0; /* No internal padding; the .products-section's padding handles edges */
-  box-sizing: border-box; /* Ensure grid itself respects its width */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  width: 100%;
 }
 
 .no-products-message {
   text-align: center;
-  font-size: 1.2rem;
-  color: var(--text-color-secondary);
+  font-size: 1.25rem;
+  color: var(--text-color-secondary, #6b7280);
   margin-top: 2rem;
   padding: 1rem;
-  width: 100%; /* Takes full width of the parent section's content area */
-  max-width: 900px; /* Optional: limit message width if it gets too long */
+  width: 100%;
+  max-width: 900px;
   box-sizing: border-box;
 }
 
-.filter-sort-bar {
-  width: 100%; /* Takes full width of the parent section's content area */
-  margin: 0 auto 2.5rem auto; /* Center and add bottom margin */
-  padding: 0; /* No internal horizontal padding; section's padding manages edges */
-  box-sizing: border-box;
-}
-
-
-/* --- Responsive Adjustments --- */
-
+/* Responsive Breakpoints */
 @media (min-width: 768px) {
   .products-section {
-    padding: 4rem 2rem; /* Adjusted horizontal padding for medium screens */
+    padding: 5rem 3rem;
   }
   .products-grid {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Adjusted min-width */
-    gap: 2rem; /* Slightly larger gap for more space */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
   }
 }
 
-@media (min-width: 1024px) { /* Desktop screens */
-  .products-section {
-    max-width: 1600px; /* Allow wider section on larger screens */
-    padding: 5rem 3rem; /* More generous padding on larger desktops */
-  }
+@media (min-width: 1024px) {
   .products-grid {
-    grid-template-columns: repeat(4, 1fr); /* Force 4 columns */
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-@media (min-width: 1440px) { /* Extra large desktops */
-  .products-section {
-    max-width: 1920px; /* Allow very wide layout */
-    padding: 6rem 4rem; /* Even more horizontal padding */
-  }
+@media (min-width: 1440px) {
   .products-grid {
-    grid-template-columns: repeat(5, 1fr); /* 5 columns on very large screens */
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
-/* Specific adjustments for smaller screens (mobile) */
 @media (max-width: 599px) {
   .products-section {
-    padding: 2.5rem 1rem; /* Tighter padding for mobile */
+    padding: 2.5rem 1rem;
   }
-  .products-section h2 {
+  .products-header h2 {
     font-size: 2rem;
-    margin-bottom: 2rem;
   }
   .products-grid {
-    grid-template-columns: 1fr; /* Single column on very small screens */
+    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  .filter-sort-bar {
-    margin-bottom: 2rem; /* Adjust margin for mobile */
-  }
   .no-products-message {
-    padding: 0.5rem; /* Adjust padding for mobile messages */
+    padding: 0.5rem;
   }
 }

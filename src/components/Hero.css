@@ -75,7 +75,7 @@
   position: relative;
   z-index: 20;
   text-align: center;
-  padding: 6.5rem 1rem 2rem; /* ⬅️ increased top padding */
+  padding: 6.5rem 1rem 2rem;
   color: white;
   text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
 }
@@ -83,7 +83,7 @@
 .hero-content h1 {
   font-size: clamp(2rem, 4vw, 3.25rem);
   font-weight: 800;
-  margin-bottom: 2rem; /* ⬅️ adds spacing before the button */
+  margin-bottom: 2rem;
 }
 
 .cta-button {

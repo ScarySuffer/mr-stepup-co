@@ -1,82 +1,95 @@
-// src/components/ProductDetails.js
-import React, { useState, useEffect } from "react"; // Added useEffect
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import AddToCartConfirmation from './AddToCartConfirmation';
+import productData from './productData';
 import "./ProductDetails.css";
 
-// Remove: import productData from './productData'; // No longer needed here
-
-export default function ProductDetails({ onAddToCart, products }) {
+export default function ProductDetails({ onAddToCart }) {
   const { id } = useParams();
-  // product is now found from the `products` prop
-  const product = products.find((item) => item.id === id);
+  const product = productData.find(p => p.id === id);
 
-  // Initialize mainImage using useEffect to react to product changes
-  const [mainImage, setMainImage] = useState('');
-  useEffect(() => {
-    if (product) {
-      setMainImage(product.image);
-    }
-  }, [product]);
-
-  const [selectedSize, setSelectedSize] = useState(
-    product && product.sizes?.length > 0 ? product.sizes[0] : ''
-  );
+  const [mainImage, setMainImage] = useState(product?.image || '');
+  const [prevImage, setPrevImage] = useState(null); // for smooth fade
+  const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] || '');
   const [quantity, setQuantity] = useState(1);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState('');
 
-  // Reset selected size and quantity when product changes (e.g., navigating between detail pages)
   useEffect(() => {
     if (product) {
-      setSelectedSize(product.sizes?.length > 0 ? product.sizes[0] : '');
+      setMainImage(product.image);
+      const newSize = product.sizes?.includes(selectedSize) ? selectedSize : product.sizes?.[0] || '';
+      setSelectedSize(newSize);
       setQuantity(1);
     }
-  }, [product]);
+  }, [product, selectedSize]);
 
   if (!product) {
-    return <div style={{ padding: '2rem' }}>Product not found.</div>;
+    return (
+      <div className="product-details" style={{ padding: '2rem', textAlign: 'center' }}>
+        Product not found.
+        <Link to="/products" className="back-btn" style={{ display: 'block', marginTop: '1rem' }}>
+          ← Back to Products
+        </Link>
+      </div>
+    );
   }
 
   const handleAddToCartClick = () => {
-    if (selectedSize) {
-      onAddToCart(product, selectedSize, quantity);
-      setConfirmationMessage(`${quantity}x ${product.name} (Size: ${selectedSize}) added to cart!`);
+    if (product.sizes.length > 0 && !selectedSize) {
+      setConfirmationMessage("Please select a size before adding to cart.");
       setShowConfirmation(true);
-    } else {
-      alert("Please select a size before adding to cart.");
+      return;
     }
+    onAddToCart(product, selectedSize, quantity);
+    setConfirmationMessage(`${quantity}x ${product.name} (Size: ${selectedSize || 'N/A'}) added to cart!`);
+    setShowConfirmation(true);
   };
 
-  const handleCloseConfirmation = () => {
-    setShowConfirmation(false);
-    setConfirmationMessage('');
+  const handleThumbnailClick = (img) => {
+    if (img !== mainImage) {
+      setPrevImage(mainImage);
+      setMainImage(img);
+    }
   };
 
   return (
     <div className="product-details">
       <div className="product-detail-card">
         <div className="product-main">
-          {/* Ensure mainImage is always set to the product's primary image on load */}
-          <img src={mainImage} alt={product.name} className="main-image" />
+          <div className="image-container">
+            {prevImage && (
+              <img
+                src={prevImage}
+                alt={product.name}
+                className="main-image fade-out"
+                onAnimationEnd={() => setPrevImage(null)}
+              />
+            )}
+            <img src={mainImage} alt={product.name} className="main-image fade-in" />
+          </div>
 
           <div className="product-info">
             <h2>{product.name}</h2>
             <p className="description">{product.description}</p>
             <p className="price">R{product.price.toFixed(2)}</p>
 
-            <h4>Available Sizes:</h4>
-            <div className="sizes-selection">
-              {product.sizes.map((size) => (
-                <span
-                  key={size}
-                  className={`size-badge ${selectedSize === size ? 'selected' : ''}`}
-                  onClick={() => setSelectedSize(size)}
-                >
-                  {size}
-                </span>
-              ))}
-            </div>
+            {product.sizes.length > 0 && (
+              <>
+                <h4>Available Sizes:</h4>
+                <div className="sizes-selection">
+                  {product.sizes.map(size => (
+                    <span
+                      key={size}
+                      className={`size-badge ${selectedSize === size ? 'selected' : ''}`}
+                      onClick={() => setSelectedSize(size)}
+                    >
+                      {size}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
 
             <div className="quantity-selector">
               <label htmlFor="quantity">Quantity:</label>
@@ -95,26 +108,17 @@ export default function ProductDetails({ onAddToCart, products }) {
           </div>
         </div>
 
-        {product.otherImages?.length > 0 && (
+        {product.otherImages.length > 0 && (
           <>
             <h4>More Photos:</h4>
             <div className="image-gallery">
-              {/* Add product.image (main image) to the gallery so user can click back to it */}
-              <img
-                src={product.image}
-                alt={`Main view of ${product.name}`}
-                className={`thumbnail ${mainImage === product.image ? 'selected-thumbnail' : ''}`}
-                onClick={() => setMainImage(product.image)}
-                style={{ cursor: 'pointer' }}
-              />
-              {product.otherImages.map((img, index) => (
+              {[product.image, ...product.otherImages].map((img, idx) => (
                 <img
-                  key={index}
+                  key={idx}
                   src={img}
-                  alt={`More of ${product.name} view ${index + 2}`}
+                  alt={`${product.name} view ${idx + 1}`}
                   className={`thumbnail ${mainImage === img ? 'selected-thumbnail' : ''}`}
-                  onClick={() => setMainImage(img)}
-                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleThumbnailClick(img)}
                 />
               ))}
             </div>
@@ -122,14 +126,12 @@ export default function ProductDetails({ onAddToCart, products }) {
         )}
       </div>
 
-      <Link to="/products" className="back-btn">
-        ← Back to Products
-      </Link>
+      <Link to="/products" className="back-btn">← Back to Products</Link>
 
       <AddToCartConfirmation
         show={showConfirmation}
         message={confirmationMessage}
-        onClose={handleCloseConfirmation}
+        onClose={() => setShowConfirmation(false)}
         duration={3000}
       />
     </div>

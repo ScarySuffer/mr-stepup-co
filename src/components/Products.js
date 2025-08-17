@@ -1,50 +1,38 @@
 // src/components/Products.js
-import React from "react";
-import ProductCard from "./ProductCard";
-import FilterSortBar from "./FilterSortBar";
-import "./Products.css";
+import React, { useMemo } from 'react';
+import ProductCard from './ProductCard';
+import productData from './productData';
+import './Products.css';
 
-export default function Products({
-  onAddToCart,
-  productsToDisplay,
-  // PROPS FOR FILTER/SORT
-  selectedBrand,
-  setSelectedBrand,
-  selectedSize,
-  setSelectedSize,
-  sortBy,
-  setSortBy,
-  uniqueBrands,
-  uniqueSizes,
-}) {
+/**
+ * Renders the main product list page with a responsive grid of product cards.
+ * @param {function} onAddToCart - Handler to add a product to the cart.
+ */
+export default function Products({ onAddToCart }) {
+  const products = useMemo(() => productData, []);
+
   return (
-    <section id="products" className="products-section">
-      <h2>Our Complete Collection</h2>
-      <FilterSortBar
-        selectedBrand={selectedBrand}
-        setSelectedBrand={setSelectedBrand}
-        selectedSize={selectedSize}
-        setSelectedSize={setSelectedSize}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        uniqueBrands={uniqueBrands}
-        uniqueSizes={uniqueSizes}
-      />
+    <section className="products-section">
+      <div className="products-header">
+        <h2>Our Products</h2>
+        <p className="subtext">Find something you love.</p>
+      </div>
 
-      {productsToDisplay.length === 0 && (
+      {products.length > 0 ? (
+        <div className="products-grid">
+          {products.map(product => (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              onAddToCart={onAddToCart} 
+            />
+          ))}
+        </div>
+      ) : (
         <p className="no-products-message">
-          No sneakers found matching your search, filters, or sorting criteria.
+          No products found. Please check back later!
         </p>
       )}
-      <div className="products-grid">
-        {productsToDisplay.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onAddToCart={onAddToCart}
-          />
-        ))}
-      </div>
     </section>
   );
 }

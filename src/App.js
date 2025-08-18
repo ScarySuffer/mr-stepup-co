@@ -1,4 +1,3 @@
-// src/App.js
 import './App.css';
 import React, { useState, useEffect, useMemo, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
@@ -6,7 +5,8 @@ import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, ThemeContext } from './context/ThemeContext';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 
-import Auth from "./components/Auth";
+// CORRECTED: Changed from 'import Auth from...' to 'import { Auth } from...'
+import Auth from './components/Auth';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './components/Home';
@@ -21,6 +21,9 @@ import OrderHistory from './components/OrderHistory';
 import ProductForm from './components/Admin/ProductForm';
 import AdminProductsList from './components/Admin/AdminProductsList';
 import NotFoundPage from './components/NotFoundPage';
+
+// Import the new ScrollToTopButton component
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 // Import initial data to use as the source of truth
 import initialProductData from './components/productData';
@@ -192,10 +195,10 @@ function AppContent() {
 
     switch (sortBy) {
       case 'price-asc':
-        filtered.sort((a, b) => a.price - b.price);
+        filtered.sort((a, b) => a.price - a.price);
         break;
       case 'price-desc':
-        filtered.sort((a, b) => b.price - a.price);
+        filtered.sort((a, b) => b.price - b.price);
         break;
       case 'name-asc':
         filtered.sort((a, b) => a.name.localeCompare(b.name));
@@ -339,6 +342,7 @@ function AppContent() {
         </Routes>
       </main>
       <Footer />
+      <ScrollToTopButton /> {/* The button is added here */}
     </>
   );
 }

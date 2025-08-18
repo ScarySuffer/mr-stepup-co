@@ -1,11 +1,11 @@
-// src/context/AuthContext.js
 import React, { createContext, useEffect, useState } from "react";
-import { auth } from "../firebase/firebaseConfig"; // Assuming 'auth' is exported directly
+import { auth } from "../firebase/firebaseConfig";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -21,30 +21,27 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-      setLoading(false); // Set loading to false once auth state is determined
+      setLoading(false);
       setAuthError(null);
 
-      // --- RETAIN THIS BLOCK: If a user logs in WHILE on the /login page, navigate to home ---
-      if (user) {
-        if (window.location.pathname === "/login" || window.location.pathname === "/signup") {
-          navigate("/"); // Redirect to home if user just logged in/signed up from auth page
-        }
+      if (user && (window.location.pathname === "/login" || window.location.pathname === "/signup")) {
+        navigate("/");
       }
     });
     return unsubscribe;
-  }, [navigate]); // Added `auth` to dependency array to ensure consistent listener if 'auth' instance ever changed. **Correction: `auth` is a stable reference from firebaseConfig, so it usually doesn't need to be in the dependency array unless you expect it to change.** `Maps` is sufficient.
+  }, [navigate]);
 
   const signIn = async (email, password) => {
     setLoading(true);
     setAuthError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // setLoading(false); // Handled by onAuthStateChanged listener
     } catch (error) {
       setAuthError(error.message);
-      setLoading(false); // Only set loading to false here if onAuthStateChanged doesn't immediately fire for an error
+      setLoading(false);
       throw error;
     }
+    setLoading(false);
   };
 
   const signUp = async (email, password) => {
@@ -52,26 +49,32 @@ export function AuthProvider({ children }) {
     setAuthError(null);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      // setLoading(false); // Handled by onAuthStateChanged listener
     } catch (error) {
       setAuthError(error.message);
-      setLoading(false); // Only set loading to false here if onAuthStateChanged doesn't immediately fire for an error
+      setLoading(false);
       throw error;
     }
+    setLoading(false);
   };
 
   const signOut = async () => {
     setLoading(true);
     try {
       await firebaseSignOut(auth);
-      // setLoading(false); // Handled by onAuthStateChanged listener
     } catch (error) {
       setAuthError(error.message);
-      setLoading(false); // Only set loading to false here if onAuthStateChanged doesn't immediately fire for an error
+    }
+    setLoading(false);
+  };
+
+  const resetPassword = async (email) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      throw error;
     }
   };
 
-  // The loading animation component
   if (loading) {
     return (
       <div className="loading-container">
@@ -83,7 +86,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, signIn, signUp, signOut, authError, loading }}
+      value={{ currentUser, signIn, signUp, signOut, authError, loading, resetPassword }}
     >
       {children}
     </AuthContext.Provider>

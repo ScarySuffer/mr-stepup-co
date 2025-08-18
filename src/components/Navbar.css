@@ -91,7 +91,7 @@
 /* UPDATED: Logo Image Styling - consolidated and corrected for specificity */
 .app-navbar .navbar-brand .navbar-logo {
   height: 50px;       /* Set a default height for desktop */
-  width: auto;         /* Maintain aspect ratio */
+  width: auto;          /* Maintain aspect ratio */
   margin-right: 0.5rem; /* Optional spacing if you keep text next to logo */
   object-fit: contain; /* Ensures logo doesn't stretch */
   display: inline-block;
@@ -118,7 +118,29 @@
   color: var(--navbar-link-color);
   font-weight: 600;
   font-size: 1rem;
-  transition: color 0.3s ease, font-size 0.3s ease;
+  transition: color 0.3s ease, font-size 0.3s ease, transform 0.2s ease;
+  position: relative;
+  text-decoration: none;
+  padding-bottom: 0.5rem; /* Give space for the underline */
+}
+
+/* New: Hover effect for links */
+.app-navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--navbar-link-hover-color);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.app-navbar .nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 /* Hover and focus states */
@@ -131,9 +153,13 @@
 /* Style for the active/current nav link */
 .app-navbar .nav-link.active {
   color: var(--navbar-link-hover-color);
-  border-bottom: 2px solid var(--navbar-link-hover-color);
-  padding-bottom: 0.3rem;
 }
+
+/* Ensure the active link's underline is visible */
+.app-navbar .nav-link.active::after {
+  transform: scaleX(1);
+}
+
 
 /* Spacing between nav links */
 .app-navbar .navbar-nav > li + li {
@@ -278,10 +304,11 @@
 }
 
 /* Specific colors for Sun and Moon icons based on theme */
-.sun-icon {
+.sun-icon { 
   color: var(--sun-icon-color);
 }
 
 .moon-icon {
   color: var(--moon-icon-color);
 }
+  

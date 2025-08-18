@@ -77,7 +77,6 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
     setTogglerIconColor(color.replace('#', ''));
   }, [theme]); // Re-run when the theme changes
 
-
   const handleLogout = async () => {
     try {
       await signOut(auth);

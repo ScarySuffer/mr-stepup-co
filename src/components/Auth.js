@@ -1,99 +1,218 @@
-import React, { useState, useContext, useEffect } from "react";
-// REMOVED: import { auth } from "../firebase/firebaseConfig"; // No longer needed here as context handles auth instance
-// REMOVED: import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, } from "firebase/auth"; // No longer needed as context provides methods
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+import {
+  FaUserPlus,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaEnvelope,
+  FaLock,
+  FaSpinner,
+  FaUserCheck,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 
-// Import React Icons
-import { FaUserPlus, FaSignInAlt, FaSignOutAlt, FaEnvelope, FaLock, FaSpinner, FaUserCheck } from 'react-icons/fa';
+import "./Auth.css";
 
-import './Auth.css';
+export default function Auth({ mode: initialMode }) {
+  // Use a single state for the current mode, allowing direct manipulation
+  const [currentMode, setCurrentMode] = useState(initialMode || "login"); // 'login', 'signup', 'forgot-password'
 
-export default function Auth({ mode }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isRegister, setIsRegister] = useState(mode === 'signup');
+  // Consolidate form data into a single object
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Local loading state for Auth component's forms
+  const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Correctly destructure all properties from AuthContext
-  const { 
-    currentUser, 
-    signIn: authContextSignIn, 
-    signUp: authContextSignUp, 
-    signOut: authContextSignOut, 
-    loading: authContextLoading // Use loading from context for initial state
-  } = useContext(AuthContext); 
+  const [passwordValid, setPasswordValid] = useState({
+    length: false,
+    digit: false,
+    special: false,
+    uppercase: false,
+    lowercase: false,
+  });
+
+  const {
+    currentUser,
+    signIn: authContextSignIn,
+    signUp: authContextSignUp,
+    signOut: authContextSignOut,
+    resetPassword: authContextResetPassword,
+    loading: authContextLoading,
+  } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  // Use this useEffect to ensure isRegister state matches the URL mode
+  // Effect to sync external `mode` prop with internal `currentMode` state
   useEffect(() => {
-    setIsRegister(mode === 'signup');
-    setError(""); // Clear error when mode changes
-  }, [mode]);
+    setCurrentMode(initialMode || "login");
+    // Also clear states when mode changes from parent
+    setFormData({ email: "", password: "" });
+    setError("");
+    setSuccessMessage("");
+    setShowPassword(false);
+    setPasswordValid({
+      length: false, digit: false, special: false, uppercase: false, lowercase: false,
+    });
+  }, [initialMode]);
 
-  // If user is already logged in, redirect them away from login/signup pages
+  // Effect for redirection after successful authentication
   useEffect(() => {
-    // Only redirect if authContextLoading is false (auth state is determined)
     if (!authContextLoading && currentUser) {
-      navigate("/"); // Redirect to home if user is already logged in
+      navigate("/");
     }
   }, [currentUser, navigate, authContextLoading]);
 
+  // Handle input changes, updating the formData state
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    // Live password validation for signup mode
+    if (name === "password" && currentMode === "signup") {
+      validatePasswordStrength(value);
+    }
+  };
 
-  const validateForm = () => {
-    if (!email.trim() || !password.trim()) {
-      setError("Please enter both email and password.");
+  // Password strength validation logic
+  const validatePasswordStrength = useCallback((pwd) => {
+    const validations = {
+      length: pwd.length >= 8,
+      digit: /\d/.test(pwd),
+      special: /[!@#$%^&*(),.?":{}|<>]/.test(pwd),
+      uppercase: /[A-Z]/.test(pwd),
+      lowercase: /[a-z]/.test(pwd),
+    };
+    setPasswordValid(validations);
+    return Object.values(validations).every(Boolean);
+  }, []);
+
+  // Centralized form validation
+  const validateForm = useCallback(() => {
+    setError(""); // Clear previous errors
+    setSuccessMessage(""); // Clear previous success messages
+
+    if (!formData.email.trim()) {
+      setError("Email is required.");
       return false;
     }
-    setError("");
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setError("Please enter a valid email address.");
+      return false;
+    }
+
+    if (currentMode === "login" || currentMode === "signup") {
+      if (!formData.password.trim()) {
+        setError("Password is required.");
+        return false;
+      }
+    }
+
+    if (currentMode === "signup") {
+      if (!validatePasswordStrength(formData.password)) {
+        setError("Password does not meet all requirements.");
+        return false;
+      }
+    }
     return true;
-  };
+  }, [currentMode, formData.email, formData.password, validatePasswordStrength]);
 
-  const handleRegister = async (e) => {
+  // Function to switch between modes and reset relevant states
+  const handleModeSwitch = useCallback((newMode) => {
+    setCurrentMode(newMode);
+    setFormData({ email: "", password: "" }); // Reset form data
+    setError(""); // Clear errors
+    setSuccessMessage(""); // Clear success messages
+    setShowPassword(false); // Reset password visibility
+    setPasswordValid({ // Reset password validation for register
+      length: false, digit: false, special: false, uppercase: false, lowercase: false,
+    });
+  }, []);
+
+  // Single function to handle all form submissions
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
-    setLoading(true); // Start local loading
+    setLoading(true);
     setError("");
-    try {
-      await authContextSignUp(email, password); // Use context's signUp method
-      // AuthContext's useEffect will handle navigation after successful sign up
-    } catch (err) {
-      setError(err.message);
+    setSuccessMessage("");
+
+    if (currentMode !== "forgot-password" && !validateForm()) {
+        setLoading(false);
+        return;
     }
-    setLoading(false); // End local loading
+    // Specific validation for forgot password as it only needs email
+    if (currentMode === "forgot-password" && !formData.email.trim()) {
+        setError("Please enter your email to reset password.");
+        setLoading(false);
+        return;
+    }
+    if (currentMode === "forgot-password" && !/\S+@\S+\.\S+/.test(formData.email)) {
+        setError("Please enter a valid email address for password reset.");
+        setLoading(false);
+        return;
+    }
+
+
+    try {
+      if (currentMode === "login") {
+        await authContextSignIn(formData.email, formData.password);
+        setSuccessMessage("Login successful! Redirecting...");
+      } else if (currentMode === "signup") {
+        await authContextSignUp(formData.email, formData.password);
+        setSuccessMessage("Registration successful! Please login.");
+        // Optionally switch to login mode after successful registration
+        setTimeout(() => handleModeSwitch("login"), 2000);
+      } else if (currentMode === "forgot-password") {
+        await authContextResetPassword(formData.email);
+        setSuccessMessage("Password reset email sent! Check your inbox.");
+        // Optionally switch back to login mode after successful reset request
+        setTimeout(() => handleModeSwitch("login"), 5000);
+      }
+    } catch (err) {
+      setError(err.message || "An unexpected error occurred.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-    setLoading(true); // Start local loading
-    setError("");
-    try {
-      await authContextSignIn(email, password); // Use context's signIn method
-      // AuthContext's useEffect will handle navigation after successful login
-    } catch (err) {
-      setError(err.message);
-    }
-    setLoading(false); // End local loading
-  };
-
+  // Handle Logout
   const handleLogout = async () => {
-    setLoading(true); // Start local loading
+    setLoading(true);
     try {
-      await authContextSignOut(); // Use context's signOut method
-      setEmail("");
-      setPassword("");
+      await authContextSignOut();
+      // Reset all states after logout
+      setFormData({ email: "", password: "" });
       setError("");
-      // AuthContext's useEffect will handle navigation after successful logout
+      setSuccessMessage("You have been successfully logged out.");
+      setCurrentMode("login"); // Default to login page after logout
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Failed to log out.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false); // End local loading
   };
 
-  // Render when user is logged in (if they somehow navigate back to /login or /signup)
+  // Helper for input class (optional, could be handled in CSS with :valid/:invalid)
+  const getInputClass = (field) => {
+    if (!formData[field]) return "auth-input";
+    if (field === "email") {
+      return /\S+@\S+\.\S+/.test(formData.email) ? "auth-input valid" : "auth-input invalid";
+    }
+    if (field === "password" && currentMode === "signup") {
+      return validatePasswordStrength(formData.password) ? "auth-input valid" : "auth-input invalid";
+    }
+    return "auth-input"; // Default for login password
+  };
+
+  // Render content based on authentication status
   if (currentUser) {
     return (
       <div className="auth-page-wrapper">
@@ -104,106 +223,208 @@ export default function Auth({ mode }) {
           <button
             onClick={handleLogout}
             className="auth-button logout-button"
-            disabled={loading} // Use local loading state
-            aria-busy={loading}
+            disabled={loading || authContextLoading}
+            aria-busy={loading || authContextLoading}
           >
-            {loading ? <FaSpinner className="spinner" /> : <FaSignOutAlt className="mr-2" />}
-            {loading ? "Logging out..." : "Logout"}
+            {(loading || authContextLoading) ? <FaSpinner className="spinner" /> : <FaSignOutAlt className="mr-2" />}
+            {(loading || authContextLoading) ? "Logging out..." : "Logout"}
           </button>
-          {error && (
-            <p className="auth-error" aria-live="polite">{error}</p>
-          )}
+          {error && <p className="auth-error" aria-live="polite">{error}</p>}
         </div>
       </div>
     );
   }
 
-  // Render login/register form
+  // Render authentication forms
   return (
     <div className="auth-page-wrapper">
       <div className="auth-container">
         <h3 className="auth-title">
-          {isRegister ? <><FaUserPlus className="mr-2" /> Register</> : <><FaSignInAlt className="mr-2" /> Login</>}
-        </h3>
-        <form onSubmit={isRegister ? handleRegister : handleLogin} noValidate className="auth-form">
-          <div className="input-group">
-            <FaEnvelope className="input-icon" />
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="auth-input"
-              disabled={loading} // Use local loading state
-              required
-            />
-          </div>
-          <div className="input-group">
-            <FaLock className="input-icon" />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="auth-input"
-              disabled={loading} // Use local loading state
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="auth-button"
-            disabled={loading} // Use local loading state
-            aria-busy={loading}
-          >
-            {loading ? (
-              <FaSpinner className="spinner mr-2" />
-            ) : (
-              isRegister ? <FaUserPlus className="mr-2" /> : <FaSignInAlt className="mr-2" />
-            )}
-            {loading ? (isRegister ? "Registering..." : "Logging in...") : (isRegister ? "Register" : "Login")}
-          </button>
-        </form>
-
-        {error && (
-          <p className="auth-error" aria-live="polite">
-            {error}
-          </p>
-        )}
-
-        <p className="auth-toggle-text">
-          {isRegister ? (
+          {currentMode === "forgot-password" ? (
             <>
-              Already have an account?{" "}
-              <button
-                onClick={() => {
-                  setIsRegister(false);
-                  setError("");
-                }}
-                disabled={loading} // Use local loading state
-                className="auth-toggle-button"
-                type="button"
-              >
-                Login
-              </button>
+              <FaEnvelope className="mr-2" /> Reset Password
+            </>
+          ) : currentMode === "signup" ? (
+            <>
+              <FaUserPlus className="mr-2" /> Register
             </>
           ) : (
             <>
-              Don't have an account?{" "}
-              <button
-                onClick={() => {
-                  setIsRegister(true);
-                  setError("");
-                }}
-                disabled={loading} // Use local loading state
-                className="auth-toggle-button"
-                type="button"
-              >
-                Register
-              </button>
+              <FaSignInAlt className="mr-2" /> Login
             </>
           )}
-        </p>
+        </h3>
+
+        <div className="auth-form-wrapper">
+          {/* Form for Login and Register */}
+          <form
+            onSubmit={handleSubmit}
+            className={`auth-form-inner ${currentMode === "forgot-password" ? "auth-form-hidden" : "auth-form-visible"}`}
+          >
+            <div className="input-group">
+              <FaEnvelope className="input-icon" />
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className={getInputClass("email")}
+                disabled={loading}
+                required
+              />
+            </div>
+
+            {/* Password input visible only for login and signup modes */}
+            {currentMode !== "forgot-password" && (
+              <div className="input-group">
+                <FaLock className="input-icon" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={getInputClass("password")}
+                  disabled={loading}
+                  required
+                />
+                <span className="password-toggle" onClick={() => setShowPassword((prev) => !prev)}>
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+            )}
+
+            {/* Password requirements only for registration mode */}
+            {currentMode === "signup" && (
+              <div className="password-requirements">
+                <p className={passwordValid.length ? "valid-msg" : "invalid-msg"}>• At least 8 characters</p>
+                <p className={passwordValid.digit ? "valid-msg" : "invalid-msg"}>• At least 1 digit</p>
+                <p className={passwordValid.special ? "valid-msg" : "invalid-msg"}>• At least 1 special character</p>
+                <p className={passwordValid.uppercase ? "valid-msg" : "invalid-msg"}>• At least 1 uppercase letter</p>
+                <p className={passwordValid.lowercase ? "valid-msg" : "invalid-msg"}>• At least 1 lowercase letter</p>
+              </div>
+            )}
+
+            {/* Submit button for Login/Register */}
+            {currentMode !== "forgot-password" && ( // Ensure button is only shown for these modes
+              <button
+                type="submit"
+                className="auth-button"
+                disabled={loading}
+                aria-busy={loading}
+              >
+                {loading ? (
+                  <FaSpinner className="spinner mr-2" />
+                ) : currentMode === "signup" ? (
+                  <FaUserPlus className="mr-2" />
+                ) : (
+                  <FaSignInAlt className="mr-2" />
+                )}
+                {loading
+                  ? currentMode === "signup"
+                    ? "Registering..."
+                    : "Logging in..."
+                  : currentMode === "signup"
+                    ? "Register"
+                    : "Login"}
+              </button>
+            )}
+
+            {/* Forgot Password Link - Only shown in login mode */}
+            {currentMode === "login" && (
+              <p className="forgot-password-text">
+                <button
+                  type="button"
+                  className="auth-toggle-button"
+                  onClick={() => handleModeSwitch("forgot-password")}
+                  disabled={loading}
+                >
+                  Forgot Password?
+                </button>
+              </p>
+            )}
+          </form>
+
+          {/* Forgot Password Form (separate form for onSubmit but shares email input) */}
+          <form
+            onSubmit={handleSubmit} // Re-using handleSubmit for forgot password
+            className={`auth-form-inner ${currentMode === "forgot-password" ? "auth-form-visible" : "auth-form-hidden"}`}
+          >
+            {/* Email input for Forgot Password mode */}
+            {currentMode === "forgot-password" && (
+              <div className="input-group">
+                <FaEnvelope className="input-icon" />
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={getInputClass("email")}
+                  disabled={loading}
+                  required
+                />
+              </div>
+            )}
+
+            {/* Only show button for forgot password form */}
+            {currentMode === "forgot-password" && (
+              <button type="submit" className="auth-button" disabled={loading} aria-busy={loading}>
+                {loading ? <FaSpinner className="spinner mr-2" /> : <FaEnvelope className="mr-2" />}
+                {loading ? "Sending..." : "Reset Password"}
+              </button>
+            )}
+
+            {/* Only show "Back to Login" for forgot password form */}
+            {currentMode === "forgot-password" && (
+              <p className="forgot-password-text">
+                <button
+                  type="button"
+                  className="auth-toggle-button"
+                  onClick={() => handleModeSwitch("login")}
+                  disabled={loading}
+                >
+                  Back to Login
+                </button>
+              </p>
+            )}
+          </form>
+        </div>
+
+        {error && <p className="auth-error" aria-live="polite">{error}</p>}
+        {successMessage && <p className="forgot-password-success" aria-live="polite">{successMessage}</p>}
+
+        {/* Toggle links for login/register - hidden in forgot password mode */}
+        {currentMode !== "forgot-password" && (
+          <p className="auth-toggle-text">
+            {currentMode === "signup" ? (
+              <>
+                Already have an account?{" "}
+                <button
+                  onClick={() => handleModeSwitch("login")}
+                  disabled={loading}
+                  className="auth-toggle-button"
+                  type="button"
+                >
+                  Login
+                </button>
+              </>
+            ) : (
+              <>
+                Don't have an account?{" "}
+                <button
+                  onClick={() => handleModeSwitch("signup")}
+                  disabled={loading}
+                  className="auth-toggle-button"
+                  type="button"
+                >
+                  Register
+                </button>
+              </>
+            )}
+          </p>
+        )}
       </div>
     </div>
   );

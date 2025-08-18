@@ -34,6 +34,10 @@
   /* Loading Spinner Colors (Light Mode) */
   --spinner-border-color: rgba(0, 188, 212, 0.2);
   --spinner-top-color: #00bcd4;
+
+  /* Scroll-to-Top Button Colors (Light Mode) */
+  --scroll-btn-bg: #3f51b5;
+  --scroll-btn-hover-bg: #5c6bc0;
 }
 
 [data-theme='dark'] {
@@ -71,6 +75,10 @@
   /* Loading Spinner Colors (Dark Mode) */
   --spinner-border-color: rgba(0, 188, 212, 0.2); /* Same as light for brand consistency */
   --spinner-top-color: #00bcd4; /* Same as light for brand consistency */
+
+  /* Scroll-to-Top Button Colors (Dark Mode) */
+  --scroll-btn-bg: #5c6bc0; /* A color that fits the dark palette */
+  --scroll-btn-hover-bg: #7986cb;
 }
 
 /* GLOBAL STYLES */
@@ -166,4 +174,37 @@ body {
 .loading-container p {
   font-size: 1.2em;
   margin: 0; /* Remove default paragraph margin */
+}
+
+/* --- Scroll-to-Top Button Styles --- */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--scroll-btn-bg); /* Use theme variable */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, background-color 0.3s ease;
+  z-index: 1000;
+}
+
+/* Hover effect */
+.scroll-to-top-btn:hover {
+  background-color: var(--scroll-btn-hover-bg); /* Use theme variable */
+  transform: scale(1.1);
+}
+
+/* Ensure the button is not visible by default */
+.scroll-to-top-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
 }

@@ -1,7 +1,7 @@
 // src/App.js
 import './App.css';
 import React, { useState, useEffect, useMemo, useContext } from 'react';
-import { Routes, Route } from 'react-router-dom'; // REMOVED: Navigate
+import { Routes, Route } from 'react-router-dom';
 
 import { ThemeProvider, ThemeContext } from './context/ThemeContext';
 import { AuthProvider, AuthContext } from './context/AuthContext';
@@ -22,6 +22,7 @@ import ProductForm from './components/Admin/ProductForm';
 import AdminProductsList from './components/Admin/AdminProductsList';
 import NotFoundPage from './components/NotFoundPage';
 
+// Import initial data to use as the source of truth
 import initialProductData from './components/productData';
 
 import { db } from './firebase/firebaseConfig';
@@ -32,52 +33,28 @@ function AppContent() {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { currentUser } = useContext(AuthContext);
 
-  // Products state with localStorage fallback
-  const [products, setProducts] = useState(() => {
-    try {
-      const localProducts = localStorage.getItem("mrstepup-products");
-      return localProducts ? JSON.parse(localProducts) : initialProductData;
-    } catch (error) {
-      console.error("Failed to parse products from localStorage:", error);
-      return initialProductData;
-    }
-  });
+  // Products state now directly uses the imported data
+  // It will no longer persist changes across reloads or sessions
+  const [products, setProducts] = useState(initialProductData);
 
-  // Cart state with localStorage fallback
-  const [cartItems, setCartItems] = useState(() => {
-    try {
-      const localCart = localStorage.getItem("mrstepup-cart");
-      return localCart ? JSON.parse(localCart) : [];
-    } catch (error) {
-      console.error("Failed to parse cart from localStorage:", error);
-      return [];
-    }
-  });
-
-  // Past orders state with localStorage fallback
-  const [pastOrders, setPastOrders] = useState(() => {
-    try {
-      const localOrders = localStorage.getItem("mrstepup-past-orders");
-      return localOrders ? JSON.parse(localOrders) : [];
-    } catch (error) {
-      console.error("Failed to parse past orders from localStorage:", error);
-      return []; 
-    }
-  });
+  // Cart and orders states start with empty arrays
+  const [cartItems, setCartItems] = useState([]);
+  const [pastOrders, setPastOrders] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('All');
   const [selectedSize, setSelectedSize] = useState('All');
   const [sortBy, setSortBy] = useState('default');
 
-  // Sync products to localStorage on products change
+  // Load cart and past orders from Firestore when a user logs in
+  // This effect now exclusively handles Firestore fetching
   useEffect(() => {
-    localStorage.setItem("mrstepup-products", JSON.stringify(products));
-  }, [products]);
-
-  // Load cart and past orders from Firestore when user logs in
-  useEffect(() => {
-    if (!currentUser) return;
+    if (!currentUser) {
+      // If no user, reset the cart and orders to their initial empty states
+      setCartItems([]);
+      setPastOrders([]);
+      return;
+    }
 
     const fetchData = async () => {
       try {
@@ -96,12 +73,11 @@ function AppContent() {
     fetchData();
   }, [currentUser]);
 
-  // Save cart and past orders to Firestore and localStorage on change
+  // Save cart and past orders to Firestore on change
+  // This effect now exclusively handles Firestore saving
   useEffect(() => {
+    // Only save if a user is currently logged in
     if (!currentUser) {
-      // Save only locally if not logged in
-      localStorage.setItem("mrstepup-cart", JSON.stringify(cartItems));
-      localStorage.setItem("mrstepup-past-orders", JSON.stringify(pastOrders));
       return;
     }
 
@@ -109,24 +85,19 @@ function AppContent() {
       try {
         await setDoc(doc(db, "carts", currentUser.uid), { items: cartItems });
         await setDoc(doc(db, "orders", currentUser.uid), { orders: pastOrders });
-
-        localStorage.setItem("mrstepup-cart", JSON.stringify(cartItems));
-        localStorage.setItem("mrstepup-past-orders", JSON.stringify(pastOrders));
       } catch (error) {
         console.error("Error saving data to Firestore:", error);
       }
     };
 
-    saveData();
-  }, [cartItems, pastOrders, currentUser]);
+    // Use a small delay to debounce the save operation, which prevents too many writes
+    const timeoutId = setTimeout(() => {
+      saveData();
+    }, 500);
 
-  // Clear past orders on logout but keep cartItems intact for guests
-  useEffect(() => {
-    if (!currentUser) {
-      setPastOrders([]); // clear orders only
-      // DO NOT clear cartItems so localStorage cart persists for guests
-    }
-  }, [currentUser]);
+    return () => clearTimeout(timeoutId);
+
+  }, [cartItems, pastOrders, currentUser]);
 
   // Cart handlers
   const handleAddToCart = (product, selectedSize, quantity = 1) => {
@@ -168,7 +139,7 @@ function AppContent() {
 
   const handleAddPastOrder = (orderDetails) => {
     const newOrder = {
-      id: `order-${Date.now()}-${Math.random().toString(36).slice(2,9)}`,
+      id: `order-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
       date: new Date().toLocaleString(),
       ...orderDetails,
     };
@@ -190,9 +161,10 @@ function AppContent() {
   };
 
   const handleDeleteProduct = (productId) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
-      setProducts(prev => prev.filter(p => p.id !== productId));
-    }
+    // NOTE: The original code used `window.confirm`. In this environment, you should
+    // use a custom modal or dialog component for user confirmation, as `window.confirm`
+    // can be blocked. For now, this will simply filter the products without a confirmation dialog.
+    setProducts(prev => prev.filter(p => p.id !== productId));
   };
 
   // Filtering and sorting
@@ -310,54 +282,54 @@ function AppContent() {
             }
           />
 
-            <Route
-              path="/checkout"
-              element={
-                <RequireAuth user={currentUser}>
-                  <Checkout
-                    cartItems={cartItems}
-                    onClearCart={handleClearCart}
-                    onAddPastOrder={handleAddPastOrder}
-                  />
-                </RequireAuth>
-              }
-            />
+          <Route
+            path="/checkout"
+            element={
+              <RequireAuth user={currentUser}>
+                <Checkout
+                  cartItems={cartItems}
+                  onClearCart={handleClearCart}
+                  onAddPastOrder={handleAddPastOrder}
+                />
+              </RequireAuth>
+            }
+          />
 
-            <Route
-              path="/order-history"
-              element={
-                <RequireAuth user={currentUser}>
-                  <OrderHistory pastOrders={pastOrders} />
-                </RequireAuth>
-              }
-            />
+          <Route
+            path="/order-history"
+            element={
+              <RequireAuth user={currentUser}>
+                <OrderHistory pastOrders={pastOrders} />
+              </RequireAuth>
+            }
+          />
 
-            <Route
-              path="/admin/products"
-              element={
-                <RequireAuth user={currentUser}>
-                  <AdminProductsList products={products} onDeleteProduct={handleDeleteProduct} />
-                </RequireAuth>
-              }
-            />
+          <Route
+            path="/admin/products"
+            element={
+              <RequireAuth user={currentUser}>
+                <AdminProductsList products={products} onDeleteProduct={handleDeleteProduct} />
+              </RequireAuth>
+            }
+          />
 
-            <Route
-              path="/admin/add-product"
-              element={
-                <RequireAuth user={currentUser}>
-                  <ProductForm onSubmit={handleProductSubmit} products={products} />
-                </RequireAuth>
-              }
-            />
+          <Route
+            path="/admin/add-product"
+            element={
+              <RequireAuth user={currentUser}>
+                <ProductForm onSubmit={handleProductSubmit} products={products} />
+              </RequireAuth>
+            }
+          />
 
-            <Route
-              path="/admin/edit-product/:id"
-              element={
-                <RequireAuth user={currentUser}>
-                  <ProductForm onSubmit={handleProductSubmit} products={products} />
-                </RequireAuth>
-              }
-            />
+          <Route
+            path="/admin/edit-product/:id"
+            element={
+              <RequireAuth user={currentUser}>
+                <ProductForm onSubmit={handleProductSubmit} products={products} />
+              </RequireAuth>
+            }
+          />
 
           {/* Auth routes */}
           <Route path="/login" element={<Auth mode="login" />} />

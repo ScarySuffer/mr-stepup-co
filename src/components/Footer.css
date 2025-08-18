@@ -8,19 +8,21 @@ html, body, #root {
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  position: relative;
-  padding-bottom: 100px; /* Reserve space for floating footer */
+  min-height: 100vh; /* This ensures the body takes at least the full viewport height */
+  /* Remove position: relative and padding-bottom from body */
 }
 
-/* Floating Footer */
+/* Footer (Non-Sticky) */
 .footer {
-  position: fixed;       /* Float over content */
-  bottom: 0;             /* Stick to bottom */
-  left: 0;
+  /* Remove position: fixed; */
+  /* Remove bottom: 0; */
+  /* Remove left: 0; */
+  /* Remove z-index: 1000; */
+  
   width: 100%;
   padding: 20px 25px;
   text-align: center;
+  margin-top: auto; /* This is the key for making it stick to the bottom of the content in a flex column */
 
   /* Glassmorphic style */
   background-color: rgba(0, 0, 0, 0.35);
@@ -30,9 +32,8 @@ body {
 
   color: #f0f0f0;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
   transition: all 0.3s ease;
-  border-radius: 12px 12px 0 0; /* Rounded top corners for floating effect */
+  border-radius: 0; /* Remove rounded top corners if you want it flush */
 }
 
 /* Footer content alignment */

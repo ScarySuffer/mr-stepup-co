@@ -1,11 +1,12 @@
 .flip-card {
   background-color: transparent;
-  width: 100%;
-  min-height: 480px;
-  perspective: 1200px; /* Slightly stronger 3D effect */
+  width: 100%; /* Ensures it takes up full grid column width */
+  min-height: 480px; /* Base min-height */
+  perspective: 1200px;
   border-radius: 1rem;
   font-family: 'Inter', sans-serif;
   transition: transform 0.3s ease;
+  /* Add global border, shadow, etc. here if not already in Products.css .product-card */
 }
 
 .flip-card-inner {
@@ -54,7 +55,7 @@
 /* Product Images */
 .product-main-image {
   width: 100%;
-  height: 220px;
+  height: 220px; /* Fixed height for desktop/larger screens */
   object-fit: cover;
   border-radius: 0.75rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -83,7 +84,7 @@
   color: #3b82f6;
   font-weight: bold;
   font-size: 1.2rem;
-  margin-top: auto;
+  margin-top: auto; /* Pushes price to bottom of front card */
 }
 
 /* BACK CONTENT */
@@ -160,19 +161,89 @@
   box-shadow: 0 2px 6px rgba(59,130,246,0.4);
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+/* -------------------------------------------------------------------------------------- */
+
+
+
+/* Disable flip on touch devices */
+@media (hover: none) and (pointer: coarse) {
   .flip-card-inner {
-    transform: none; /* Disable hover flip on mobile */
+    transform: none !important; /* Force no flip */
   }
-  .flip-card-front, .flip-card-back {
-    position: relative;
+  .flip-card-front,
+  .flip-card-back {
+    position: relative; /* Make back visible below front on mobile */
   }
   .flip-card-back {
-    margin-top: 1rem;
+    margin-top: 1rem; /* Space between front and back */
+    box-shadow: none; /* Remove shadow if it clashes with stacked layout */
   }
 }
-/* Image fade-in/out */
+
+
+/* Smallest Mobile Screens (e.g., iPhone SE, older iPhones in portrait, up to 480px) */
+@media (max-width: 480px) {
+  .flip-card {
+    min-height: 380px; /* Reduced min-height for compact display */
+    max-width: 320px; /* Ensure cards don't get too wide even if grid allows */
+    margin: 0 auto; /* Center the card in its column if max-width is applied */
+  }
+
+  .product-main-image {
+    height: 180px; /* Smaller image height for compact cards */
+  }
+
+  .product-details-content h3 {
+    font-size: 1.15rem; /* Smaller heading text */
+  }
+
+  .product-brand {
+    font-size: 0.8rem; /* Smaller brand text */
+  }
+
+  .product-price {
+    font-size: 1rem; /* Smaller price text */
+  }
+
+  .size-selector select,
+  .add-to-cart-btn,
+  .view-details-btn {
+    font-size: 0.9rem; /* Smaller text on buttons/select for mobile */
+    padding: 0.5rem 1rem; /* Adjust padding for buttons */
+  }
+
+  .thumbnail-gallery-back .thumbnail {
+    width: 35px; /* Smaller thumbnails */
+    height: 35px;
+  }
+}
+
+/* Medium Mobile Screens (e.g., iPhone 15 Pro, larger phones in portrait, up to 599px) */
+@media (min-width: 481px) and (max-width: 599px) {
+  .flip-card {
+    min-height: 420px; /* Slightly more height */
+    max-width: 350px; /* A bit wider for better use of space */
+    margin: 0 auto;
+  }
+
+  .product-main-image {
+    height: 200px;
+  }
+
+  .product-details-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .product-brand {
+    font-size: 0.85rem;
+  }
+
+  .product-price {
+    font-size: 1.1rem;
+  }
+}
+
+/* Image fade-in/out animations */
 .product-main-image.fade-in {
   opacity: 0;
   animation: fadeIn 0.4s forwards;

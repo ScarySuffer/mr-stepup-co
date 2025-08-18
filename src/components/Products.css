@@ -1,8 +1,9 @@
+/* Base styles for the products section */
 .products-section {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  min-height: calc(100vh - var(--navbar-height, 72px));
+  min-height: calc(100vh - var(--navbar-height, 72px)); /* Using vh for now as dvh has less support */
   padding: 4rem 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-main);
@@ -29,6 +30,7 @@
   color: var(--text-color-secondary, #6b7280);
 }
 
+/* Default grid for larger screens - flexible columns */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -48,41 +50,114 @@
   box-sizing: border-box;
 }
 
-/* Responsive Breakpoints */
+/* PRODUCT CARD BASE STYLES - Assuming ProductCard component has 'product-card' class */
+/* These styles apply globally to all product cards unless overridden by media queries. */
+.product-card {
+  width: 100%; /* Default to filling its grid column */
+  box-sizing: border-box;
+  /* Add other general styling for your ProductCard here, e.g., border, shadow, internal padding */
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Adjustments for image within the ProductCard (globally) */
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  max-height: 200px; /* Limits image height globally for consistency */
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+
+
+
+/* Medium devices (landscape tablets, small desktops, 768px and up) */
 @media (min-width: 768px) {
   .products-section {
-    padding: 5rem 3rem;
+    padding: 5rem 3rem; /* Original value for this breakpoint */
   }
   .products-grid {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Original value for this breakpoint */
+    gap: 2.5rem; /* Original value for this breakpoint */
   }
 }
 
+/* Large devices (desktops, 1024px and up) */
 @media (min-width: 1024px) {
   .products-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
+/* Extra large devices (large desktops, 1440px and up) */
 @media (min-width: 1440px) {
   .products-grid {
     grid-template-columns: repeat(5, 1fr);
   }
 }
 
-@media (max-width: 599px) {
+/* -------------------------------------------------------------------------------------- */
+
+
+
+/* Small devices (phones in landscape, small tablets, 600px up to 767.98px) */
+@media (min-width: 600px) and (max-width: 767.98px) {
   .products-section {
-    padding: 2.5rem 1rem;
+    padding: 3rem 1.5rem; /* Adjusted padding for these devices */
   }
   .products-header h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+  .products-header .subtext {
+    font-size: 1.1rem;
   }
   .products-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Allows two columns if space allows */
     gap: 1.5rem;
+  }
+  .product-card {
+    max-width: 350px; /* Ensure cards don't get too wide in this range */
+    margin: 0 auto;
+  }
+}
+
+/* Very Small Devices (portrait phones, up to 599px - targets most iPhones vertically) */
+@media (max-width: 599px) {
+  .products-section {
+    padding: 1.5rem 0.8rem; /* Reduced padding for very small screens */
+    min-height: calc(100vh - var(--navbar-height-mobile, 60px)); /* Using vh, adjust for mobile navbar */
+  }
+  .products-header {
+    margin-bottom: 1.5rem;
+  }
+  .products-header h2 {
+    font-size: 1.8rem;
+  }
+  .products-header .subtext {
+    font-size: 0.95rem;
+  }
+  .products-grid {
+    grid-template-columns: 1fr; /* Single column layout for very small phones */
+    gap: 1rem;
+    padding: 0 0.5rem; /* Slight horizontal padding for the grid itself */
   }
   .no-products-message {
     padding: 0.5rem;
+  }
+  /* Specific sizing for product cards on very small screens */
+  .product-card {
+    max-width: 300px; /* Constrain max-width for very narrow screens */
+    margin: 0 auto; /* Center card if max-width is applied */
+    padding: 0.8rem; /* Adjusted internal padding */
+  }
+  .product-card img {
+    max-height: 150px; /* Further reduce image height on smallest screens */
+    margin-bottom: 0.8rem;
   }
 }

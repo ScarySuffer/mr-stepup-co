@@ -34,7 +34,8 @@ export default function ProductCard({ product, onAddToCart }) {
   };
 
   return (
-    <div className="flip-card">
+    // Add the 'product-card' class here
+    <div className="flip-card product-card">
       <div className="flip-card-inner">
         {/* FRONT */}
         <div className="flip-card-front">

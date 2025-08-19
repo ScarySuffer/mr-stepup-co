@@ -6,6 +6,11 @@ const assetsDir = path.join(__dirname, 'public', 'assets');
 const brandFolders = ['Puma', 'adidas', 'Converse', 'New-Balance', 'nike'];
 
 // Helpers
+/**
+ * Converts a string to a URL-friendly slug.
+ * @param {string} text - The input string.
+ * @returns {string} The slugified string.
+ */
 function slugify(text) {
   return text.toString().toLowerCase()
     .replace(/[\s_]+/g, '-')
@@ -14,14 +19,24 @@ function slugify(text) {
     .replace(/-+$/, '');
 }
 
+/**
+ * Capitalizes the first letter of each word in a string,
+ * replacing hyphens and underscores with spaces.
+ * @param {string} str - The input string.
+ * @returns {string} The string with capitalized words.
+ */
 function capitalizeWords(str) {
   return str.replace(/[-_]/g, ' ')
-            .split(' ')
-            .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-            .join(' ');
+    .split(' ')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
 }
 
-// Read image files in a folder
+/**
+ * Reads image files from a specific folder.
+ * @param {string} folderPath - The path to the folder.
+ * @returns {string[]} An array of image file names.
+ */
 function readFiles(folderPath) {
   if (!fs.existsSync(folderPath)) return [];
   return fs.readdirSync(folderPath).filter(f => {
@@ -45,10 +60,11 @@ for (const brand of brandFolders) {
 
     const files = readFiles(subPath);
     files.forEach(file => {
+      // Clean up the filename to get the base product name
       let baseName = file.replace(/\.(jpg|jpeg|png|webp)$/i, '')
-                         .replace(/-(front|left|right|side|top|bottom|upside|showcase)$/i, '')
-                         .trim()
-                         .toLowerCase();
+        .replace(/-(front|left|right|side|top|bottom|upside|showcase)$/i, '')
+        .trim()
+        .toLowerCase();
 
       if (!productMap[baseName]) productMap[baseName] = { brand, baseName, images: [] };
 
@@ -67,10 +83,12 @@ for (const brand of brandFolders) {
       brand: prod.brand,
       name: capitalizeWords(prod.baseName),
       price: 999.99,
+      // Main image will prioritize front, then left, then right, then any other image
       image: prod.frontImage || prod.leftImage || prod.rightImage || prod.images[0],
-      secondaryImage: prod.rightImage || prod.leftImage || prod.frontImage || prod.images[1] || prod.images[0],
+      // The hover image will prioritize a different view for a better effect
+      hoverImage: prod.rightImage || prod.leftImage || prod.frontImage || prod.images[1] || prod.images[0],
       description: `High-quality sneaker from ${prod.brand}.`,
-      sizes: [6,7,8,9,10,11],
+      sizes: [6, 7, 8, 9, 10, 11],
       otherImages: [
         ...(prod.leftImage ? [prod.leftImage] : []),
         ...(prod.rightImage ? [prod.rightImage] : []),

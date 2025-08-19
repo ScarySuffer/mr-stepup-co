@@ -1,3 +1,22 @@
+/* --- Layout Fix for Footer --- */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure full viewport height */
+}
+
+.App {
+  flex: 1; /* Push footer down by taking remaining space */
+  display: flex;
+  flex-direction: column;
+}
+
 /* THEME VARIABLES */
 :root {
   /* Light Mode Variables - Focused on soft, modern beige/off-white tones */
@@ -84,9 +103,15 @@
 /* GLOBAL STYLES */
 body {
   background-color: var(--bg-color); /* Uses the main page background variable */
-  color: var(--text-main); /* Uses the main text color variable */
+  color: var(--text-main); /* Ensures all text directly in the body uses the main text color */
   transition: background-color 0.3s ease, color 0.3s ease;
   padding-top: 72px; /* space for sticky navbar - confirm this value matches actual navbar height */
+}
+
+/* Ensure all heading elements use the theme's heading color */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--heading-color);
+    transition: color 0.3s ease;
 }
 
 .navbar {
@@ -97,7 +122,7 @@ body {
 /* APP-SPECIFIC STYLES */
 .App {
   background-color: var(--bg-main); /* Uses card/container background variable */
-  color: var(--text-main); /* Uses main text color variable */
+  color: var(--text-main); /* Ensures App container text uses the main text color */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -121,6 +146,7 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   transition: background-color 0.3s ease;
+  color: var(--text-main); /* Ensures header text uses the main text color */
 }
 
 .App-link {
@@ -134,7 +160,7 @@ body {
   from {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
 }
@@ -147,7 +173,7 @@ body {
   align-items: center;
   min-height: 100vh; /* Takes full viewport height */
   background-color: var(--bg-color); /* Uses theme background color */
-  color: var(--text-main); /* Uses theme text color */
+  color: var(--text-main); /* Ensures loading text uses the main text color */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   gap: 15px; /* Space between spinner and text */
   transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
@@ -174,6 +200,7 @@ body {
 .loading-container p {
   font-size: 1.2em;
   margin: 0; /* Remove default paragraph margin */
+  color: var(--text-main); /* Ensures paragraphs in loading container use main text color */
 }
 
 /* --- Scroll-to-Top Button Styles --- */
@@ -182,7 +209,7 @@ body {
   bottom: 20px;
   right: 20px;
   background-color: var(--scroll-btn-bg); /* Use theme variable */
-  color: white;
+  color: white; /* The button's icon/text remains white for contrast on the themed background */
   border: none;
   border-radius: 50%;
   width: 50px;

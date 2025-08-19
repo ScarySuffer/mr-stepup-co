@@ -1,267 +1,213 @@
-.flip-card {
-  background-color: transparent;
-  width: 100%; /* Ensures it takes up full grid column width */
-  min-height: 480px; /* Base min-height */
-  perspective: 1200px;
-  border-radius: 1rem;
-  font-family: 'Inter', sans-serif;
-  transition: transform 0.3s ease;
-  /* Add global border, shadow, etc. here if not already in Products.css .product-card */
+/* src/components/ProductCard.css */
+
+/* Variables converted from SCSS */
+:root {
+  --bg-color: #EEE5E9;
+  --blue-card: #92DCE5;
+  --orange-card: #EF6F6C;
+  --red-card: #E84855;
+  --green-card: #70C1B3;
+  --yellow-card: #E8DB7D;
+  --pink-card: #FF386D;
+  --dark-text: #2B2D42;
 }
 
-.flip-card-inner {
+/* Global styles for the product card */
+.row {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  padding: 1em;
+  gap: 1em; /* This replaces the margin on the product cards to make them closer */
+}
+
+/* The .product class has been updated for responsiveness */
+.product {
+  box-shadow: 1px 5px 15px #CCC;
+  border-radius: 3px;
+  padding: 2em;
+  overflow: hidden;
   position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-  border-radius: 1rem;
+  flex: 1 1 250px; /* shorthand for flex-grow, flex-shrink, flex-basis */
+  max-width: 300px;
 }
 
-/* Flip on hover for desktop */
-@media (hover: hover) and (pointer: fine) {
-  .flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-}
-
-/* FRONT & BACK */
-.flip-card-front,
-.flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 1rem;
+.product_inner {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-.flip-card-back {
-  transform: rotateY(180deg);
-  justify-content: center;
-  gap: 1rem;
-  background-color: #f4f6f8;
-  text-align: center;
-  padding: 1rem;
-  border-radius: 1rem;
-}
-
-/* Product Images */
-.product-main-image {
-  width: 100%;
-  height: 220px; /* Fixed height for desktop/larger screens */
-  object-fit: cover;
-  border-radius: 0.75rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-image-link:hover .product-main-image {
-  transform: scale(1.05);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-/* FRONT Details */
-.product-details-content h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #1a202c;
-  margin-top: 0.8rem;
-  text-align: center;
-}
-
-.product-brand {
-  color: #4a5568;
-  font-size: 0.9rem;
-}
-
-.product-price {
-  color: #3b82f6;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-top: auto; /* Pushes price to bottom of front card */
-}
-
-/* BACK CONTENT */
-.flip-back-content {
-  display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  align-items: center;
-  width: 100%;
-}
-
-.size-selector {
-  margin: 0.5rem 0;
-}
-
-.size-selector select {
-  padding: 0.4rem 0.6rem;
-  border-radius: 0.5rem;
-  border: 1px solid #cbd5e0;
-}
-
-/* Buttons */
-.add-to-cart-btn,
-.view-details-btn {
-  padding: 0.6rem 1.5rem;
-  width: 100%;
-  border-radius: 0.75rem;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
-  background-color: #3b82f6;
-  color: #fff;
-  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.add-to-cart-btn:hover,
-.view-details-btn:hover {
-  transform: scale(1.04);
-  background-color: #2563eb;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-/* BACK THUMBNAILS */
-.thumbnail-gallery-back {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
-  width: 100%;
 }
 
-.thumbnail-gallery-back .thumbnail {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 0.25rem;
-  border: 2px solid transparent;
+.product_inner img {
+  max-width: 100%;
+  height: auto !important;
+  text-align: center;
+}
+
+.product_inner p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* TWEAKED BUTTON STYLES WITH TROLLEY ICON */
+.product_inner button {
+  /* Use flexbox to align icon and text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #FFF;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 5px; /* Slightly more rounded */
+  padding: 0.8em 2em; /* Adjusted padding to center text and icon */
+  margin: 1em 0 0 0;
+  background: none;
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all ease-in-out 0.25s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Initial subtle shadow */
 }
 
-.thumbnail-gallery-back .thumbnail:hover {
-  transform: scale(1.1);
-  border-color: #a0aec0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+.product_inner button:hover {
+  background: rgba(255, 255, 255, 1);
+  color: var(--dark-text);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Adds a more pronounced shadow on hover */
+  transform: translateY(-2px); /* Lifts the button slightly */
 }
 
-.thumbnail-gallery-back .selected-thumbnail {
-  border-color: #3b82f6;
-  transform: scale(1.05);
-  box-shadow: 0 2px 6px rgba(59,130,246,0.4);
+/* New CSS to style the <i> element directly */
+.product_inner button i {
+  margin-right: 0.5em; /* Adds space between icon and text */
 }
 
-/* -------------------------------------------------------------------------------------- */
-
-
-
-/* Disable flip on touch devices */
-@media (hover: none) and (pointer: coarse) {
-  .flip-card-inner {
-    transform: none !important; /* Force no flip */
-  }
-  .flip-card-front,
-  .flip-card-back {
-    position: relative; /* Make back visible below front on mobile */
-  }
-  .flip-card-back {
-    margin-top: 1rem; /* Space between front and back */
-    box-shadow: none; /* Remove shadow if it clashes with stacked layout */
-  }
-}
-
-
-/* Smallest Mobile Screens (e.g., iPhone SE, older iPhones in portrait, up to 480px) */
-@media (max-width: 480px) {
-  .flip-card {
-    min-height: 380px; /* Reduced min-height for compact display */
-    max-width: 320px; /* Ensure cards don't get too wide even if grid allows */
-    margin: 0 auto; /* Center the card in its column if max-width is applied */
-  }
-
-  .product-main-image {
-    height: 180px; /* Smaller image height for compact cards */
-  }
-
-  .product-details-content h3 {
-    font-size: 1.15rem; /* Smaller heading text */
-  }
-
-  .product-brand {
-    font-size: 0.8rem; /* Smaller brand text */
-  }
-
-  .product-price {
-    font-size: 1rem; /* Smaller price text */
-  }
-
-  .size-selector select,
-  .add-to-cart-btn,
-  .view-details-btn {
-    font-size: 0.9rem; /* Smaller text on buttons/select for mobile */
-    padding: 0.5rem 1rem; /* Adjust padding for buttons */
-  }
-
-  .thumbnail-gallery-back .thumbnail {
-    width: 35px; /* Smaller thumbnails */
-    height: 35px;
-  }
-}
-
-/* Medium Mobile Screens (e.g., iPhone 15 Pro, larger phones in portrait, up to 599px) */
-@media (min-width: 481px) and (max-width: 599px) {
-  .flip-card {
-    min-height: 420px; /* Slightly more height */
-    max-width: 350px; /* A bit wider for better use of space */
-    margin: 0 auto;
-  }
-
-  .product-main-image {
-    height: 200px;
-  }
-
-  .product-details-content h3 {
-    font-size: 1.25rem;
-  }
-
-  .product-brand {
-    font-size: 0.85rem;
-  }
-
-  .product-price {
-    font-size: 1.1rem;
-  }
-}
-
-/* Image fade-in/out animations */
-.product-main-image.fade-in {
+/* Overlay for "Added to basket" message */
+.product_overlay {
+  background: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-500px);
   opacity: 0;
-  animation: fadeIn 0.4s forwards;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  transition: all ease-in-out 0.45s;
 }
 
-.product-main-image.fade-out {
+.product_overlay.active {
+  transform: translateY(0);
   opacity: 1;
-  animation: fadeOut 0.4s forwards;
 }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
+.product_overlay h2 {
+  color: rgba(43, 45, 66, 0.7);
+  font-size: 1.2em;
+  margin: 1em 0;
+}
+
+.product_overlay i {
+  color: rgba(43, 45, 66, 0.7);
+  font-size: 1.5em;
+}
+
+/* Card color variations using a mixin-like approach */
+.product--blue {
+  background: linear-gradient(-45deg, var(--blue-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+
+.product--orange {
+  background: linear-gradient(-45deg, var(--orange-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+
+.product--red {
+  background: linear-gradient(-45deg, var(--red-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+
+.product--green {
+  background: linear-gradient(-45deg, var(--green-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+
+.product--yellow {
+  background: linear-gradient(-45deg, var(--yellow-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+
+.product--pink {
+  background: linear-gradient(-45deg, var(--pink-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 500px) {
+  .product {
+    flex: 1 1 100%;
   }
 }
 
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-  }
+/* Dropdown styling */
+.product__size-dropdown-container {
+  position: relative;
+  display: inline-block;
+  margin: 1em 0;
+}
+
+.product__size-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.25em 0.5em; /* Smaller padding */
+  font-size: 0.8em; /* Smaller font size */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product__size-dropdown-toggle:hover {
+  background-color: #e0e0e0;
+}
+
+/* Typo fixed here: `bi-chevron-down` instead of `bi-chevron-down.open` */
+.product__size-dropdown-toggle .bi-chevron-down {
+  font-size: 0.6em; /* Smaller icon */
+  transition: transform 0.3s ease;
+}
+
+/* Correct class for the open state */
+.product__size-dropdown-toggle .bi-chevron-down.open {
+  transform: rotate(180deg);
+}
+
+.product__size-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  list-style: none;
+  margin: 0.25em 0 0 0;
+  padding: 0;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  /* Added for scrollability */
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.product__size-dropdown-item {
+  padding: 0.25em 0.5em; /* Smaller padding */
+  cursor: pointer;
+  font-size: 0.8em; /* Smaller font size */
+}
+
+.product__size-dropdown-item:hover {
+  background-color: #f0f0f0;
 }

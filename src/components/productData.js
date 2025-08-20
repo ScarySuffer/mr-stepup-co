@@ -1,75 +1,834 @@
 // Auto-generated product data from local assets
 
 const productData = [
-{"id":"puma-puma-180-rightside","brand":"Puma","name":"Puma 180 Rightside","price":999.99,"image":"/assets/Puma/right/Puma-180-rightside.jpg","hoverImage":"/assets/Puma/right/Puma-180-rightside.jpg","description":"High-quality sneaker from Puma.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/Puma/right/Puma-180-rightside.jpg"]},
-{"id":"adidas-adidas-campus-00-dark-green","brand":"adidas","name":"Adidas Campus 00 Dark Green","price":999.99,"image":"/assets/adidas/front/Adidas-Campus-00-Dark-Green-front.jpg","hoverImage":"/assets/adidas/left/Adidas-Campus-00-Dark-Green-right.jpg","description":"High-quality sneaker from adidas.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/adidas/left/Adidas-Campus-00-Dark-Green-right.jpg"]},
-{"id":"adidas-adidas-campus-grey-white-right","brand":"adidas","name":"Adidas Campus Grey White Right","price":999.99,"image":"/assets/adidas/front/Adidas-Campus-Grey-White-right-front.jpg","hoverImage":"/assets/adidas/front/Adidas-Campus-Grey-White-right-front.jpg","description":"High-quality sneaker from adidas.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"adidas-adidas-campus-grey-white","brand":"adidas","name":"Adidas Campus Grey White","price":999.99,"image":"/assets/adidas/left/Adidas-Campus-Grey-White-left.jpg","hoverImage":"/assets/adidas/right/Adidas-Campus-Grey-White-right.jpg","description":"High-quality sneaker from adidas.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/adidas/left/Adidas-Campus-Grey-White-left.jpg","/assets/adidas/right/Adidas-Campus-Grey-White-right.jpg"]},
-{"id":"adidas-adidas-originals-campus-right","brand":"adidas","name":"Adidas Originals Campus Right","price":999.99,"image":"/assets/adidas/right/adidas-Originals Campus-right-right.jpg","hoverImage":"/assets/adidas/right/adidas-Originals Campus-right-right.jpg","description":"High-quality sneaker from adidas.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/adidas/right/adidas-Originals Campus-right-right.jpg"]},
-{"id":"converse-converse-run-star-hike-hi-black","brand":"Converse","name":"Converse Run Star Hike Hi Black","price":999.99,"image":"/assets/Converse/left/Converse-Run-Star-Hike-Hi-black-right.jpg","hoverImage":"/assets/Converse/right/Converse-Run-Star-Hike-Hi-black-left.jpg","description":"High-quality sneaker from Converse.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/Converse/left/Converse-Run-Star-Hike-Hi-black-right.jpg","/assets/Converse/right/Converse-Run-Star-Hike-Hi-black-left.jpg"]},
-{"id":"converse-converse-run-star-motion-light-twine-black","brand":"Converse","name":"Converse Run Star Motion Light Twine Black","price":999.99,"image":"/assets/Converse/left/Converse-Run-Star-Motion-Light Twine-black-right.jpg","hoverImage":"/assets/Converse/right/Converse-Run-Star-Motion-Light Twine-black-left.jpg","description":"High-quality sneaker from Converse.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/Converse/left/Converse-Run-Star-Motion-Light Twine-black-right.jpg","/assets/Converse/right/Converse-Run-Star-Motion-Light Twine-black-left.jpg"]},
-{"id":"converse-converse-run-star-hike-hi-white","brand":"Converse","name":"Converse Run Star Hike Hi White","price":999.99,"image":"/assets/Converse/right/Converse-Run-Star-Hike-Hi-white-left.jpg","hoverImage":"/assets/Converse/right/Converse-Run-Star-Hike-Hi-white-left.jpg","description":"High-quality sneaker from Converse.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/Converse/right/Converse-Run-Star-Hike-Hi-white-left.jpg"]},
-{"id":"converse-converse-run-star-motion-light-twine-brown-leftside","brand":"Converse","name":"Converse Run Star Motion Light Twine Brown Leftside","price":999.99,"image":"/assets/Converse/right/Converse-Run-Star-Motion-Light Twine-brown-leftside.jpg","hoverImage":"/assets/Converse/right/Converse-Run-Star-Motion-Light Twine-brown-leftside.jpg","description":"High-quality sneaker from Converse.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/Converse/right/Converse-Run-Star-Motion-Light Twine-brown-leftside.jpg"]},
-{"id":"new-balance-new-balance-550-whitenavy-frontright","brand":"New-Balance","name":"New Balance 550 Whitenavy Frontright","price":999.99,"image":"/assets/New-Balance/front/New Balance 550-Whitenavy-frontright.jpg","hoverImage":"/assets/New-Balance/front/New Balance 550-Whitenavy-frontright.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"new-balance-new-balance-550-varsity-gold-frontright","brand":"New-Balance","name":"New Balance 550 Varsity Gold Frontright","price":999.99,"image":"/assets/New-Balance/front/New-Balance-550-Varsity-Gold-frontright.jpg","hoverImage":"/assets/New-Balance/front/New-Balance-550-Varsity-Gold-frontright.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"new-balance-new-balance-530-white-gray-navy-single-frontside","brand":"New-Balance","name":"New Balance 530 White Gray Navy Single Frontside","price":999.99,"image":"/assets/New-Balance/left/New Balance 530 White Gray Navy-single-frontside.jpg","hoverImage":"/assets/New-Balance/left/New Balance 530 White Gray Navy-single-frontside.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/New-Balance/left/New Balance 530 White Gray Navy-single-frontside.jpg"]},
-{"id":"new-balance-new-balance-550-green-white-frontleft","brand":"New-Balance","name":"New Balance 550 Green & White Frontleft","price":999.99,"image":"/assets/New-Balance/left/New Balance 550-Green & White-frontleft.jpg","hoverImage":"/assets/New-Balance/left/New Balance 550-Green & White-frontleft.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/New-Balance/left/New Balance 550-Green & White-frontleft.jpg"]},
-{"id":"new-balance-new-balance-550-whitenavy","brand":"New-Balance","name":"New Balance 550 Whitenavy","price":999.99,"image":"/assets/New-Balance/left/New Balance 550-Whitenavy-left.jpg","hoverImage":"/assets/New-Balance/right/New Balance 550-Whitenavy-right.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/New-Balance/left/New Balance 550-Whitenavy-left.jpg","/assets/New-Balance/right/New Balance 550-Whitenavy-right.jpg"]},
-{"id":"new-balance-new-balance-9060-blue-haze-sneakers","brand":"New-Balance","name":"New Balance 9060 Blue Haze Sneakers","price":999.99,"image":"/assets/New-Balance/left/New-Balance-9060-Blue-Haze-sneakers-left.jpg","hoverImage":"/assets/New-Balance/right/New-Balance-9060-Blue-Haze-sneakers-right.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/New-Balance/left/New-Balance-9060-Blue-Haze-sneakers-left.jpg","/assets/New-Balance/right/New-Balance-9060-Blue-Haze-sneakers-right.jpg"]},
-{"id":"new-balance-new-balance-530-white-gray-navy-leftside","brand":"New-Balance","name":"New Balance 530 White Gray Navy Leftside","price":999.99,"image":"/assets/New-Balance/right/New Balance 530 White Gray Navy-leftside.jpg","hoverImage":"/assets/New-Balance/right/New Balance 530 White Gray Navy-leftside.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/New-Balance/right/New Balance 530 White Gray Navy-leftside.jpg"]},
-{"id":"new-balance-new-balance-530-white-green-navy-leftside","brand":"New-Balance","name":"New Balance 530 White Green Navy Leftside","price":999.99,"image":"/assets/New-Balance/right/New Balance 530 White Green Navy-leftside.jpg","hoverImage":"/assets/New-Balance/right/New Balance 530 White Green Navy-leftside.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/New-Balance/right/New Balance 530 White Green Navy-leftside.jpg"]},
-{"id":"new-balance-new-balance-550-green-white-frontright","brand":"New-Balance","name":"New Balance 550 Green & White Frontright","price":999.99,"image":"/assets/New-Balance/right/New Balance 550-Green & White-frontright.jpg","hoverImage":"/assets/New-Balance/right/New Balance 550-Green & White-frontright.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/New-Balance/right/New Balance 550-Green & White-frontright.jpg"]},
-{"id":"new-balance-new-balance-550-green-white","brand":"New-Balance","name":"New Balance 550 Green & White","price":999.99,"image":"/assets/New-Balance/right/New Balance 550-Green & White-right.jpg","hoverImage":"/assets/New-Balance/right/New Balance 550-Green & White-right.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/New-Balance/right/New Balance 550-Green & White-right.jpg"]},
-{"id":"new-balance-new-balance-550-varsity-gold","brand":"New-Balance","name":"New Balance 550 Varsity Gold","price":999.99,"image":"/assets/New-Balance/right/New-Balance-550-Varsity-Gold-left.jpg","hoverImage":"/assets/New-Balance/right/New-Balance-550-Varsity-Gold-left.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/New-Balance/right/New-Balance-550-Varsity-Gold-left.jpg"]},
-{"id":"new-balance-new-balance-550-white-baby-blue","brand":"New-Balance","name":"New Balance 550 White Baby Blue","price":999.99,"image":"/assets/New-Balance/right/New-Balance-550-White-Baby-Blue-left.jpg","hoverImage":"/assets/New-Balance/right/New-Balance-550-White-Baby-Blue-left.jpg","description":"High-quality sneaker from New-Balance.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/New-Balance/right/New-Balance-550-White-Baby-Blue-left.jpg"]},
-{"id":"nike-air-jordan-4-retro-sb-pine-green-front","brand":"nike","name":"Air Jordan 4 Retro Sb Pine Green Front","price":999.99,"image":"/assets/nike/front/Air Jordan 4 Retro SB Pine Green Front.jpg","hoverImage":"/assets/nike/front/Air Jordan 4 Retro SB Pine Green Front.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-air-jordan-4-retro-sb-pine-green-pair","brand":"nike","name":"Air Jordan 4 Retro Sb Pine Green Pair","price":999.99,"image":"/assets/nike/front/Air Jordan 4 Retro SB Pine Green pair.jpg","hoverImage":"/assets/nike/front/Air Jordan 4 Retro SB Pine Green pair.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-black-af1-high-both","brand":"nike","name":"Black Af1 High Both","price":999.99,"image":"/assets/nike/front/Black AF1 High Both.jpg","hoverImage":"/assets/nike/front/Black AF1 High Both.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-black-af1-high-front","brand":"nike","name":"Black Af1 High Front","price":999.99,"image":"/assets/nike/front/Black AF1 High Front.jpg","hoverImage":"/assets/nike/front/Black AF1 High Front.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-black-rope-force-one-custom","brand":"nike","name":"Black Rope Force One Custom","price":999.99,"image":"/assets/nike/front/black-Rope-Force-One-Custom-top.jpg","hoverImage":"/assets/nike/front/black-Rope-Force-One-Custom-top.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-jordan-1-retro-high-obsidian-both-front","brand":"nike","name":"Jordan 1 Retro High Obsidian Both Front","price":999.99,"image":"/assets/nike/front/Jordan 1 Retro High Obsidian both front.jpg","hoverImage":"/assets/nike/front/Jordan 1 Retro High Obsidian both front.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-jordan-1-retro-high-obsidian-front","brand":"nike","name":"Jordan 1 Retro High Obsidian Front","price":999.99,"image":"/assets/nike/front/Jordan 1 Retro High Obsidian front.jpg","hoverImage":"/assets/nike/front/Jordan 1 Retro High Obsidian front.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-jordan-4-retro-black-cat-front","brand":"nike","name":"Jordan 4 Retro Black Cat Front","price":999.99,"image":"/assets/nike/front/Jordan 4 Retro Black Cat front.jpg","hoverImage":"/assets/nike/front/Jordan 4 Retro Black Cat front.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-jordan-4-retro-university-blue-both-front","brand":"nike","name":"Jordan 4 Retro University Blue Both Front","price":999.99,"image":"/assets/nike/front/Jordan 4 Retro University Blue both front.jpg","hoverImage":"/assets/nike/front/Jordan 4 Retro University Blue both front.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-nike-air-jordan-1-retro-high-og-front","brand":"nike","name":"Nike Air Jordan 1 Retro High Og  Front","price":999.99,"image":"/assets/nike/front/Nike Air Jordan 1 Retro High OG  front.jpg","hoverImage":"/assets/nike/front/Nike Air Jordan 1 Retro High OG  front.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-nike-air-jordan-4-military-blackboth","brand":"nike","name":"Nike Air Jordan 4 Military Blackboth","price":999.99,"image":"/assets/nike/front/Nike Air Jordan 4 Military Blackboth.jpg","hoverImage":"/assets/nike/front/Nike Air Jordan 4 Military Blackboth.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":[]},
-{"id":"nike-air-jordan-retro-4-metallic-red-front-one","brand":"nike","name":"Air Jordan Retro 4 Metallic Red Front One","price":999.99,"image":"/assets/nike/left/Air Jordan Retro 4 Metallic Red front one.jpg","hoverImage":"/assets/nike/left/Air Jordan Retro 4 Metallic Red front one.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/left/Air Jordan Retro 4 Metallic Red front one.jpg"]},
-{"id":"nike-air-jordan-retro-4-metallic-red-frot","brand":"nike","name":"Air Jordan Retro 4 Metallic Red Frot","price":999.99,"image":"/assets/nike/left/Air Jordan Retro 4 Metallic Red frot.jpg","hoverImage":"/assets/nike/left/Air Jordan Retro 4 Metallic Red frot.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/left/Air Jordan Retro 4 Metallic Red frot.jpg"]},
-{"id":"nike-jordan-1-retro-high-obsidian-right","brand":"nike","name":"Jordan 1 Retro High Obsidian Right","price":999.99,"image":"/assets/nike/left/Jordan 1 Retro High Obsidian right.jpg","hoverImage":"/assets/nike/left/Jordan 1 Retro High Obsidian right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/left/Jordan 1 Retro High Obsidian right.jpg"]},
-{"id":"nike-jordan-4-retro-white-oreo-left","brand":"nike","name":"Jordan 4 Retro White Oreo  Left","price":999.99,"image":"/assets/nike/left/Jordan 4 Retro White Oreo  left.jpg","hoverImage":"/assets/nike/left/Jordan 4 Retro White Oreo  left.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/left/Jordan 4 Retro White Oreo  left.jpg"]},
-{"id":"nike-jordan-retro-white-front-singleview","brand":"nike","name":"Jordan Retro White Front Singleview","price":999.99,"image":"/assets/nike/left/Jordan-retro-white-front-singleview.jpg","hoverImage":"/assets/nike/left/Jordan-retro-white-front-singleview.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/left/Jordan-retro-white-front-singleview.jpg"]},
-{"id":"nike-jordan-retro-white-frontview","brand":"nike","name":"Jordan Retro White Frontview","price":999.99,"image":"/assets/nike/left/Jordan-retro-white-frontview.jpg","hoverImage":"/assets/nike/left/Jordan-retro-white-frontview.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/left/Jordan-retro-white-frontview.jpg"]},
-{"id":"nike-nike-air-force-1-low-cactus-plant-flea-market-moss-rightside","brand":"nike","name":"Nike Air Force 1 Low Cactus Plant Flea Market Moss Rightside","price":999.99,"image":"/assets/nike/left/Nike Air Force 1 Low Cactus Plant Flea Market Moss-rightside.jpg","hoverImage":"/assets/nike/left/Nike Air Force 1 Low Cactus Plant Flea Market Moss-rightside.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/left/Nike Air Force 1 Low Cactus Plant Flea Market Moss-rightside.jpg"]},
-{"id":"nike-nike-air-jordan-1-retro-high-og-both","brand":"nike","name":"Nike Air Jordan 1 Retro High Og Both","price":999.99,"image":"/assets/nike/left/Nike Air Jordan 1 Retro High OG both.jpg","hoverImage":"/assets/nike/left/Nike Air Jordan 1 Retro High OG both.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/left/Nike Air Jordan 1 Retro High OG both.jpg"]},
-{"id":"nike-nike-air-jordan-4-military-black-front-alone","brand":"nike","name":"Nike Air Jordan 4 Military Black  Front Alone","price":999.99,"image":"/assets/nike/left/Nike Air Jordan 4 Military Black  front alone.jpg","hoverImage":"/assets/nike/left/Nike Air Jordan 4 Military Black  front alone.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/left/Nike Air Jordan 4 Military Black  front alone.jpg"]},
-{"id":"nike-nike-air-jordan-4-retro-bred-top","brand":"nike","name":"Nike Air Jordan 4 Retro Bred Top","price":999.99,"image":"/assets/nike/left/Nike Air Jordan 4 Retro Bred top.jpg","hoverImage":"/assets/nike/left/Nike Air Jordan 4 Retro Bred top.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/left/Nike Air Jordan 4 Retro Bred top.jpg"]},
-{"id":"nike-air-jordan-1-low-legend-blue-both-front-right","brand":"nike","name":"Air Jordan 1 Low Legend Blue Both Front Right","price":999.99,"image":"/assets/nike/right/Air Jordan 1 Low Legend Blue both front right.jpg","hoverImage":"/assets/nike/right/Air Jordan 1 Low Legend Blue both front right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Air Jordan 1 Low Legend Blue both front right.jpg"]},
-{"id":"nike-air-jordan-1-mid-panda-right","brand":"nike","name":"Air Jordan 1 Mid Panda Right","price":999.99,"image":"/assets/nike/right/Air Jordan 1 MID Panda right.jpg","hoverImage":"/assets/nike/right/Air Jordan 1 MID Panda right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Air Jordan 1 MID Panda right.jpg"]},
-{"id":"nike-air-jordan-4-retro-metallic-green-left","brand":"nike","name":"Air Jordan 4 Retro Metallic Green Left","price":999.99,"image":"/assets/nike/right/Air Jordan 4 Retro Metallic Green left.jpg","hoverImage":"/assets/nike/right/Air Jordan 4 Retro Metallic Green left.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Air Jordan 4 Retro Metallic Green left.jpg"]},
-{"id":"nike-air-jordan-4-retro-metallic-green-right","brand":"nike","name":"Air Jordan 4 Retro Metallic Green Right","price":999.99,"image":"/assets/nike/right/Air Jordan 4 Retro Metallic Green right.jpg","hoverImage":"/assets/nike/right/Air Jordan 4 Retro Metallic Green right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Air Jordan 4 Retro Metallic Green right.jpg"]},
-{"id":"nike-air-jordan-4-retro-sb-pine-green-right","brand":"nike","name":"Air Jordan 4 Retro Sb Pine Green Right","price":999.99,"image":"/assets/nike/right/Air Jordan 4 Retro SB Pine Green Right.jpg","hoverImage":"/assets/nike/right/Air Jordan 4 Retro SB Pine Green Right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Air Jordan 4 Retro SB Pine Green Right.jpg"]},
-{"id":"nike-air-jordan-retro-4-metallic-red-right","brand":"nike","name":"Air Jordan Retro 4 Metallic Red Right","price":999.99,"image":"/assets/nike/right/Air Jordan Retro 4 Metallic Red right.jpg","hoverImage":"/assets/nike/right/Air Jordan Retro 4 Metallic Red right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Air Jordan Retro 4 Metallic Red right.jpg"]},
-{"id":"nike-black-af1-high-right","brand":"nike","name":"Black Af1 High Right","price":999.99,"image":"/assets/nike/right/Black AF1 High Right.jpg","hoverImage":"/assets/nike/right/Black AF1 High Right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Black AF1 High Right.jpg"]},
-{"id":"nike-img-20250723-wa0223","brand":"nike","name":"Img 20250723 Wa0223","price":999.99,"image":"/assets/nike/right/IMG-20250723-WA0223.jpg","hoverImage":"/assets/nike/right/IMG-20250723-WA0223.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/IMG-20250723-WA0223.jpg"]},
-{"id":"nike-jordan-1-retro-high-obsidian-left","brand":"nike","name":"Jordan 1 Retro High Obsidian Left","price":999.99,"image":"/assets/nike/right/Jordan 1 Retro High Obsidian left.jpg","hoverImage":"/assets/nike/right/Jordan 1 Retro High Obsidian left.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan 1 Retro High Obsidian left.jpg"]},
-{"id":"nike-jordan-4-retro-black-cat-left","brand":"nike","name":"Jordan 4 Retro Black Cat  Left","price":999.99,"image":"/assets/nike/right/Jordan 4 Retro Black Cat  left.jpg","hoverImage":"/assets/nike/right/Jordan 4 Retro Black Cat  left.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan 4 Retro Black Cat  left.jpg"]},
-{"id":"nike-jordan-4-retro-black-cat-right","brand":"nike","name":"Jordan 4 Retro Black Cat  Right","price":999.99,"image":"/assets/nike/right/Jordan 4 Retro Black Cat  right.jpg","hoverImage":"/assets/nike/right/Jordan 4 Retro Black Cat  right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan 4 Retro Black Cat  right.jpg"]},
-{"id":"nike-jordan-4-retro-red-thunder-right","brand":"nike","name":"Jordan 4 Retro Red Thunder  Right","price":999.99,"image":"/assets/nike/right/Jordan 4 Retro Red Thunder  right.jpg","hoverImage":"/assets/nike/right/Jordan 4 Retro Red Thunder  right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan 4 Retro Red Thunder  right.jpg"]},
-{"id":"nike-jordan-4-retro-seafoam-right","brand":"nike","name":"Jordan 4 Retro Seafoam Right","price":999.99,"image":"/assets/nike/right/Jordan 4 Retro Seafoam Right.jpg","hoverImage":"/assets/nike/right/Jordan 4 Retro Seafoam Right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan 4 Retro Seafoam Right.jpg"]},
-{"id":"nike-jordan-4-retro-university-blue-right","brand":"nike","name":"Jordan 4 Retro University Blue Right","price":999.99,"image":"/assets/nike/right/Jordan 4 Retro University Blue right.jpg","hoverImage":"/assets/nike/right/Jordan 4 Retro University Blue right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan 4 Retro University Blue right.jpg"]},
-{"id":"nike-jordan-4-retro-white-oreo-right-tiltrd","brand":"nike","name":"Jordan 4 Retro White Oreo Right Tiltrd","price":999.99,"image":"/assets/nike/right/Jordan 4 Retro White Oreo right tiltrd.jpg","hoverImage":"/assets/nike/right/Jordan 4 Retro White Oreo right tiltrd.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan 4 Retro White Oreo right tiltrd.jpg"]},
-{"id":"nike-jordan-4-retro-white-oreo-right","brand":"nike","name":"Jordan 4 Retro White Oreo Right","price":999.99,"image":"/assets/nike/right/Jordan 4 Retro White Oreo right.jpg","hoverImage":"/assets/nike/right/Jordan 4 Retro White Oreo right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan 4 Retro White Oreo right.jpg"]},
-{"id":"nike-jordan-retro-black-sideview","brand":"nike","name":"Jordan Retro Black Sideview","price":999.99,"image":"/assets/nike/right/Jordan-retro-black-sideview.jpg","hoverImage":"/assets/nike/right/Jordan-retro-black-sideview.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan-retro-black-sideview.jpg"]},
-{"id":"nike-jordan-retro-blackright","brand":"nike","name":"Jordan Retro Blackright.","price":999.99,"image":"/assets/nike/right/Jordan-retro-blackright..jpg","hoverImage":"/assets/nike/right/Jordan-retro-blackright..jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan-retro-blackright..jpg"]},
-{"id":"nike-jordan-retro-white-side-view","brand":"nike","name":"Jordan Retro White Side View","price":999.99,"image":"/assets/nike/right/Jordan-retro-white-side view.jpg","hoverImage":"/assets/nike/right/Jordan-retro-white-side view.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Jordan-retro-white-side view.jpg"]},
-{"id":"nike-nike-air-force-1-low-cactus-plant-flea-market-moss-leftside","brand":"nike","name":"Nike Air Force 1 Low Cactus Plant Flea Market Moss Leftside","price":999.99,"image":"/assets/nike/right/Nike Air Force 1 Low Cactus Plant Flea Market Moss-leftside.jpg","hoverImage":"/assets/nike/right/Nike Air Force 1 Low Cactus Plant Flea Market Moss-leftside.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Nike Air Force 1 Low Cactus Plant Flea Market Moss-leftside.jpg"]},
-{"id":"nike-nike-air-force-1-low-uv-reactive-swoosh-w","brand":"nike","name":"Nike Air Force 1 Low Uv Reactive Swoosh (w)","price":999.99,"image":"/assets/nike/right/Nike Air Force 1 Low UV Reactive Swoosh (W)-side.jpg","hoverImage":"/assets/nike/right/Nike Air Force 1 Low UV Reactive Swoosh (W)-side.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Nike Air Force 1 Low UV Reactive Swoosh (W)-side.jpg"]},
-{"id":"nike-nike-air-jordan-1-retro-high-og-left","brand":"nike","name":"Nike Air Jordan 1 Retro High Og Left","price":999.99,"image":"/assets/nike/right/Nike Air Jordan 1 Retro High OG left.jpg","hoverImage":"/assets/nike/right/Nike Air Jordan 1 Retro High OG left.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Nike Air Jordan 1 Retro High OG left.jpg"]},
-{"id":"nike-nike-air-jordan-1-retro-high-og-right","brand":"nike","name":"Nike Air Jordan 1 Retro High Og Right","price":999.99,"image":"/assets/nike/right/Nike Air Jordan 1 Retro High OG right.jpg","hoverImage":"/assets/nike/right/Nike Air Jordan 1 Retro High OG right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Nike Air Jordan 1 Retro High OG right.jpg"]},
-{"id":"nike-nike-air-jordan-4-military-black-right","brand":"nike","name":"Nike Air Jordan 4 Military Black Right","price":999.99,"image":"/assets/nike/right/Nike Air Jordan 4 Military Black right.jpg","hoverImage":"/assets/nike/right/Nike Air Jordan 4 Military Black right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Nike Air Jordan 4 Military Black right.jpg"]},
-{"id":"nike-nike-air-jordan-4-retro-bred-left","brand":"nike","name":"Nike Air Jordan 4 Retro Bred Left","price":999.99,"image":"/assets/nike/right/Nike Air Jordan 4 Retro Bred left.jpg","hoverImage":"/assets/nike/right/Nike Air Jordan 4 Retro Bred left.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Nike Air Jordan 4 Retro Bred left.jpg"]},
-{"id":"nike-nike-jordan-1-low-wolf-grey-right","brand":"nike","name":"Nike Jordan 1 Low Wolf Grey Right","price":999.99,"image":"/assets/nike/right/Nike Jordan 1 Low Wolf Grey Right.jpg","hoverImage":"/assets/nike/right/Nike Jordan 1 Low Wolf Grey Right.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Nike Jordan 1 Low Wolf Grey Right.jpg"]},
-{"id":"nike-nike-jordana-blackandwhite","brand":"nike","name":"Nike Jordana Blackandwhite","price":999.99,"image":"/assets/nike/right/Nike-Jordana-blackandwhite.jpg","hoverImage":"/assets/nike/right/Nike-Jordana-blackandwhite.jpg","description":"High-quality sneaker from nike.","sizes":[6,7,8,9,10,11],"otherImages":["/assets/nike/right/Nike-Jordana-blackandwhite.jpg"]}
+{
+  "id": "puma-puma-180",
+  "brand": "Puma",
+  "name": "Puma 180",
+  "price": 2941.79,
+  "description": "High-quality sneaker from Puma. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    9,
+    10,
+    11,
+    12
+  ],
+  "color": "orange",
+  "image": "/assets/Puma/front/Puma-180.jpg",
+  "hoverImage": "/assets/Puma/left/Puma-180.jpg",
+  "galleryImages": [
+    "/assets/Puma/front/Puma-180.jpg",
+    "/assets/Puma/left/Puma-180.jpg",
+    "/assets/Puma/right/Puma-180.jpg"
+  ]
+},
+{
+  "id": "adidas-adidas-campus-00-dark-green",
+  "brand": "adidas",
+  "name": "Adidas Campus 00 Dark Green",
+  "price": 1123.96,
+  "description": "High-quality sneaker from Adidas. Experience comfort and style.",
+  "sizes": [
+    8,
+    9,
+    10
+  ],
+  "color": "blue",
+  "image": "/assets/adidas/front/Adidas-Campus-00-Dark-Green.jpg",
+  "hoverImage": "/assets/adidas/left/Adidas-Campus-00-Dark-Green.jpg",
+  "galleryImages": [
+    "/assets/adidas/front/Adidas-Campus-00-Dark-Green.jpg",
+    "/assets/adidas/left/Adidas-Campus-00-Dark-Green.jpg"
+  ]
+},
+{
+  "id": "adidas-adidas-campus-grey-white",
+  "brand": "adidas",
+  "name": "Adidas Campus Grey White",
+  "price": 2332.97,
+  "description": "High-quality sneaker from Adidas. Experience comfort and style.",
+  "sizes": [
+    9,
+    11,
+    12
+  ],
+  "color": "blue",
+  "image": "/assets/adidas/front/Adidas-Campus-Grey-White.jpg",
+  "hoverImage": "/assets/adidas/left/Adidas-Campus-Grey-White.jpg",
+  "galleryImages": [
+    "/assets/adidas/front/Adidas-Campus-Grey-White.jpg",
+    "/assets/adidas/left/Adidas-Campus-Grey-White.jpg",
+    "/assets/adidas/right/Adidas-Campus-Grey-White-right.jpg"
+  ]
+},
+{
+  "id": "adidas-adidas-originals-campus-black",
+  "brand": "adidas",
+  "name": "Adidas Originals Campus Black",
+  "price": 2789.83,
+  "description": "High-quality sneaker from Adidas. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    12
+  ],
+  "color": "blue",
+  "image": "/assets/adidas/front/adidas-Originals Campus-black.jpg",
+  "hoverImage": "/assets/adidas/front/adidas-Originals Campus-black.jpg",
+  "galleryImages": [
+    "/assets/adidas/front/adidas-Originals Campus-black.jpg"
+  ]
+},
+{
+  "id": "adidas-adidas-originals-campus-right",
+  "brand": "adidas",
+  "name": "Adidas Originals Campus Right",
+  "price": 2525.11,
+  "description": "High-quality sneaker from Adidas. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "color": "blue",
+  "image": "/assets/adidas/right/adidas-Originals Campus-right-right.jpg",
+  "hoverImage": "/assets/adidas/right/adidas-Originals Campus-right-right.jpg",
+  "galleryImages": [
+    "/assets/adidas/right/adidas-Originals Campus-right-right.jpg"
+  ]
+},
+{
+  "id": "converse-converse-run-star-motion-light-twine-black",
+  "brand": "Converse",
+  "name": "Converse Run Star Motion Light Twine Black",
+  "price": 2755.38,
+  "description": "High-quality sneaker from Converse. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    9,
+    10,
+    12
+  ],
+  "color": "pink",
+  "image": "/assets/Converse/front/Converse-Run-Star-Motion-Light Twine-black.jpg",
+  "hoverImage": "/assets/Converse/left/Converse-Run-Star-Motion-Light Twine-black.jpg",
+  "galleryImages": [
+    "/assets/Converse/front/Converse-Run-Star-Motion-Light Twine-black.jpg",
+    "/assets/Converse/left/Converse-Run-Star-Motion-Light Twine-black.jpg",
+    "/assets/Converse/right/Converse-Run-Star-Motion-Light Twine-black.jpg"
+  ]
+},
+{
+  "id": "converse-converse-run-star-hike-hi-black",
+  "brand": "Converse",
+  "name": "Converse Run Star Hike Hi Black",
+  "price": 1975.15,
+  "description": "High-quality sneaker from Converse. Experience comfort and style.",
+  "sizes": [
+    6,
+    9,
+    10
+  ],
+  "color": "pink",
+  "image": "/assets/Converse/left/Converse-Run-Star-Hike-Hi-black.jpg",
+  "hoverImage": "/assets/Converse/right/Converse-Run-Star-Hike-Hi-black.jpg",
+  "galleryImages": [
+    "/assets/Converse/left/Converse-Run-Star-Hike-Hi-black.jpg",
+    "/assets/Converse/right/Converse-Run-Star-Hike-Hi-black.jpg"
+  ]
+},
+{
+  "id": "converse-converse-run-star-hike-hi-white",
+  "brand": "Converse",
+  "name": "Converse Run Star Hike Hi White",
+  "price": 1861.19,
+  "description": "High-quality sneaker from Converse. Experience comfort and style.",
+  "sizes": [
+    6,
+    8,
+    11
+  ],
+  "color": "pink",
+  "image": "/assets/Converse/right/Converse-Run-Star-Hike-Hi-white.jpg",
+  "hoverImage": "/assets/Converse/right/Converse-Run-Star-Hike-Hi-white.jpg",
+  "galleryImages": [
+    "/assets/Converse/right/Converse-Run-Star-Hike-Hi-white.jpg"
+  ]
+},
+{
+  "id": "converse-converse-run-star-motion-light-twine-brown",
+  "brand": "Converse",
+  "name": "Converse Run Star Motion Light Twine Brown",
+  "price": 1221.49,
+  "description": "High-quality sneaker from Converse. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "color": "pink",
+  "image": "/assets/Converse/right/Converse-Run-Star-Motion-Light Twine-brown.jpg",
+  "hoverImage": "/assets/Converse/right/Converse-Run-Star-Motion-Light Twine-brown.jpg",
+  "galleryImages": [
+    "/assets/Converse/right/Converse-Run-Star-Motion-Light Twine-brown.jpg"
+  ]
+},
+{
+  "id": "new-balance-new-balance-550-white-navy",
+  "brand": "New-Balance",
+  "name": "New Balance 550 White Navy",
+  "price": 1893.07,
+  "description": "High-quality sneaker from New Balance. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    12
+  ],
+  "color": "green",
+  "image": "/assets/New-Balance/front/New Balance 550-White-navy.jpg",
+  "hoverImage": "/assets/New-Balance/left/New Balance 550-White-navy.jpg",
+  "galleryImages": [
+    "/assets/New-Balance/front/New Balance 550-White-navy.jpg",
+    "/assets/New-Balance/left/New Balance 550-White-navy.jpg",
+    "/assets/New-Balance/right/New Balance 550-White-navy.jpg"
+  ]
+},
+{
+  "id": "new-balance-new-balance-530-white-gray-navy",
+  "brand": "New-Balance",
+  "name": "New Balance 530 White Gray Navy",
+  "price": 1782.26,
+  "description": "High-quality sneaker from New Balance. Experience comfort and style.",
+  "sizes": [
+    6,
+    9,
+    11
+  ],
+  "color": "green",
+  "image": "/assets/New-Balance/front/New-Balance-530-White-Gray-Navy.jpg",
+  "hoverImage": "/assets/New-Balance/left/New-Balance-530-White-Gray-Navy.jpg",
+  "galleryImages": [
+    "/assets/New-Balance/front/New-Balance-530-White-Gray-Navy.jpg",
+    "/assets/New-Balance/left/New-Balance-530-White-Gray-Navy.jpg"
+  ]
+},
+{
+  "id": "new-balance-new-balance-530-white-green-navy",
+  "brand": "New-Balance",
+  "name": "New Balance 530 White Green Navy",
+  "price": 2063.18,
+  "description": "High-quality sneaker from New Balance. Experience comfort and style.",
+  "sizes": [
+    6,
+    8,
+    10
+  ],
+  "color": "green",
+  "image": "/assets/New-Balance/front/New-Balance-530-White-Green-Navy.jpg",
+  "hoverImage": "/assets/New-Balance/right/New-Balance-530-White-Green-Navy.jpg",
+  "galleryImages": [
+    "/assets/New-Balance/front/New-Balance-530-White-Green-Navy.jpg",
+    "/assets/New-Balance/right/New-Balance-530-White-Green-Navy.jpg"
+  ]
+},
+{
+  "id": "new-balance-new-balance-550-varsity-gold",
+  "brand": "New-Balance",
+  "name": "New Balance 550 Varsity Gold",
+  "price": 1602.55,
+  "description": "High-quality sneaker from New Balance. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    8,
+    11,
+    12
+  ],
+  "color": "green",
+  "image": "/assets/New-Balance/front/New-Balance-550-Varsity-Gold.jpg",
+  "hoverImage": "/assets/New-Balance/left/New-Balance-550-Varsity-Gold.jpg",
+  "galleryImages": [
+    "/assets/New-Balance/front/New-Balance-550-Varsity-Gold.jpg",
+    "/assets/New-Balance/left/New-Balance-550-Varsity-Gold.jpg",
+    "/assets/New-Balance/right/New-Balance-550-Varsity-Gold.jpg"
+  ]
+},
+{
+  "id": "new-balance-new-balance-550-white-baby-blue",
+  "brand": "New-Balance",
+  "name": "New Balance 550 White Baby Blue",
+  "price": 2690.9,
+  "description": "High-quality sneaker from New Balance. Experience comfort and style.",
+  "sizes": [
+    7,
+    8,
+    9,
+    12
+  ],
+  "color": "green",
+  "image": "/assets/New-Balance/front/New-Balance-550-White-Baby-Blue.jpg",
+  "hoverImage": "/assets/New-Balance/left/New-Balance-550-White-Baby-Blue.jpg",
+  "galleryImages": [
+    "/assets/New-Balance/front/New-Balance-550-White-Baby-Blue.jpg",
+    "/assets/New-Balance/left/New-Balance-550-White-Baby-Blue.jpg",
+    "/assets/New-Balance/right/New-Balance-550-White-Baby-Blue.jpg"
+  ]
+},
+{
+  "id": "new-balance-new-balance-550-green-white",
+  "brand": "New-Balance",
+  "name": "New Balance 550 Green White",
+  "price": 1029.61,
+  "description": "High-quality sneaker from New Balance. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    11
+  ],
+  "color": "green",
+  "image": "/assets/New-Balance/left/New-Balance-550-Green-White.jpg",
+  "hoverImage": "/assets/New-Balance/right/New-Balance-550-Green-White.jpg",
+  "galleryImages": [
+    "/assets/New-Balance/left/New-Balance-550-Green-White.jpg",
+    "/assets/New-Balance/right/New-Balance-550-Green-White.jpg"
+  ]
+},
+{
+  "id": "new-balance-new-balance-9060-blue-haze-sneakers",
+  "brand": "New-Balance",
+  "name": "New Balance 9060 Blue Haze Sneakers",
+  "price": 1398.64,
+  "description": "High-quality sneaker from New Balance. Experience comfort and style.",
+  "sizes": [
+    7,
+    9,
+    10
+  ],
+  "color": "green",
+  "image": "/assets/New-Balance/left/New-Balance-9060-Blue-Haze-sneakers.jpg",
+  "hoverImage": "/assets/New-Balance/right/New-Balance-9060-Blue-Haze-sneakers.jpg",
+  "galleryImages": [
+    "/assets/New-Balance/left/New-Balance-9060-Blue-Haze-sneakers.jpg",
+    "/assets/New-Balance/right/New-Balance-9060-Blue-Haze-sneakers.jpg"
+  ]
+},
+{
+  "id": "new-balance-new-balance-530-white-gray-navy-single",
+  "brand": "New-Balance",
+  "name": "New Balance 530 White Gray Navy Single",
+  "price": 2895.78,
+  "description": "High-quality sneaker from New Balance. Experience comfort and style.",
+  "sizes": [
+    8,
+    9,
+    10
+  ],
+  "color": "green",
+  "image": "/assets/New-Balance/right/New-Balance-530-White-Gray-Navy-single.jpg",
+  "hoverImage": "/assets/New-Balance/right/New-Balance-530-White-Gray-Navy-single.jpg",
+  "galleryImages": [
+    "/assets/New-Balance/right/New-Balance-530-White-Gray-Navy-single.jpg"
+  ]
+},
+{
+  "id": "nike-air-jordan-1-low-legend-blue",
+  "brand": "nike",
+  "name": "Air Jordan 1 Low Legend Blue",
+  "price": 1763.37,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    8,
+    9,
+    11,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Air-Jordan-1-Low-Legend-Blue.jpg",
+  "hoverImage": "/assets/nike/right/Air-Jordan-1-Low-Legend-Blue.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Air-Jordan-1-Low-Legend-Blue.jpg",
+    "/assets/nike/right/Air-Jordan-1-Low-Legend-Blue.jpg"
+  ]
+},
+{
+  "id": "nike-air-jordan-1-mid-panda-back",
+  "brand": "nike",
+  "name": "Air Jordan 1 Mid  Panda Back",
+  "price": 2060.88,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    7,
+    8,
+    10
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Air-Jordan-1-MID -Panda-back.jpg",
+  "hoverImage": "/assets/nike/front/Air-Jordan-1-MID -Panda-back.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Air-Jordan-1-MID -Panda-back.jpg"
+  ]
+},
+{
+  "id": "nike-air-jordan-4-retro-sb-pine-green",
+  "brand": "nike",
+  "name": "Air Jordan 4 Retro Sb Pine Green",
+  "price": 2547.39,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    10,
+    11
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Air-Jordan-4-Retro-SB-Pine-Green.jpg",
+  "hoverImage": "/assets/nike/left/Air-Jordan-4-Retro-SB-Pine-Green.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Air-Jordan-4-Retro-SB-Pine-Green.jpg",
+    "/assets/nike/left/Air-Jordan-4-Retro-SB-Pine-Green.jpg",
+    "/assets/nike/right/Air-Jordan-4-Retro-SB-Pine-Green.jpg"
+  ]
+},
+{
+  "id": "nike-air-jordan-retro-4-metallic-red",
+  "brand": "nike",
+  "name": "Air Jordan Retro 4 Metallic Red",
+  "price": 2253.46,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    8,
+    10,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Air-Jordan-Retro-4-Metallic-Red.jpg",
+  "hoverImage": "/assets/nike/left/Air-Jordan-Retro-4-Metallic-Red.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Air-Jordan-Retro-4-Metallic-Red.jpg",
+    "/assets/nike/left/Air-Jordan-Retro-4-Metallic-Red.jpg",
+    "/assets/nike/right/Air-Jordan-Retro-4-Metallic-Red.jpg"
+  ]
+},
+{
+  "id": "nike-black-af1-high",
+  "brand": "nike",
+  "name": "Black Af1 High",
+  "price": 1950.2,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    9,
+    11
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Black-AF1-High.jpg",
+  "hoverImage": "/assets/nike/left/Black-AF1-High.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Black-AF1-High.jpg",
+    "/assets/nike/left/Black-AF1-High.jpg",
+    "/assets/nike/right/Black-AF1-High.jpg"
+  ]
+},
+{
+  "id": "nike-black-low-af1",
+  "brand": "nike",
+  "name": "Black Low Af1",
+  "price": 2672.64,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    8,
+    9,
+    11
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Black-Low-AF1.jpg",
+  "hoverImage": "/assets/nike/right/Black-Low-AF1.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Black-Low-AF1.jpg",
+    "/assets/nike/right/Black-Low-AF1.jpg"
+  ]
+},
+{
+  "id": "nike-black-rope-force-one-custom",
+  "brand": "nike",
+  "name": "Black Rope Force One Custom",
+  "price": 1479.81,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    7,
+    8,
+    11
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/black-Rope-Force-One-Custom.jpg",
+  "hoverImage": "/assets/nike/front/black-Rope-Force-One-Custom.jpg",
+  "galleryImages": [
+    "/assets/nike/front/black-Rope-Force-One-Custom.jpg"
+  ]
+},
+{
+  "id": "nike-jordan-1-retro-high-obsidian",
+  "brand": "nike",
+  "name": "Jordan 1 Retro High Obsidian",
+  "price": 2915.25,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    8,
+    10,
+    11,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Jordan-1-Retro-High-Obsidian.jpg",
+  "hoverImage": "/assets/nike/left/Jordan-1-Retro-High-Obsidian.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Jordan-1-Retro-High-Obsidian.jpg",
+    "/assets/nike/left/Jordan-1-Retro-High-Obsidian.jpg",
+    "/assets/nike/right/Jordan-1-Retro-High-Obsidian.jpg"
+  ]
+},
+{
+  "id": "nike-jordan-4-retro-university-blue",
+  "brand": "nike",
+  "name": "Jordan 4 Retro University Blue",
+  "price": 2992.19,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    8,
+    9,
+    11
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Jordan-4-Retro-University-Blue.jpg",
+  "hoverImage": "/assets/nike/left/Jordan-4-Retro-University-Blue.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Jordan-4-Retro-University-Blue.jpg",
+    "/assets/nike/left/Jordan-4-Retro-University-Blue.jpg",
+    "/assets/nike/right/Jordan-4-Retro-University-Blue.jpg"
+  ]
+},
+{
+  "id": "nike-jordan-retro-black-cat",
+  "brand": "nike",
+  "name": "Jordan Retro Black Cat",
+  "price": 1863.83,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    8,
+    10
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Jordan-Retro-Black-Cat.jpg",
+  "hoverImage": "/assets/nike/left/Jordan-Retro-Black-Cat.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Jordan-Retro-Black-Cat.jpg",
+    "/assets/nike/left/Jordan-Retro-Black-Cat.jpg",
+    "/assets/nike/right/Jordan-Retro-Black-Cat.jpg"
+  ]
+},
+{
+  "id": "nike-nike-air-force-1-07-lv8-blacklight-crimson",
+  "brand": "nike",
+  "name": "Nike Air Force 1 07 Lv8 Blacklight Crimson",
+  "price": 1819.7,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    8,
+    10,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Nike-Air-Force-1-07-LV8-BlackLight-crimson.jpg",
+  "hoverImage": "/assets/nike/left/Nike-Air-Force-1-07-LV8-BlackLight-crimson.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Nike-Air-Force-1-07-LV8-BlackLight-crimson.jpg",
+    "/assets/nike/left/Nike-Air-Force-1-07-LV8-BlackLight-crimson.jpg",
+    "/assets/nike/right/Nike-Air-Force-1-07-LV8-BlackLight-crimson.jpg"
+  ]
+},
+{
+  "id": "nike-nike-air-force-1-low-premium-cactus-plant-plea-market-white",
+  "brand": "nike",
+  "name": "Nike Air Force 1 Low Premium Cactus Plant Plea Market White",
+  "price": 1920.36,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    9,
+    11,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Nike-Air-Force-1-Low-Premium-Cactus-Plant-plea-Market-white.jpg",
+  "hoverImage": "/assets/nike/left/Nike-Air-Force-1-Low-Premium-Cactus-Plant-plea-Market-white.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Nike-Air-Force-1-Low-Premium-Cactus-Plant-plea-Market-white.jpg",
+    "/assets/nike/left/Nike-Air-Force-1-Low-Premium-Cactus-Plant-plea-Market-white.jpg",
+    "/assets/nike/right/Nike-Air-Force-1-Low-Premium-Cactus-Plant-plea-Market-white.jpg"
+  ]
+},
+{
+  "id": "nike-nike-air-force-1-low-white-swoosh-panda",
+  "brand": "nike",
+  "name": "Nike Air Force 1 Low White Swoosh Panda",
+  "price": 2550.18,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    7,
+    10,
+    11
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Nike-Air-Force-1-Low-White-Swoosh-Panda.jpg",
+  "hoverImage": "/assets/nike/left/Nike-Air-Force-1-Low-White-Swoosh-Panda.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Nike-Air-Force-1-Low-White-Swoosh-Panda.jpg",
+    "/assets/nike/left/Nike-Air-Force-1-Low-White-Swoosh-Panda.jpg",
+    "/assets/nike/right/Nike-Air-Force-1-Low-White-Swoosh-Panda.jpg"
+  ]
+},
+{
+  "id": "nike-nike-air-jordan-1-retro-high-og-red",
+  "brand": "nike",
+  "name": "Nike Air Jordan 1 Retro High Og Red",
+  "price": 2133.69,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Nike-Air-Jordan-1-Retro-High-OG-red.jpg",
+  "hoverImage": "/assets/nike/left/Nike-Air-Jordan-1-Retro-High-OG-red.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Nike-Air-Jordan-1-Retro-High-OG-red.jpg",
+    "/assets/nike/left/Nike-Air-Jordan-1-Retro-High-OG-red.jpg",
+    "/assets/nike/right/Nike-Air-Jordan-1-Retro-High-OG-red.jpg"
+  ]
+},
+{
+  "id": "nike-nike-air-jordan-4-military-black",
+  "brand": "nike",
+  "name": "Nike Air Jordan 4 Military Black",
+  "price": 2906.99,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    11
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Nike-Air-Jordan-4-Military-Black.jpg",
+  "hoverImage": "/assets/nike/left/Nike-Air-Jordan-4-Military-Black.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Nike-Air-Jordan-4-Military-Black.jpg",
+    "/assets/nike/left/Nike-Air-Jordan-4-Military-Black.jpg",
+    "/assets/nike/right/Nike-Air-Jordan-4-Military-Black.jpg"
+  ]
+},
+{
+  "id": "nike-nike-jordan-1-low-wolf-grey",
+  "brand": "nike",
+  "name": "Nike Jordan 1 Low Wolf Grey",
+  "price": 1382.89,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    9,
+    11,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/front/Nike-Jordan-1-Low-Wolf-Grey.jpg",
+  "hoverImage": "/assets/nike/right/Nike-Jordan-1-Low-Wolf-Grey.jpg",
+  "galleryImages": [
+    "/assets/nike/front/Nike-Jordan-1-Low-Wolf-Grey.jpg",
+    "/assets/nike/right/Nike-Jordan-1-Low-Wolf-Grey.jpg"
+  ]
+},
+{
+  "id": "nike-air-jordan-4-retro-metallic-green",
+  "brand": "nike",
+  "name": "Air Jordan 4 Retro Metallic Green",
+  "price": 1172.65,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    7,
+    8,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/left/Air-Jordan-4-Retro-Metallic-green.jpg",
+  "hoverImage": "/assets/nike/right/Air-Jordan-4-Retro-Metallic-green.jpg",
+  "galleryImages": [
+    "/assets/nike/left/Air-Jordan-4-Retro-Metallic-green.jpg",
+    "/assets/nike/right/Air-Jordan-4-Retro-Metallic-green.jpg"
+  ]
+},
+{
+  "id": "nike-jordan-4-retro-white-oreo",
+  "brand": "nike",
+  "name": "Jordan 4 Retro White Oreo",
+  "price": 1541.92,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    10,
+    11,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/left/Jordan-4-Retro-White-Oreo.jpg",
+  "hoverImage": "/assets/nike/right/Jordan-4-Retro-White-Oreo.jpg",
+  "galleryImages": [
+    "/assets/nike/left/Jordan-4-Retro-White-Oreo.jpg",
+    "/assets/nike/right/Jordan-4-Retro-White-Oreo.jpg"
+  ]
+},
+{
+  "id": "nike-nike-air-force-1-low-cactus-plant-flea-market",
+  "brand": "nike",
+  "name": "Nike Air Force 1 Low Cactus Plant Flea Market",
+  "price": 1110.28,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/left/Nike-Air-Force-1-Low-Cactus-Plant-Flea-Market.jpg",
+  "hoverImage": "/assets/nike/right/Nike-Air-Force-1-Low-Cactus-Plant-Flea-Market.jpg",
+  "galleryImages": [
+    "/assets/nike/left/Nike-Air-Force-1-Low-Cactus-Plant-Flea-Market.jpg",
+    "/assets/nike/right/Nike-Air-Force-1-Low-Cactus-Plant-Flea-Market.jpg"
+  ]
+},
+{
+  "id": "nike-nike-air-jordan-4-retro-bred",
+  "brand": "nike",
+  "name": "Nike Air Jordan 4 Retro Bred",
+  "price": 2201.4,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    10,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/left/Nike-Air-Jordan-4-Retro-Bred.jpg",
+  "hoverImage": "/assets/nike/right/Nike-Air-Jordan-4-Retro-Bred.jpg",
+  "galleryImages": [
+    "/assets/nike/left/Nike-Air-Jordan-4-Retro-Bred.jpg",
+    "/assets/nike/right/Nike-Air-Jordan-4-Retro-Bred.jpg"
+  ]
+},
+{
+  "id": "nike-air-jordan-1-mid-panda",
+  "brand": "nike",
+  "name": "Air Jordan 1 Mid  Panda",
+  "price": 2801.1,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    7,
+    8,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/right/Air-Jordan-1-MID -Panda.jpg",
+  "hoverImage": "/assets/nike/right/Air-Jordan-1-MID -Panda.jpg",
+  "galleryImages": [
+    "/assets/nike/right/Air-Jordan-1-MID -Panda.jpg"
+  ]
+},
+{
+  "id": "nike-jordan-4-retro-red-thunder",
+  "brand": "nike",
+  "name": "Jordan 4 Retro Red Thunder",
+  "price": 2757.16,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "color": "red",
+  "image": "/assets/nike/right/Jordan-4-Retro-Red-Thunder.jpg",
+  "hoverImage": "/assets/nike/right/Jordan-4-Retro-Red-Thunder.jpg",
+  "galleryImages": [
+    "/assets/nike/right/Jordan-4-Retro-Red-Thunder.jpg"
+  ]
+},
+{
+  "id": "nike-jordan-4-retro-seafoam",
+  "brand": "nike",
+  "name": "Jordan 4 Retro Seafoam",
+  "price": 1271.87,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    7,
+    8,
+    10,
+    11,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/right/Jordan-4-Retro-Seafoam.jpg",
+  "hoverImage": "/assets/nike/right/Jordan-4-Retro-Seafoam.jpg",
+  "galleryImages": [
+    "/assets/nike/right/Jordan-4-Retro-Seafoam.jpg"
+  ]
+},
+{
+  "id": "nike-nike-air-force-1-low-uv-reactive-swoosh",
+  "brand": "nike",
+  "name": "Nike Air Force 1 Low Uv Reactive Swoosh",
+  "price": 1932.59,
+  "description": "High-quality sneaker from Nike. Experience comfort and style.",
+  "sizes": [
+    7,
+    8,
+    9,
+    10,
+    12
+  ],
+  "color": "red",
+  "image": "/assets/nike/right/Nike-Air-Force-1-Low-UV-Reactive-Swoosh.jpg",
+  "hoverImage": "/assets/nike/right/Nike-Air-Force-1-Low-UV-Reactive-Swoosh.jpg",
+  "galleryImages": [
+    "/assets/nike/right/Nike-Air-Force-1-Low-UV-Reactive-Swoosh.jpg"
+  ]
+}
 ];
 
 export default productData;

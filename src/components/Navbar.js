@@ -1,13 +1,12 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useRef, useEffect } from "react"; // Removed useContext from here
 import { Link, useNavigate } from "react-router-dom";
-import { ThemeContext } from "../context/ThemeContext";
+import { useTheme } from "../context/ThemeContext"; // ✅ Changed to useTheme hook
 
 import { auth } from "../firebase/firebaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 // Import the new icons for light/dark mode
 import { FaSun, FaMoon } from 'react-icons/fa';
-// at the top with other imports
 import logo from "../assets/mr-step-up-logo.jpg";
 
 const AuthLinks = ({ user, handleLogout, closeNavbar }) => {
@@ -57,7 +56,8 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
   const dropdownButtonRef = useRef(null);
   const navigate = useNavigate();
 
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  // ✅ Used the custom useTheme hook here
+  const { theme, toggleTheme } = useTheme();
   const [user, setUser] = useState(null);
   const [togglerIconColor, setTogglerIconColor] = useState(''); // State to hold dynamic toggler color
 
@@ -158,7 +158,7 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
             src={logo}
             alt="Mr StepUp Logo"
             className="navbar-logo"
-            style={{ height: "40px", objectFit: "contain" }} // adjust as needed
+            style={{ height: "40px", objectFit: "contain" }}
           />
         </Link>
 

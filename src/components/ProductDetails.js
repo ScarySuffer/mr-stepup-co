@@ -1,33 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import AddToCartConfirmation from './AddToCartConfirmation';
-import productData from './productData';
+import productData from './productData'; // Assuming this is your source of product data
 import "./ProductDetails.css";
 
 export default function ProductDetails({ onAddToCart }) {
   const { id } = useParams();
   const product = productData.find(p => p.id === id);
 
-  const [mainImage, setMainImage] = useState(product?.image || '');
-  const [prevImage, setPrevImage] = useState(null); // for smooth fade
-  const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] || '');
+  // Initialize mainImage with the first image from galleryImages, or fallback to product.image
+  const [mainImage, setMainImage] = useState(product?.galleryImages?.[0] || product?.image || '');
+  const [prevImage, setPrevImage] = useState(null); // for smooth fade between main images
+
+  // Initialize selectedSize: if product has sizes, default to the first one, otherwise null/empty
+  const [selectedSize, setSelectedSize] = useState(product?.sizes?.length > 0 ? product.sizes[0] : null);
   const [quantity, setQuantity] = useState(1);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState('');
 
+  // Effect to reset state when product changes (including initial load)
   useEffect(() => {
     if (product) {
-      setMainImage(product.image);
-      const newSize = product.sizes?.includes(selectedSize) ? selectedSize : product.sizes?.[0] || '';
-      setSelectedSize(newSize);
-      setQuantity(1);
+      // Set main image to the first in the gallery when product loads/changes
+      setMainImage(product.galleryImages?.[0] || product.image || '');
+      // If product has sizes, set selectedSize to the first available size, otherwise null
+      setSelectedSize(product.sizes?.length > 0 ? product.sizes[0] : null);
+      setQuantity(1); // Reset quantity
     }
-  }, [product, selectedSize]);
+  }, [product]); // Only re-run when the 'product' object itself changes
 
+  // Handle case where product is not found
   if (!product) {
     return (
       <div className="product-details" style={{ padding: '2rem', textAlign: 'center' }}>
-        Product not found.
+        Product not found. 😔
         <Link to="/products" className="back-btn" style={{ display: 'block', marginTop: '1rem' }}>
           ← Back to Products
         </Link>
@@ -35,21 +41,36 @@ export default function ProductDetails({ onAddToCart }) {
     );
   }
 
+  // Handle adding product to cart
   const handleAddToCartClick = () => {
-    if (product.sizes.length > 0 && !selectedSize) {
-      setConfirmationMessage("Please select a size before adding to cart.");
+    // Check if sizes are required and a size is not selected
+    if (product.sizes && product.sizes.length > 0 && selectedSize === null) {
+      setConfirmationMessage("Please select a size before adding to cart! 📏");
       setShowConfirmation(true);
       return;
     }
-    onAddToCart(product, selectedSize, quantity);
-    setConfirmationMessage(`${quantity}x ${product.name} (Size: ${selectedSize || 'N/A'}) added to cart!`);
+
+    // Prepare product to be added to cart
+    const itemToAdd = {
+      ...product,
+      selectedSize: product.sizes?.length > 0 ? selectedSize : null, // Store null if no sizes are applicable
+      quantity: quantity
+    };
+
+    // Call parent's add to cart function
+    onAddToCart(itemToAdd, itemToAdd.selectedSize, quantity); // Ensure onAddToCart expects product, selectedSize, quantity
+
+    // Set confirmation message
+    const sizeDisplay = itemToAdd.selectedSize ? ` (Size: ${itemToAdd.selectedSize})` : '';
+    setConfirmationMessage(`${quantity}x ${product.name}${sizeDisplay} added to cart! 🎉`);
     setShowConfirmation(true);
   };
 
+  // Handle clicking a thumbnail to change the main image
   const handleThumbnailClick = (img) => {
     if (img !== mainImage) {
-      setPrevImage(mainImage);
-      setMainImage(img);
+      setPrevImage(mainImage); // Store current main image to fade out
+      setMainImage(img);        // Set new main image to fade in
     }
   };
 
@@ -58,14 +79,16 @@ export default function ProductDetails({ onAddToCart }) {
       <div className="product-detail-card">
         <div className="product-main">
           <div className="image-container">
+            {/* Conditional rendering for fade-out image */}
             {prevImage && (
               <img
                 src={prevImage}
                 alt={product.name}
                 className="main-image fade-out"
-                onAnimationEnd={() => setPrevImage(null)}
+                onAnimationEnd={() => setPrevImage(null)} // Remove after fade-out
               />
             )}
+            {/* Main product image, dynamically changes */}
             <img src={mainImage} alt={product.name} className="main-image fade-in" />
           </div>
 
@@ -74,7 +97,8 @@ export default function ProductDetails({ onAddToCart }) {
             <p className="description">{product.description}</p>
             <p className="price">R{product.price.toFixed(2)}</p>
 
-            {product.sizes.length > 0 && (
+            {/* Size selection, only rendered if sizes are available */}
+            {product.sizes && product.sizes.length > 0 && (
               <>
                 <h4>Available Sizes:</h4>
                 <div className="sizes-selection">
@@ -91,6 +115,7 @@ export default function ProductDetails({ onAddToCart }) {
               </>
             )}
 
+            {/* Quantity selector */}
             <div className="quantity-selector">
               <label htmlFor="quantity">Quantity:</label>
               <input
@@ -102,17 +127,23 @@ export default function ProductDetails({ onAddToCart }) {
               />
             </div>
 
-            <button className="add-to-cart-btn" onClick={handleAddToCartClick}>
+            {/* Add to Cart button, disabled if no size is selected AND sizes exist for this product */}
+            <button
+              className="add-to-cart-btn"
+              onClick={handleAddToCartClick}
+              disabled={product.sizes?.length > 0 && selectedSize === null}
+            >
               Add to Cart
             </button>
           </div>
         </div>
 
-        {product.otherImages.length > 0 && (
+        {/* Image Gallery - only show if there are multiple images in the gallery */}
+        {product.galleryImages && product.galleryImages.length > 1 && (
           <>
             <h4>More Photos:</h4>
             <div className="image-gallery">
-              {[product.image, ...product.otherImages].map((img, idx) => (
+              {product.galleryImages.map((img, idx) => (
                 <img
                   key={idx}
                   src={img}
@@ -128,6 +159,7 @@ export default function ProductDetails({ onAddToCart }) {
 
       <Link to="/products" className="back-btn">← Back to Products</Link>
 
+      {/* Confirmation message for add to cart */}
       <AddToCartConfirmation
         show={showConfirmation}
         message={confirmationMessage}

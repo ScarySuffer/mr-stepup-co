@@ -1,16 +1,393 @@
-/* src/components/ProductCard.css */
+/* --- Layout Fix for Footer --- */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-/* Variables converted from SCSS */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure full viewport height */
+}
+
+.App {
+  flex: 1; /* Push footer down by taking remaining space */
+  display: flex;
+  flex-direction: column;
+}
+
+/* THEME VARIABLES (Consolidated) */
 :root {
-  --bg-color: #EEE5E9;
+  /* Light Mode Variables - All in one place now */
+  --bg-color: #fcfbf8; 
+  --bg-main: #ffffff; 
+
+  --text-main: #333333; 
+  --text-color: #2b2b2b;
+  --text-color-secondary: #707070;
+
+  --link-color: #007bff; 
+
+  --header-bg: #f5f5f0; 
+  --navbar-bg: #ffffff; 
+
+  --input-bg: #ffffff; 
+  --border-color: #cccccc; 
+  --dashed-border-color: #d0d0d0; 
+
+  --shadow-color: rgba(0, 0, 0, 0.1); 
+  --cart-badge-bg: #ef4444; 
+  --cart-badge-text: #fff; 
+  --navbar-search-bg: #ffffff;
+  --navbar-search-text: #111827;
+  --navbar-search-placeholder: #6b7280;
+  --navbar-search-border: #ccc;
+  --navbar-toggler-icon-color: #374151;
+  --navbar-dropdown-bg: #ffffff;
+  --navbar-dropdown-item-color: #374151;
+  --navbar-dropdown-hover-bg: #e0e7ff; 
+  --heading-color: #111827;
+
+  /* Loading Spinner Colors */
+  --spinner-border-color: rgba(0, 188, 212, 0.2);
+  --spinner-top-color: #00bcd4;
+
+  /* Scroll-to-Top Button Colors */
+  --scroll-btn-bg: #3f51b5;
+  --scroll-btn-hover-bg: #5c6bc0;
+
+  /* Theme Toggle Button Colors */
+  --secondary-button-bg: #e0e0e0;
+  --secondary-button-text: #333333;
+  --secondary-button-hover-bg: #cccccc;
+
+  /* Product Card Text/Button Colors (Previously in ProductCard.css) */
+  --card-text-primary: #2B2D42;
+  --product-price-color: #007bff; 
+  --button-primary-text: #2B2D42;
+  --button-primary-border: #2B2D42;
+  --button-primary-hover-bg: #2B2D42;
+  --button-primary-hover-text: #FFFFFF;
+  --dropdown-toggle-bg: #f0f0f0;
+  --dropdown-toggle-text: #333;
+  --dropdown-toggle-border: #ccc;
+  --dropdown-menu-bg: #fff;
+  --dropdown-menu-text: #333;
+  --dropdown-menu-border: #ccc;
+  --dropdown-toggle-bg-hover: #e0e0e0;
+  --dropdown-menu-bg-hover: #f0f0f0;
+  --overlay-bg: rgba(255, 255, 255, 0.9);
+  --overlay-text: rgba(43, 45, 66, 0.7);
+
+}
+
+/* Dark Mode Styles (Now using the data-theme attribute selector) */
+[data-theme='dark'] {
+  /* Dark Mode Variables - Cohesive dark blue-grey palette */
+  --bg-color: #1a202c; 
+  --bg-main: #2d3748; 
+
+  --text-main: #e2e8f0; 
+  --text-color: #f7fafc; 
+  --text-color-secondary: #a0aec0; 
+
+  --link-color: #63b3ed; 
+
+  --header-bg: #2d3748; 
+  --navbar-bg: #1f2937; 
+
+  --input-bg: #2d3748; 
+  --border-color: #4a5568; 
+  --dashed-border-color: #4f5f73; 
+
+  --shadow-color: rgba(0, 0, 0, 0.8);
+  --cart-badge-bg: #ef4444; 
+  --cart-badge-text: #fff;
+  --navbar-search-bg: #374151;
+  --navbar-search-text: #f3f4f6;
+  --navbar-search-placeholder: #9ca3af;
+  --navbar-search-border: #4b5563;
+  --navbar-toggler-icon-color: #d1d5db;
+  --navbar-dropdown-bg: #374151;
+  --navbar-dropdown-item-color: #f3f4f6;
+  --navbar-dropdown-hover-bg: #4f46e5;
+  --heading-color: #f3f4f6; 
+
+  /* Loading Spinner Colors (Dark Mode) */
+  --spinner-border-color: rgba(0, 188, 212, 0.2); 
+  --spinner-top-color: #00bcd4;
+
+  /* Scroll-to-Top Button Colors (Dark Mode) */
+  --scroll-btn-bg: #5c6bc0; 
+  --scroll-btn-hover-bg: #7986cb;
+
+  /* Theme Toggle Button Colors (Dark Mode) */
+  --secondary-button-bg: #4a5568;
+  --secondary-button-text: #e2e8f0;
+  --secondary-button-hover-bg: #636b77;
+
+  /* Product Card Text/Button Colors (Previously in ProductCard.css) */
+  --card-text-primary: #DDDDDD;
+  --product-price-color: #63b3ed;
+  --button-primary-text: #DDDDDD;
+  --button-primary-border: #DDDDDD;
+  --button-primary-hover-bg: #DDDDDD;
+  --button-primary-hover-text: #1A1A1A;
+  --dropdown-toggle-bg: #333;
+  --dropdown-toggle-text: #F5F5F5;
+  --dropdown-toggle-border: #555;
+  --dropdown-menu-bg: #222;
+  --dropdown-menu-text: #F5F5F5;
+  --dropdown-menu-border: #555;
+  --dropdown-toggle-bg-hover: #444;
+  --dropdown-menu-bg-hover: #333;
+  --overlay-bg: rgba(0, 0, 0, 0.85);
+  --overlay-text: rgba(255, 255, 255, 0.8);
+}
+
+/* GLOBAL STYLES */
+body {
+  background-color: var(--bg-color); 
+  color: var(--text-main); 
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding-top: 72px; 
+}
+
+/* Ensure all heading elements use the theme's heading color */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  transition: color 0.3s ease;
+}
+
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  transition: background-color 0.3s ease;
+}
+
+/* APP-SPECIFIC STYLES */
+.App {
+  background-color: var(--bg-main); 
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: var(--header-bg); 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  transition: background-color 0.3s ease;
+  color: var(--text-main); 
+}
+
+.App-link {
+  color: var(--link-color); 
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+/* Logo animation */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Loading Animation Styles --- */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  background-color: var(--bg-color); 
+  color: var(--text-main);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  gap: 15px; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--spinner-border-color);
+  border-top-color: var(--spinner-top-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-container p {
+  font-size: 1.2em;
+  margin: 0; 
+  color: var(--text-main);
+}
+
+/* --- Scroll-to-Top Button Styles --- */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--scroll-btn-bg);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, background-color 0.3s ease;
+  z-index: 1000;
+}
+
+/* Hover effect */
+.scroll-to-top-btn:hover {
+  background-color: var(--scroll-btn-hover-bg);
+  transform: scale(1.1);
+}
+
+/* Ensure the button is not visible by default */
+.scroll-to-top-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- Theme Toggle Button Styles --- */
+/* This block was in ThemeToggle.css but moved here for centralisation */
+.theme-toggle-btn { 
+  background-color: var(--secondary-button-bg); 
+  color: var(--secondary-button-text); 
+  border: 1px solid var(--border-color); 
+  border-radius: 50%; 
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none; 
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--secondary-button-hover-bg); 
+  transform: scale(1.05); 
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Specific styles for icons inside the button if needed */
+.theme-toggle-btn .theme-icon {
+  transition: color 0.3s ease;
+}
+
+:root {
+  /* Page Colors (Light Mode Defaults) */
+  --page-bg: #EEE5E9; /* Light background for the overall page */
+  --page-text-color: #2B2D42; /* Dark text for the overall page */
+
+  /* Product Card Text/Button Colors (Prioritize readability on gradient) */
+  --card-text-primary: #2B2D42; /* Dark text for product name */
+  --product-price-color: #007bff; /* ✅ NEW: Distinct blue for price in light mode */
+  --button-primary-text: #2B2D42; /* Dark text for "Add to basket" button */
+  --button-primary-border: #2B2D42; /* Dark border for "Add to basket" button */
+  --button-primary-hover-bg: #2B2D42; /* Dark background on button hover */
+  --button-primary-hover-text: #FFFFFF; /* White text on button hover */
+
+  /* Dropdown Colors */
+  --dropdown-toggle-bg: #f0f0f0; /* Light background for dropdown toggle */
+  --dropdown-toggle-text: #333; /* Dark text for dropdown toggle */
+  --dropdown-toggle-border: #ccc; /* Light border for dropdown toggle */
+  --dropdown-menu-bg: #fff; /* White background for dropdown menu */
+  --dropdown-menu-text: #333; /* Dark text for dropdown menu items */
+  --dropdown-menu-border: #ccc; /* Light border for dropdown menu */
+  --dropdown-toggle-bg-hover: #e0e0e0; /* Added hover state for dropdown toggle */
+  --dropdown-menu-bg-hover: #f0f0f0; /* Added hover state for dropdown menu item */
+
+  /* Overlay Colors */
+  --overlay-bg: rgba(255, 255, 255, 0.9); /* White-ish overlay */
+  --overlay-text: rgba(43, 45, 66, 0.7); /* Dark text for overlay */
+
+  /* --- Original Card Background Colors (Remain unchanged) --- */
   --blue-card: #92DCE5;
   --orange-card: #EF6F6C;
   --red-card: #E84855;
   --green-card: #70C1B3;
   --yellow-card: #E8DB7D;
   --pink-card: #FF386D;
-  --dark-text: #2B2D42;
 }
+
+/* --- Dark Mode Styles --- */
+/* This attribute will be applied to the <body> or <html> element to activate dark mode */
+[data-theme='dark'] {
+  --page-bg: #1A1A1A; /* Dark background for the overall page */
+  --page-text-color: #F5F5F5; /* Light text for the overall page */
+
+  /* Product Card Text/Button Colors (remain mostly dark for contrast on gradient) */
+  --card-text-primary: #DDDDDD; /* Slightly lighter text for name in dark mode */
+  --product-price-color: #63b3ed; /* ✅ NEW: Lighter distinct blue for price in dark mode */
+  --button-primary-text: #DDDDDD; /* Lighter text for button */
+  --button-primary-border: #DDDDDD; /* Lighter border for button */
+  --button-primary-hover-bg: #DDDDDD; /* Lighter background on button hover */
+  --button-primary-hover-text: #1A1A1A; /* Dark text on button hover */
+
+  /* Dropdown Colors in Dark Mode */
+  --dropdown-toggle-bg: #333;
+  --dropdown-toggle-text: #F5F5F5;
+  --dropdown-toggle-border: #555;
+  --dropdown-menu-bg: #222;
+  --dropdown-menu-text: #F5F5F5;
+  --dropdown-menu-border: #555;
+  --dropdown-toggle-bg-hover: #444; /* Added hover state for dropdown toggle */
+  --dropdown-menu-bg-hover: #333; /* Added hover state for dropdown menu item */
+
+  /* Overlay Colors in Dark Mode (can remain similar or adjust slightly) */
+  --overlay-bg: rgba(0, 0, 0, 0.85); /* Darker overlay */
+  --overlay-text: rgba(255, 255, 255, 0.8); /* Lighter text for overlay */
+}
+
+/* --- Font Families --- */
+body {
+  font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  background-color: var(--page-bg);
+  color: var(--page-text-color);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for mode change */
+}
+
 
 /* Global styles for the product card */
 .row {
@@ -19,19 +396,41 @@
   flex-flow: row wrap;
   justify-content: center;
   padding: 1em;
-  gap: 1em; /* This replaces the margin on the product cards to make them closer */
+  gap: 1em;
 }
 
 /* The .product class has been updated for responsiveness */
 .product {
-  box-shadow: 1px 5px 15px #CCC;
-  border-radius: 3px;
+  box-shadow: 1px 5px 15px rgba(0,0,0,0.1); /* Subtle shadow */
+  border-radius: 8px; /* Slightly more rounded corners for modern feel */
   padding: 2em;
   overflow: hidden;
   position: relative;
-  flex: 1 1 250px; /* shorthand for flex-grow, flex-shrink, flex-basis */
+  flex: 1 1 250px;
   max-width: 300px;
+  transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
 }
+
+/* Card color variations using a mixin-like approach (KEEP THESE AS IS) */
+.product--blue {
+  background: linear-gradient(-45deg, var(--blue-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+.product--orange {
+  background: linear-gradient(-45deg, var(--orange-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+.product--red {
+  background: linear-gradient(-45deg, var(--red-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+.product--green {
+  background: linear-gradient(-45deg, var(--green-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+.product--yellow {
+  background: linear-gradient(-45deg, var(--yellow-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+.product--pink {
+  background: linear-gradient(-45deg, var(--pink-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+}
+
 
 .product_inner {
   display: flex;
@@ -44,47 +443,64 @@
   max-width: 100%;
   height: auto !important;
   text-align: center;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.product_inner p {
-  color: rgba(255, 255, 255, 0.9);
+/* ✅ UPDATED: Product name styling */
+.product-name {
+  color: var(--card-text-primary); /* Uses the primary text color */
+  font-weight: bold; /* Make the product name bold */
+  font-size: 1.1em; /* Slightly increased font size for the name */
+  margin-bottom: 0.25em; /* Add a small space below the name */
+  text-align: center; /* Center the text */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* ✅ UPDATED: Product price styling */
+.product-price {
+  color: var(--product-price-color); /* Uses the new distinct price color variable */
+  font-weight: bold; /* Keep the price bold */
+  font-size: 1.3em; /* Increase font size a bit more for the price */
+  text-align: center; /* Center the text */
+  transition: color 0.3s ease, font-size 0.3s ease; /* Smooth transitions for color and size */
 }
 
 /* TWEAKED BUTTON STYLES WITH TROLLEY ICON */
 .product_inner button {
-  /* Use flexbox to align icon and text */
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: #FFF;
-  font-weight: bold;
+
+  /* --- TWEAKED: Button colors use new variables --- */
+  border: 1px solid var(--button-primary-border);
+  color: var(--button-primary-text);
+  font-weight: bold; /* Already bold, confirmed */
   font-size: 1rem;
-  border-radius: 5px; /* Slightly more rounded */
-  padding: 0.8em 2em; /* Adjusted padding to center text and icon */
+  border-radius: 5px;
+  padding: 0.8em 2em;
   margin: 1em 0 0 0;
   background: none;
   cursor: pointer;
   transition: all ease-in-out 0.25s;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Initial subtle shadow */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .product_inner button:hover {
-  background: rgba(255, 255, 255, 1);
-  color: var(--dark-text);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Adds a more pronounced shadow on hover */
-  transform: translateY(-2px); /* Lifts the button slightly */
+  /* --- TWEAKED: Button hover colors use new variables --- */
+  background: var(--button-primary-hover-bg);
+  color: var(--button-primary-hover-text);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
-/* New CSS to style the <i> element directly */
 .product_inner button i {
-  margin-right: 0.5em; /* Adds space between icon and text */
+  margin-right: 0.5em;
 }
 
 /* Overlay for "Added to basket" message */
 .product_overlay {
-  background: rgba(255, 255, 255, 0.9);
+  /* --- TWEAKED: Overlay colors use new variables --- */
+  background: var(--overlay-bg);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -107,39 +523,17 @@
 }
 
 .product_overlay h2 {
-  color: rgba(43, 45, 66, 0.7);
+  color: var(--overlay-text);
   font-size: 1.2em;
   margin: 1em 0;
+  font-weight: bold; /* Made overlay heading bold */
+  transition: color 0.3s ease; /* Smooth transition for color */
 }
 
 .product_overlay i {
-  color: rgba(43, 45, 66, 0.7);
+  color: var(--overlay-text);
   font-size: 1.5em;
-}
-
-/* Card color variations using a mixin-like approach */
-.product--blue {
-  background: linear-gradient(-45deg, var(--blue-card) 50%, rgba(255, 255, 255, 0.5) 50%);
-}
-
-.product--orange {
-  background: linear-gradient(-45deg, var(--orange-card) 50%, rgba(255, 255, 255, 0.5) 50%);
-}
-
-.product--red {
-  background: linear-gradient(-45deg, var(--red-card) 50%, rgba(255, 255, 255, 0.5) 50%);
-}
-
-.product--green {
-  background: linear-gradient(-45deg, var(--green-card) 50%, rgba(255, 255, 255, 0.5) 50%);
-}
-
-.product--yellow {
-  background: linear-gradient(-45deg, var(--yellow-card) 50%, rgba(255, 255, 255, 0.5) 50%);
-}
-
-.product--pink {
-  background: linear-gradient(-45deg, var(--pink-card) 50%, rgba(255, 255, 255, 0.5) 50%);
+  transition: color 0.3s ease; /* Smooth transition for color */
 }
 
 /* Media queries for responsiveness */
@@ -160,27 +554,27 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #f0f0f0;
-  color: #333;
-  border: 1px solid #ccc;
+  /* --- TWEAKED: Dropdown toggle colors use new variables --- */
+  background-color: var(--dropdown-toggle-bg);
+  color: var(--dropdown-toggle-text);
+  border: 1px solid var(--dropdown-toggle-border);
   border-radius: 4px;
-  padding: 0.25em 0.5em; /* Smaller padding */
-  font-size: 0.8em; /* Smaller font size */
+  padding: 0.25em 0.5em;
+  font-size: 0.8em;
+  font-weight: bold; /* Made dropdown toggle text bold */
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .product__size-dropdown-toggle:hover {
-  background-color: #e0e0e0;
+  background-color: var(--dropdown-toggle-bg-hover); /* Uses new hover variable */
 }
 
-/* Typo fixed here: `bi-chevron-down` instead of `bi-chevron-down.open` */
 .product__size-dropdown-toggle .bi-chevron-down {
-  font-size: 0.6em; /* Smaller icon */
+  font-size: 0.6em;
   transition: transform 0.3s ease;
 }
 
-/* Correct class for the open state */
 .product__size-dropdown-toggle .bi-chevron-down.open {
   transform: rotate(180deg);
 }
@@ -189,25 +583,29 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  /* --- TWEAKED: Dropdown menu colors use new variables --- */
+  background-color: var(--dropdown-menu-bg);
+  border: 1px solid var(--dropdown-menu-border);
   border-radius: 4px;
   list-style: none;
   margin: 0.25em 0 0 0;
   padding: 0;
   z-index: 10;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  /* Added for scrollability */
   max-height: 150px;
   overflow-y: auto;
+  color: var(--dropdown-menu-text);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
 }
 
 .product__size-dropdown-item {
-  padding: 0.25em 0.5em; /* Smaller padding */
+  padding: 0.25em 0.5em;
   cursor: pointer;
-  font-size: 0.8em; /* Smaller font size */
+  font-size: 0.8em;
+  font-weight: bold; /* Made dropdown item text bold */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 .product__size-dropdown-item:hover {
-  background-color: #f0f0f0;
+  background-color: var(--dropdown-menu-bg-hover); /* Uses new hover variable */
 }

@@ -17,29 +17,28 @@ body {
   flex-direction: column;
 }
 
-/* THEME VARIABLES */
+/* THEME VARIABLES (Consolidated) */
 :root {
-  /* Light Mode Variables - Focused on soft, modern beige/off-white tones */
-  --bg-color: #fcfbf8; /* Main page background - very light beige/off-white */
-  --bg-main: #ffffff; /* Card/Container background - pure white for contrast on beige */
+  /* Light Mode Variables - All in one place now */
+  --bg-color: #fcfbf8; 
+  --bg-main: #ffffff; 
 
-  --text-main: #333333; /* Main text color - dark grey */
-  --text-color: #2b2b2b; /* Fallback main text - slightly darker */
-  --text-color-secondary: #707070; /* Secondary text, labels - medium grey */
+  --text-main: #333333; 
+  --text-color: #2b2b2b;
+  --text-color-secondary: #707070;
 
-  --link-color: #007bff; /* Primary links / highlight - standard blue */
+  --link-color: #007bff; 
 
-  --header-bg: #f5f5f0; /* Header background - light beige for consistency */
-  --navbar-bg: #ffffff; /* Navbar background - pure white for clean look */
+  --header-bg: #f5f5f0; 
+  --navbar-bg: #ffffff; 
 
-  --input-bg: #ffffff; /* Input background */
-  --border-color: #cccccc; /* Border color - light grey */
-  --dashed-border-color: #d0d0d0; /* Subtotals dashed border - lighter grey */
+  --input-bg: #ffffff; 
+  --border-color: #cccccc; 
+  --dashed-border-color: #d0d0d0; 
 
-  /* Specifics that were separate but fit here for light theme */
-  --shadow-color: rgba(0, 0, 0, 0.1); /* Soft shadows */
-  --cart-badge-bg: #ef4444; /* Red for badge */
-  --cart-badge-text: #fff; /* White for badge text */
+  --shadow-color: rgba(0, 0, 0, 0.1); 
+  --cart-badge-bg: #ef4444; 
+  --cart-badge-text: #fff; 
   --navbar-search-bg: #ffffff;
   --navbar-search-text: #111827;
   --navbar-search-placeholder: #6b7280;
@@ -47,39 +46,63 @@ body {
   --navbar-toggler-icon-color: #374151;
   --navbar-dropdown-bg: #ffffff;
   --navbar-dropdown-item-color: #374151;
-  --navbar-dropdown-hover-bg: #e0e7ff; /* Light blue hover for dropdown */
-  --heading-color: #111827; /* Dark heading color */
+  --navbar-dropdown-hover-bg: #e0e7ff; 
+  --heading-color: #111827;
 
-  /* Loading Spinner Colors (Light Mode) */
+  /* Loading Spinner Colors */
   --spinner-border-color: rgba(0, 188, 212, 0.2);
   --spinner-top-color: #00bcd4;
 
-  /* Scroll-to-Top Button Colors (Light Mode) */
+  /* Scroll-to-Top Button Colors */
   --scroll-btn-bg: #3f51b5;
   --scroll-btn-hover-bg: #5c6bc0;
+
+  /* Theme Toggle Button Colors */
+  --secondary-button-bg: #e0e0e0;
+  --secondary-button-text: #333333;
+  --secondary-button-hover-bg: #cccccc;
+
+  /* Product Card Text/Button Colors (Previously in ProductCard.css) */
+  --card-text-primary: #2B2D42;
+  --product-price-color: #007bff; 
+  --button-primary-text: #2B2D42;
+  --button-primary-border: #2B2D42;
+  --button-primary-hover-bg: #2B2D42;
+  --button-primary-hover-text: #FFFFFF;
+  --dropdown-toggle-bg: #f0f0f0;
+  --dropdown-toggle-text: #333;
+  --dropdown-toggle-border: #ccc;
+  --dropdown-menu-bg: #fff;
+  --dropdown-menu-text: #333;
+  --dropdown-menu-border: #ccc;
+  --dropdown-toggle-bg-hover: #e0e0e0;
+  --dropdown-menu-bg-hover: #f0f0f0;
+  --overlay-bg: rgba(255, 255, 255, 0.9);
+  --overlay-text: rgba(43, 45, 66, 0.7);
+
 }
 
+/* Dark Mode Styles (Now using the data-theme attribute selector) */
 [data-theme='dark'] {
   /* Dark Mode Variables - Cohesive dark blue-grey palette */
-  --bg-color: #1a202c; /* Main page background - dark slate/navy */
-  --bg-main: #2d3748; /* Card/Container background - slightly lighter dark slate */
+  --bg-color: #1a202c; 
+  --bg-main: #2d3748; 
 
-  --text-main: #e2e8f0; /* Main text color - very light grey */
-  --text-color: #f7fafc; /* Fallback main text - almost white */
-  --text-color-secondary: #a0aec0; /* Muted grey blue */
+  --text-main: #e2e8f0; 
+  --text-color: #f7fafc; 
+  --text-color-secondary: #a0aec0; 
 
-  --link-color: #63b3ed; /* Primary links / highlight - bright sky blue */
+  --link-color: #63b3ed; 
 
-  --header-bg: #2d3748; /* Header dark slate */
-  --navbar-bg: #1f2937; /* Navbar dark blue-grey */
+  --header-bg: #2d3748; 
+  --navbar-bg: #1f2937; 
 
-  --input-bg: #2d3748; /* Dark input background */
-  --border-color: #4a5568; /* Darker border color */
-  --dashed-border-color: #4f5f73; /* Darker dashed border */
+  --input-bg: #2d3748; 
+  --border-color: #4a5568; 
+  --dashed-border-color: #4f5f73; 
 
-  /* Specifics that were separate but fit here for dark theme */
   --shadow-color: rgba(0, 0, 0, 0.8);
-  --cart-badge-bg: #ef4444; /* Keep red */
+  --cart-badge-bg: #ef4444; 
   --cart-badge-text: #fff;
   --navbar-search-bg: #374151;
   --navbar-search-text: #f3f4f6;
@@ -88,41 +111,64 @@ body {
   --navbar-toggler-icon-color: #d1d5db;
   --navbar-dropdown-bg: #374151;
   --navbar-dropdown-item-color: #f3f4f6;
-  --navbar-dropdown-hover-bg: #4f46e5; /* Darker blue hover for dropdown */
-  --heading-color: #f3f4f6; /* Light heading color */
+  --navbar-dropdown-hover-bg: #4f46e5;
+  --heading-color: #f3f4f6; 
 
   /* Loading Spinner Colors (Dark Mode) */
-  --spinner-border-color: rgba(0, 188, 212, 0.2); /* Same as light for brand consistency */
-  --spinner-top-color: #00bcd4; /* Same as light for brand consistency */
+  --spinner-border-color: rgba(0, 188, 212, 0.2); 
+  --spinner-top-color: #00bcd4;
 
   /* Scroll-to-Top Button Colors (Dark Mode) */
-  --scroll-btn-bg: #5c6bc0; /* A color that fits the dark palette */
+  --scroll-btn-bg: #5c6bc0; 
   --scroll-btn-hover-bg: #7986cb;
+
+  /* Theme Toggle Button Colors (Dark Mode) */
+  --secondary-button-bg: #4a5568;
+  --secondary-button-text: #e2e8f0;
+  --secondary-button-hover-bg: #636b77;
+
+  /* Product Card Text/Button Colors (Previously in ProductCard.css) */
+  --card-text-primary: #DDDDDD;
+  --product-price-color: #63b3ed;
+  --button-primary-text: #DDDDDD;
+  --button-primary-border: #DDDDDD;
+  --button-primary-hover-bg: #DDDDDD;
+  --button-primary-hover-text: #1A1A1A;
+  --dropdown-toggle-bg: #333;
+  --dropdown-toggle-text: #F5F5F5;
+  --dropdown-toggle-border: #555;
+  --dropdown-menu-bg: #222;
+  --dropdown-menu-text: #F5F5F5;
+  --dropdown-menu-border: #555;
+  --dropdown-toggle-bg-hover: #444;
+  --dropdown-menu-bg-hover: #333;
+  --overlay-bg: rgba(0, 0, 0, 0.85);
+  --overlay-text: rgba(255, 255, 255, 0.8);
 }
 
 /* GLOBAL STYLES */
 body {
-  background-color: var(--bg-color); /* Uses the main page background variable */
-  color: var(--text-main); /* Ensures all text directly in the body uses the main text color */
+  background-color: var(--bg-color); 
+  color: var(--text-main); 
   transition: background-color 0.3s ease, color 0.3s ease;
-  padding-top: 72px; /* space for sticky navbar - confirm this value matches actual navbar height */
+  padding-top: 72px; 
 }
 
 /* Ensure all heading elements use the theme's heading color */
 h1, h2, h3, h4, h5, h6 {
-    color: var(--heading-color);
-    transition: color 0.3s ease;
+  color: var(--heading-color);
+  transition: color 0.3s ease;
 }
 
 .navbar {
-  background-color: var(--navbar-bg) !important; /* Uses navbar background variable */
+  background-color: var(--navbar-bg) !important;
   transition: background-color 0.3s ease;
 }
 
 /* APP-SPECIFIC STYLES */
 .App {
-  background-color: var(--bg-main); /* Uses card/container background variable */
-  color: var(--text-main); /* Ensures App container text uses the main text color */
+  background-color: var(--bg-main); 
+  color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -138,7 +184,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .App-header {
-  background-color: var(--header-bg); /* Uses header background variable */
+  background-color: var(--header-bg); 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -146,11 +192,11 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   transition: background-color 0.3s ease;
-  color: var(--text-main); /* Ensures header text uses the main text color */
+  color: var(--text-main); 
 }
 
 .App-link {
-  color: var(--link-color); /* Uses link color variable */
+  color: var(--link-color); 
   text-decoration: underline;
   transition: color 0.3s ease;
 }
@@ -171,19 +217,19 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Takes full viewport height */
-  background-color: var(--bg-color); /* Uses theme background color */
-  color: var(--text-main); /* Ensures loading text uses the main text color */
+  min-height: 100vh; 
+  background-color: var(--bg-color); 
+  color: var(--text-main);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  gap: 15px; /* Space between spinner and text */
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
+  gap: 15px; 
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid var(--spinner-border-color); /* Uses theme variable for border */
-  border-top-color: var(--spinner-top-color); /* Uses theme variable for spinning part */
+  border: 5px solid var(--spinner-border-color);
+  border-top-color: var(--spinner-top-color);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -199,8 +245,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .loading-container p {
   font-size: 1.2em;
-  margin: 0; /* Remove default paragraph margin */
-  color: var(--text-main); /* Ensures paragraphs in loading container use main text color */
+  margin: 0; 
+  color: var(--text-main);
 }
 
 /* --- Scroll-to-Top Button Styles --- */
@@ -208,8 +254,8 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: var(--scroll-btn-bg); /* Use theme variable */
-  color: white; /* The button's icon/text remains white for contrast on the themed background */
+  background-color: var(--scroll-btn-bg);
+  color: white;
   border: none;
   border-radius: 50%;
   width: 50px;
@@ -226,7 +272,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Hover effect */
 .scroll-to-top-btn:hover {
-  background-color: var(--scroll-btn-hover-bg); /* Use theme variable */
+  background-color: var(--scroll-btn-hover-bg);
   transform: scale(1.1);
 }
 
@@ -234,4 +280,37 @@ h1, h2, h3, h4, h5, h6 {
 .scroll-to-top-btn.hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+/* --- Theme Toggle Button Styles --- */
+/* This block was in ThemeToggle.css but moved here for centralisation */
+.theme-toggle-btn { 
+  background-color: var(--secondary-button-bg); 
+  color: var(--secondary-button-text); 
+  border: 1px solid var(--border-color); 
+  border-radius: 50%; 
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none; 
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--secondary-button-hover-bg); 
+  transform: scale(1.05); 
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Specific styles for icons inside the button if needed */
+.theme-toggle-btn .theme-icon {
+  transition: color 0.3s ease;
 }

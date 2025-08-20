@@ -21,10 +21,10 @@ export default function Products({ onAddToCart }) {
       {products.length > 0 ? (
         <div className="products-grid">
           {products.map(product => (
-            <ProductCard 
-              key={product.id} 
-              product={product} 
-              onAddToCart={onAddToCart} 
+            <ProductCard
+              key={product.id}
+              product={product}
+              onAddToCart={onAddToCart}
             />
           ))}
         </div>

@@ -86,15 +86,28 @@
   padding: 1.5rem 2rem;
 }
 
-/* --- Main Product Image --- */
-.product-main img.main-image {
+/* --- Main Product Image Container --- */
+/* Add a fixed aspect ratio container for the main image */
+.image-container {
+  position: relative;
   width: 100%;
-  max-width: 450px;
+  padding-bottom: 100%; /* Creates a square aspect ratio (1:1). Adjust as needed. */
+  overflow: hidden;
   border-radius: 10px;
-  object-fit: contain;
   align-self: center;
+  max-width: 450px; /* Limits the max size of the square container */
   background-color: var(--bg-image);
-  padding: 1rem;
+}
+
+.product-main img.main-image {
+  position: absolute; /* Position the image within the container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensures the whole image is visible, padding if needed */
+  border-radius: 10px; /* Keep border-radius for the image itself */
+  padding: 1rem; /* Padding inside the image to match previous design */
 }
 
 /* --- Product Information --- */
@@ -244,7 +257,7 @@ h4 {
 .image-gallery img {
   width: 90px;
   height: 90px;
-  object-fit: cover;
+  object-fit: cover; /* Ensures fixed size, cropping if necessary */
   border-radius: 6px;
   border: 1px solid var(--border-medium);
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -288,9 +301,10 @@ h4 {
     gap: 3rem;
     padding: 2.5rem 3rem;
   }
-  .product-main img.main-image {
+  .product-main .image-container { /* Target the container instead of the image directly */
     max-width: 40%;
     flex-shrink: 0;
+    padding-bottom: 40%; /* Adjust for desired aspect ratio (e.g., 40% width for a square) */
   }
   .product-info {
     flex: 1;
@@ -306,8 +320,9 @@ h4 {
   }
 }
 @media (min-width: 1024px) {
-  .product-main img.main-image {
+  .product-main .image-container { /* Target the container instead of the image directly */
     max-width: 350px;
+    padding-bottom: 350px; /* For a 350px square */
   }
   .product-info h2 {
     font-size: 3rem;

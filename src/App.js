@@ -195,10 +195,10 @@ function AppContent() {
 
     switch (sortBy) {
       case 'price-asc':
-        filtered.sort((a, b) => a.price - a.price);
+        filtered.sort((a, b) => a.price - b.price); // Corrected to use 'b.price' for proper comparison
         break;
       case 'price-desc':
-        filtered.sort((a, b) => b.price - b.price);
+        filtered.sort((a, b) => b.price - a.price); // Corrected to use 'a.price' for proper comparison
         break;
       case 'name-asc':
         filtered.sort((a, b) => a.name.localeCompare(b.name));
@@ -260,8 +260,9 @@ function AppContent() {
               />
             }
           />
+          {/* FIX: Changed path from "/product/:id" to "/products/:id" */}
           <Route
-            path="/product/:id"
+            path="/products/:id"
             element={<ProductDetails onAddToCart={handleAddToCart} products={products} />}
           />
           <Route path="/brands" element={<Brands onAddToCart={handleAddToCart} productsToDisplay={products} />} />

@@ -2,20 +2,18 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebaseConfig';
-import { AuthContext } from './AuthContext';
+import { AuthContext } from './AuthContext'; // Ensure AuthContext is correctly imported
 
 export const ThemeContext = createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
-  // Destructure `loading` from AuthContext as `authLoading` to avoid name collision
   const { currentUser, loading: authLoading } = useContext(AuthContext);
-  const [theme, setTheme] = useState('light');
-  const [loading, setLoading] = useState(true); // This `loading` state is for the ThemeContext itself
+  const [theme, setTheme] = useState('light'); // Default to 'light' initially
+  const [loading, setLoading] = useState(true); // Internal loading state for theme
 
   useEffect(() => {
-    // Wait for the AuthContext to finish loading its authentication state
-    // before attempting to load the theme, as theme loading depends on currentUser.
+    // Only proceed if AuthContext has finished loading its authentication state
     if (authLoading) return;
 
     const loadTheme = async () => {
@@ -26,7 +24,7 @@ export const ThemeProvider = ({ children }) => {
           if (docSnap.exists() && docSnap.data().theme) {
             setTheme(docSnap.data().theme);
           } else {
-            // If user exists but no theme in Firestore, default to 'light'
+            // If user exists but no theme saved in Firestore, default to 'light'
             // and save it to Firestore for consistency.
             setTheme('light');
             await setDoc(docRef, { theme: 'light' }, { merge: true });
@@ -50,12 +48,13 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     // Only apply theme to DOM and save to localStorage/Firestore once theme is loaded
-    if (loading) return;
+    if (loading) return; // Wait until initial theme loading is complete
 
     document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme); // Apply to body too for better consistency
     localStorage.setItem('theme', theme);
 
+    // Save to Firestore only if a user is logged in
     if (currentUser) {
       const saveTheme = async () => {
         try {
@@ -65,6 +64,7 @@ export const ThemeProvider = ({ children }) => {
           console.error('Error saving theme to Firestore:', error);
         }
       };
+      // Debounce saving to Firestore if desired, though immediate save is often fine for theme
       saveTheme();
     }
   }, [theme, currentUser, loading]); // Rerun when theme, user, or loading status changes

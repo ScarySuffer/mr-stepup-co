@@ -10,7 +10,6 @@ export default function ProductDetails({ onAddToCart }) {
 
   // Initialize mainImage with the first image from galleryImages, or fallback to product.image
   const [mainImage, setMainImage] = useState(product?.galleryImages?.[0] || product?.image || '');
-  const [prevImage, setPrevImage] = useState(null); // for smooth fade between main images
 
   // Initialize selectedSize: if product has sizes, default to the first one, otherwise null/empty
   const [selectedSize, setSelectedSize] = useState(product?.sizes?.length > 0 ? product.sizes[0] : null);
@@ -33,7 +32,7 @@ export default function ProductDetails({ onAddToCart }) {
   if (!product) {
     return (
       <div className="product-details" style={{ padding: '2rem', textAlign: 'center' }}>
-        Product not found. 😔
+        <p>Product not found. 😔</p>
         <Link to="/products" className="back-btn" style={{ display: 'block', marginTop: '1rem' }}>
           ← Back to Products
         </Link>
@@ -68,94 +67,79 @@ export default function ProductDetails({ onAddToCart }) {
 
   // Handle clicking a thumbnail to change the main image
   const handleThumbnailClick = (img) => {
-    if (img !== mainImage) {
-      setPrevImage(mainImage); // Store current main image to fade out
-      setMainImage(img);        // Set new main image to fade in
-    }
+    setMainImage(img);
   };
 
   return (
     <div className="product-details">
       <div className="product-detail-card">
-        <div className="product-main">
-          <div className="image-container">
-            {/* Conditional rendering for fade-out image */}
-            {prevImage && (
-              <img
-                src={prevImage}
-                alt={product.name}
-                className="main-image fade-out"
-                onAnimationEnd={() => setPrevImage(null)} // Remove after fade-out
-              />
-            )}
-            {/* Main product image, dynamically changes */}
-            <img src={mainImage} alt={product.name} className="main-image fade-in" />
-          </div>
-
-          <div className="product-info">
-            <h2>{product.name}</h2>
-            <p className="description">{product.description}</p>
-            <p className="price">R{product.price.toFixed(2)}</p>
-
-            {/* Size selection, only rendered if sizes are available */}
-            {product.sizes && product.sizes.length > 0 && (
-              <>
-                <h4>Available Sizes:</h4>
-                <div className="sizes-selection">
-                  {product.sizes.map(size => (
-                    <span
-                      key={size}
-                      className={`size-badge ${selectedSize === size ? 'selected' : ''}`}
-                      onClick={() => setSelectedSize(size)}
-                    >
-                      {size}
-                    </span>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* Quantity selector */}
-            <div className="quantity-selector">
-              <label htmlFor="quantity">Quantity:</label>
-              <input
-                type="number"
-                id="quantity"
-                min="1"
-                value={quantity}
-                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-              />
-            </div>
-
-            {/* Add to Cart button, disabled if no size is selected AND sizes exist for this product */}
-            <button
-              className="add-to-cart-btn"
-              onClick={handleAddToCartClick}
-              disabled={product.sizes?.length > 0 && selectedSize === null}
-            >
-              Add to Cart
-            </button>
-          </div>
+        {/* Main image container */}
+        <div className="imgBx">
+          <img src={mainImage} alt={product.name} />
         </div>
 
-        {/* Image Gallery - only show if there are multiple images in the gallery */}
-        {product.galleryImages && product.galleryImages.length > 1 && (
-          <>
-            <h4>More Photos:</h4>
-            <div className="image-gallery">
-              {product.galleryImages.map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img}
-                  alt={`${product.name} view ${idx + 1}`}
-                  className={`thumbnail ${mainImage === img ? 'selected-thumbnail' : ''}`}
-                  onClick={() => handleThumbnailClick(img)}
-                />
-              ))}
-            </div>
-          </>
-        )}
+        {/* Product content and actions */}
+        <div className="contentBx">
+          <h2>{product.name}</h2>
+          <p className="description">{product.description}</p>
+          <p className="price">R{product.price.toFixed(2)}</p>
+        </div>
       </div>
+
+      {/* New container for size, quantity, and add to cart */}
+      <div className="product-actions-container">
+        {/* Size selection, only rendered if sizes are available */}
+        {product.sizes && product.sizes.length > 0 && (
+          <div className="size">
+            <h3>Size:</h3>
+            {product.sizes.map(size => (
+              <span
+                key={size}
+                className={`size-badge ${selectedSize === size ? 'selected' : ''}`}
+                onClick={() => setSelectedSize(size)}
+              >
+                {size}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Quantity selector */}
+        <div className="quantity">
+          <h3>Quantity:</h3>
+          <input
+            type="number"
+            id="quantity"
+            min="1"
+            value={quantity}
+            onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+          />
+        </div>
+
+        {/* Add to Cart button */}
+        <button
+          className="add-to-cart-btn"
+          onClick={handleAddToCartClick}
+          disabled={product.sizes?.length > 0 && selectedSize === null}
+        >
+          Add to Cart
+        </button>
+      </div>
+
+      {/* Image Gallery - only show if there are multiple images in the gallery */}
+      {product.galleryImages && product.galleryImages.length > 1 && (
+        <div className="image-gallery">
+          {product.galleryImages.map((img, idx) => (
+            <img
+              key={idx}
+              src={img}
+              alt={`${product.name} view ${idx + 1}`}
+              className={`thumbnail ${mainImage === img ? 'selected-thumbnail' : ''}`}
+              onClick={() => handleThumbnailClick(img)}
+            />
+          ))}
+        </div>
+      )}
 
       <Link to="/products" className="back-btn">← Back to Products</Link>
 

@@ -9,6 +9,7 @@ import './Products.css';
  * @param {function} onAddToCart - Handler to add a product to the cart.
  */
 export default function Products({ onAddToCart }) {
+  // Use useMemo to ensure productData is not recreated on every render
   const products = useMemo(() => productData, []);
 
   return (
@@ -18,6 +19,7 @@ export default function Products({ onAddToCart }) {
         <p className="subtext">Find something you love.</p>
       </div>
 
+      {/* Conditional rendering based on whether there are products to display */}
       {products.length > 0 ? (
         <div className="products-grid">
           {products.map(product => (

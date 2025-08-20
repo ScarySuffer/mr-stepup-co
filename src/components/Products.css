@@ -3,7 +3,8 @@
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  min-height: calc(100vh - var(--navbar-height, 72px)); /* Using vh for now as dvh has less support */
+  /* Using vh for now as dvh has less support */
+  min-height: calc(100vh - var(--navbar-height, 72px));
   padding: 4rem 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-main);
@@ -74,8 +75,8 @@
   margin-bottom: 1rem;
 }
 
-
-
+/* -------------------------------------------------------------------------------------- */
+/* Media queries for responsiveness */
 
 /* Medium devices (landscape tablets, small desktops, 768px and up) */
 @media (min-width: 768px) {
@@ -101,10 +102,6 @@
     grid-template-columns: repeat(5, 1fr);
   }
 }
-
-/* -------------------------------------------------------------------------------------- */
-
-
 
 /* Small devices (phones in landscape, small tablets, 600px up to 767.98px) */
 @media (min-width: 600px) and (max-width: 767.98px) {

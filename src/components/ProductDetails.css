@@ -1,7 +1,7 @@
 /* src/components/ProductDetails.css */
 
 /* THEME VARIABLES AND FONTS */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;0,700;0,800;0,900&display=swap');
 
 :root {
   /* Using your existing color variables for consistency */
@@ -72,17 +72,17 @@
   gap: 2rem; /* Space between the card and action container */
 }
 
-/* --- Product Detail Card Container (new style) --- */
+/* --- Product Detail Card Container --- */
 .product-detail-card {
   position: relative;
-  width: 320px; /* Original width */
-  height: 450px; /* Original height */
+  width: 320px;
+  height: 450px; /* This height supports the desktop hover effect */
   background: var(--card-bg);
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   transition: 0.5s ease-in-out;
-  flex-shrink: 0; /* Prevent the card from shrinking */
+  flex-shrink: 0;
 }
 
 .product-detail-card:hover {
@@ -92,25 +92,25 @@
 
 /* --- Main Image Container --- */
 .product-detail-card .imgBx {
-  position: absolute; /* Keep absolute for hover effect */
-  top: 50%; /* Original positioning */
-  transform: translateY(-50%); /* Original positioning */
+  position: absolute; /* Kept for desktop hover effect */
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1000;
   width: 100%;
   height: 220px;
   transition: 0.5s;
-  display: flex; /* To center the image within */
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .product-detail-card:hover .imgBx {
-  top: 0%; /* Move to top on hover */
-  transform: translateY(0%); /* Remove vertical transform on hover */
+  top: 0%;
+  transform: translateY(0%);
 }
 
 .product-detail-card .imgBx img {
-  position: relative; /* Keep relative to contain within imgBx */
+  position: relative;
   top: auto;
   left: auto;
   transform: translate(0, 0) rotate(-25deg); /* Initial rotation */
@@ -124,20 +124,20 @@
 
 /* --- Product Content Box --- */
 .product-detail-card .contentBx {
-  position: absolute; /* Keep absolute for hover effect */
-  bottom: 0; /* Anchor to bottom */
+  position: absolute; /* Kept for desktop hover effect */
+  bottom: 0;
   width: 100%;
-  height: 140px; /* Sufficient initial height to show description */
+  height: 140px; /* Initial height to show description */
   text-align: center;
   transition: 1s;
   z-index: 10;
   color: var(--card-text);
-  padding: 1rem 1rem 0.5rem; /* Adjust padding for description to breathe */
-  box-sizing: border-box; /* Include padding in height calculation */
+  padding: 1rem 1rem 0.5rem;
+  box-sizing: border-box;
 }
 
 .product-detail-card:hover .contentBx {
-  height: 250px; /* Increased height to reveal more content if needed by product description */
+  height: 250px; /* Increased height to reveal more content */
   padding-top: 20px;
 }
 
@@ -151,13 +151,12 @@
 
 .product-detail-card .contentBx .description {
   font-size: 0.8rem;
-  margin: 0.5rem 0 0.5rem; /* Reduced bottom margin for description */
+  margin: 0.5rem 0 0.5rem;
   color: var(--card-text);
-  /* Ensure description text wraps and is not cut off */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Show up to 3 lines of description */
+  -webkit-line-clamp: 3; /* Show up to 3 lines initially */
   -webkit-box-orient: vertical;
 }
 
@@ -168,33 +167,33 @@
   margin-bottom: 0.5rem;
 }
 
-/* --- New Product Actions Container (remains separate) --- */
+/* --- Product Actions Container --- */
 .product-actions-container {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Space between size, quantity, and button */
-  background: var(--bg-primary); /* Use a background that fits your theme */
+  gap: 1.5rem;
+  background: var(--bg-primary);
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 5px 15px var(--shadow-base);
-  align-items: center; /* Center items horizontally within this container */
-  max-width: 300px; /* Limit width */
+  align-items: center;
+  max-width: 300px;
   flex-shrink: 0;
   color: var(--text-primary);
-  margin-top: 0; /* No top margin as it's next to the card */
+  margin-top: 0;
 }
 
-/* --- Size and Quantity Sections in new container --- */
+/* --- Size and Quantity Sections --- */
 .product-actions-container .size,
 .product-actions-container .quantity {
   display: flex;
-  flex-direction: column; /* Stack heading and options vertically */
-  align-items: center; /* Center content */
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   padding: 0;
-  opacity: 1; /* Always visible */
-  visibility: visible; /* Always visible */
-  transition: none; /* No transition needed here */
+  opacity: 1;
+  visibility: visible;
+  transition: none;
 }
 
 .product-actions-container .size h3,
@@ -203,31 +202,31 @@
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 0.8rem; /* Space below heading */
-  margin-right: 0; /* No right margin */
+  margin-bottom: 0.8rem;
+  margin-right: 0;
   color: var(--text-strong);
 }
 
-/* --- Individual Size Badge in new container --- */
-.product-actions-container .size .size-badge { /* Renamed span to size-badge for clarity */
-  width: 40px; /* Slightly larger for better tap target */
+/* --- Individual Size Badge --- */
+.product-actions-container .size .size-badge {
+  width: 40px;
   height: 40px;
   line-height: 40px;
   font-size: 1rem;
   color: var(--text-primary);
-  background: var(--bg-secondary); /* Use a lighter background */
-  margin: 0 8px; /* Slightly more margin */
+  background: var(--bg-secondary);
+  margin: 0 8px;
   transition: 0.3s;
-  border-radius: 8px; /* More rounded */
+  border-radius: 8px;
   cursor: pointer;
-  border: 1px solid var(--border-medium); /* Add a subtle border */
-  display: inline-flex; /* Use inline-flex for better alignment */
+  border: 1px solid var(--border-medium);
+  display: inline-flex;
   justify-content: center;
   align-items: center;
 }
 
 .product-actions-container .size .size-badge:hover {
-  background: var(--blue-primary); /* Hover color from theme */
+  background: var(--blue-primary);
   color: white;
   border-color: var(--blue-primary);
 }
@@ -237,28 +236,28 @@
   color: white;
   font-weight: 700;
   border-color: var(--blue-primary);
-  box-shadow: 0 0 0 2px var(--blue-dark); /* Highlight selected */
+  box-shadow: 0 0 0 2px var(--blue-dark);
 }
 
 .product-actions-container .size {
   display: flex;
-  flex-wrap: wrap; /* Allow sizes to wrap */
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem; /* Gap between size badges */
+  gap: 0.5rem;
 }
 
-/* --- Quantity Input in new container --- */
+/* --- Quantity Input --- */
 .product-actions-container .quantity input {
-  width: 80px; /* Wider input */
-  padding: 0.75rem; /* More padding */
-  border: 1px solid var(--border-medium); /* Add border */
+  width: 80px;
+  padding: 0.75rem;
+  border: 1px solid var(--border-medium);
   border-radius: 8px;
   font-size: 1.1rem;
   text-align: center;
   -moz-appearance: textfield;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  margin-top: 0.5rem; /* Space above input */
+  margin-top: 0.5rem;
 }
 
 .product-actions-container .quantity input::-webkit-outer-spin-button,
@@ -267,29 +266,29 @@
   margin: 0;
 }
 
-/* --- Add to Cart Button in new container --- */
+/* --- Add to Cart Button --- */
 .add-to-cart-btn {
-  display: block; /* Make it a block element to take full width of container */
-  width: 80%; /* Adjust width within its container */
-  max-width: 250px; /* Max width for larger screens */
-  padding: 12px 25px; /* More padding */
+  display: block;
+  width: 80%;
+  max-width: 250px;
+  padding: 12px 25px;
   background: var(--buy-btn-bg);
   border: none;
-  border-radius: 8px; /* More rounded corners */
+  border-radius: 8px;
   text-decoration: none;
-  font-weight: 700; /* Bolder text */
-  font-size: 1.1rem; /* Larger font size */
+  font-weight: 700;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   color: var(--buy-btn-text);
-  margin-top: 1.5rem; /* More space above the button */
-  box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* Add subtle shadow */
+  margin-top: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
 .add-to-cart-btn:hover {
-  background: var(--purple-primary); /* Change to purple on hover */
+  background: var(--purple-primary);
   color: white;
-  transform: translateY(-2px); /* Slight lift effect */
+  transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
@@ -310,7 +309,7 @@
   padding: 1.5rem 0;
   justify-content: center;
   margin-top: 2rem;
-  width: 100%; /* Take full width below the main content */
+  width: 100%;
 }
 
 .image-gallery img {
@@ -349,27 +348,87 @@
   color: var(--text-secondary);
 }
 
-/* --- Responsive adjustments --- */
+/* --- Responsive adjustments for mobile --- */
 @media (max-width: 768px) {
   .product-details {
-    flex-direction: column; /* Stack elements vertically on smaller screens */
+    flex-direction: column;
     align-items: center;
     padding: 1rem;
   }
 
   .product-detail-card {
+    width: 100%; /* Take full width on mobile */
+    max-width: 350px; /* Constrain max width for larger mobiles */
+    height: auto; /* Allow height to adjust based on content */
+    display: flex; /* Use flexbox for vertical stack */
+    flex-direction: column;
+    position: relative; /* Ensure it behaves normally in the flow */
+    transform: none; /* Disable card lift on hover for touch devices */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Keep consistent shadow */
+  }
+
+  /* Reset hover effects for card on mobile */
+  .product-detail-card:hover {
+    transform: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .product-detail-card .imgBx {
+    position: relative; /* Switch to relative positioning for mobile */
+    top: auto;
+    transform: none; /* Reset transforms */
     width: 100%;
-    max-width: 350px; /* Constrain width on smaller screens */
-    height: auto; /* Allow height to adjust */
+    height: auto; /* Allow image height to be natural */
+    padding: 1rem; /* Add some padding around the image */
+  }
+
+  /* Reset image hover effects for mobile */
+  .product-detail-card:hover .imgBx {
+    top: auto;
+    transform: none;
+  }
+
+  .product-detail-card .imgBx img {
+    width: 100%; /* Make image fill container width */
+    max-width: 250px; /* Limit image size if it gets too big */
+    height: auto;
+    transform: rotate(0deg); /* No rotation on mobile */
+  }
+
+  /* Reset image rotation hover effect for mobile */
+  .product-detail-card:hover .imgBx img {
+    transform: rotate(0deg);
+  }
+
+  .product-detail-card .contentBx {
+    position: relative; /* Switch to relative positioning for mobile */
+    bottom: auto;
+    height: auto; /* Allow content to dictate height */
+    padding: 0.5rem 1rem 1rem; /* Adjust padding for mobile */
+  }
+
+  /* Reset contentBx hover effects for mobile */
+  .product-detail-card:hover .contentBx {
+    height: auto;
+    padding-top: 0.5rem; /* No special padding on hover */
+  }
+
+  .product-detail-card .contentBx .description {
+    /* Keep existing line-clamp for consistent description display */
+    -webkit-line-clamp: 3;
   }
 
   .product-actions-container {
     width: 100%;
-    max-width: 350px; /* Constrain width on smaller screens */
+    max-width: 350px;
     padding: 1rem;
   }
 
   .add-to-cart-btn {
     width: 100%;
+  }
+
+  .image-gallery {
+    padding: 1rem 0;
   }
 }

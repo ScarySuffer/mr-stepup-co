@@ -5,12 +5,13 @@ const productData = [
   "id": "adidas-adidas-campus-00-dark-green",
   "brand": "adidas",
   "name": "Adidas Campus 00 Dark Green",
-  "price": 2145.92,
+  "price": 999.99,
   "description": "High-quality sneaker from Adidas. Experience comfort and style.",
   "sizes": [
-    6,
     7,
+    8,
     9,
+    10,
     11,
     12
   ],
@@ -26,11 +27,9 @@ const productData = [
   "id": "adidas-adidas-campus-grey-white",
   "brand": "adidas",
   "name": "Adidas Campus Grey White",
-  "price": 1688.75,
+  "price": 999.99,
   "description": "High-quality sneaker from Adidas. Experience comfort and style.",
   "sizes": [
-    6,
-    7,
     8,
     11,
     12
@@ -48,14 +47,12 @@ const productData = [
   "id": "adidas-adidas-originals-campus-black",
   "brand": "adidas",
   "name": "Adidas Originals Campus Black",
-  "price": 2924.2,
+  "price": 999.99,
   "description": "High-quality sneaker from Adidas. Experience comfort and style.",
   "sizes": [
-    6,
     8,
-    9,
     10,
-    12
+    11
   ],
   "color": "blue",
   "image": "/assets/adidas/front/adidas-Originals Campus-black.png",
@@ -68,13 +65,12 @@ const productData = [
   "id": "adidas-adidas-originals-campus-right",
   "brand": "adidas",
   "name": "Adidas Originals Campus Right",
-  "price": 1526.59,
+  "price": 999.99,
   "description": "High-quality sneaker from Adidas. Experience comfort and style.",
   "sizes": [
+    7,
     9,
-    10,
-    11,
-    12
+    10
   ],
   "color": "blue",
   "image": "/assets/adidas/right/adidas-Originals Campus-right-right.png",
@@ -87,12 +83,12 @@ const productData = [
   "id": "converse-converse-run-star-motion-light-twine-black",
   "brand": "Converse",
   "name": "Converse Run Star Motion Light Twine Black",
-  "price": 2298.68,
+  "price": 999.99,
   "description": "High-quality sneaker from Converse. Experience comfort and style.",
   "sizes": [
-    8,
-    9,
-    10
+    6,
+    7,
+    12
   ],
   "color": "pink",
   "image": "/assets/Converse/front/Converse-Run-Star-Motion-Light Twine-black.png",
@@ -107,11 +103,11 @@ const productData = [
   "id": "converse-converse-run-star-hike-hi-black",
   "brand": "Converse",
   "name": "Converse Run Star Hike Hi Black",
-  "price": 1083.86,
+  "price": 999.99,
   "description": "High-quality sneaker from Converse. Experience comfort and style.",
   "sizes": [
-    9,
-    10,
+    6,
+    7,
     11,
     12
   ],
@@ -127,12 +123,15 @@ const productData = [
   "id": "converse-converse-run-star-hike-hi-white",
   "brand": "Converse",
   "name": "Converse Run Star Hike Hi White",
-  "price": 2915.87,
+  "price": 999.99,
   "description": "High-quality sneaker from Converse. Experience comfort and style.",
   "sizes": [
     6,
     7,
-    8
+    8,
+    10,
+    11,
+    12
   ],
   "color": "pink",
   "image": "/assets/Converse/right/Converse-Run-Star-Hike-Hi-white.png",
@@ -145,11 +144,13 @@ const productData = [
   "id": "converse-converse-run-star-motion-light-twine-brown",
   "brand": "Converse",
   "name": "Converse Run Star Motion Light Twine Brown",
-  "price": 2424.03,
+  "price": 999.99,
   "description": "High-quality sneaker from Converse. Experience comfort and style.",
   "sizes": [
+    6,
     7,
     8,
+    10,
     11,
     12
   ],
@@ -164,13 +165,13 @@ const productData = [
   "id": "new-balance-new-balance-550-white-navy",
   "brand": "New-Balance",
   "name": "New Balance 550 White Navy",
-  "price": 2181.91,
+  "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
-    7,
     8,
     9,
-    10
+    10,
+    11
   ],
   "color": "green",
   "image": "/assets/New-Balance/front/New Balance 550-White-navy.png",
@@ -185,13 +186,11 @@ const productData = [
   "id": "new-balance-new-balance-530-white-gray-navy",
   "brand": "New-Balance",
   "name": "New Balance 530 White Gray Navy",
-  "price": 2952.26,
+  "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
-    6,
-    7,
-    8,
     9,
+    10,
     11
   ],
   "color": "green",
@@ -206,14 +205,14 @@ const productData = [
   "id": "new-balance-new-balance-530-white-green-navy",
   "brand": "New-Balance",
   "name": "New Balance 530 White Green Navy",
-  "price": 1298.78,
+  "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
-    6,
     7,
     8,
     9,
     10,
+    11,
     12
   ],
   "color": "green",
@@ -227,14 +226,11 @@ const productData = [
   "id": "new-balance-new-balance-550-varsity-gold",
   "brand": "New-Balance",
   "name": "New Balance 550 Varsity Gold",
-  "price": 1066.82,
+  "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
-    6,
-    7,
     8,
-    9,
-    10,
+    11,
     12
   ],
   "color": "green",
@@ -249,12 +245,13 @@ const productData = [
   "id": "new-balance-new-balance-550-white-baby-blue",
   "brand": "New-Balance",
   "name": "New Balance 550 White Baby Blue",
-  "price": 1954.93,
+  "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
     6,
     7,
     8,
+    10,
     11,
     12
   ],
@@ -270,12 +267,12 @@ const productData = [
   "id": "new-balance-new-balance-550-green-white",
   "brand": "New-Balance",
   "name": "New Balance 550 Green White",
-  "price": 1915.26,
+  "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
-    6,
     7,
     8,
+    9,
     10,
     11
   ],
@@ -290,15 +287,14 @@ const productData = [
   "id": "new-balance-new-balance-9060-blue-haze-sneakers",
   "brand": "New-Balance",
   "name": "New Balance 9060 Blue Haze Sneakers",
-  "price": 1687.1,
+  "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
     6,
     7,
-    8,
     9,
-    10,
-    11
+    11,
+    12
   ],
   "color": "green",
   "image": "/assets/New-Balance/left/New-Balance-9060-Blue-Haze-sneakers.png",
@@ -311,13 +307,12 @@ const productData = [
   "id": "new-balance-new-balance-530-white-gray-navy-single",
   "brand": "New-Balance",
   "name": "New Balance 530 White Gray Navy Single",
-  "price": 1602.85,
+  "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
-    6,
-    8,
+    7,
     9,
-    11
+    12
   ],
   "color": "green",
   "image": "/assets/New-Balance/right/New-Balance-530-White-Gray-Navy-single.png",

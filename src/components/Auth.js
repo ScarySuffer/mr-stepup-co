@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // REMOVE THIS LINE
 import {
   FaUserPlus,
   FaSignInAlt,
@@ -16,10 +16,8 @@ import {
 import "./Auth.css";
 
 export default function Auth({ mode: initialMode }) {
-  // Use a single state for the current mode, allowing direct manipulation
   const [currentMode, setCurrentMode] = useState(initialMode || "login"); // 'login', 'signup', 'forgot-password'
 
-  // Consolidate form data into a single object
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,7 +26,7 @@ export default function Auth({ mode: initialMode }) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // Local loading state for the form
 
   const [passwordValid, setPasswordValid] = useState({
     length: false,
@@ -44,10 +42,10 @@ export default function Auth({ mode: initialMode }) {
     signUp: authContextSignUp,
     signOut: authContextSignOut,
     resetPassword: authContextResetPassword,
-    loading: authContextLoading,
+    loading: authContextLoading, // AuthContext's global loading state
   } = useContext(AuthContext);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // REMOVE THIS LINE
 
   // Effect to sync external `mode` prop with internal `currentMode` state
   useEffect(() => {
@@ -61,13 +59,6 @@ export default function Auth({ mode: initialMode }) {
       length: false, digit: false, special: false, uppercase: false, lowercase: false,
     });
   }, [initialMode]);
-
-  // Effect for redirection after successful authentication
-  useEffect(() => {
-    if (!authContextLoading && currentUser) {
-      navigate("/");
-    }
-  }, [currentUser, navigate, authContextLoading]);
 
   // Handle input changes, updating the formData state
   const handleChange = (e) => {
@@ -140,7 +131,7 @@ export default function Auth({ mode: initialMode }) {
   // Single function to handle all form submissions
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); // Start local loading state
     setError("");
     setSuccessMessage("");
 
@@ -160,35 +151,31 @@ export default function Auth({ mode: initialMode }) {
         return;
     }
 
-
     try {
       if (currentMode === "login") {
         await authContextSignIn(formData.email, formData.password);
         setSuccessMessage("Login successful! Redirecting...");
       } else if (currentMode === "signup") {
         await authContextSignUp(formData.email, formData.password);
-        setSuccessMessage("Registration successful! Please login.");
-        // Optionally switch to login mode after successful registration
-        setTimeout(() => handleModeSwitch("login"), 2000);
+        setSuccessMessage("Registration successful! You are now logged in. Redirecting...");
       } else if (currentMode === "forgot-password") {
         await authContextResetPassword(formData.email);
         setSuccessMessage("Password reset email sent! Check your inbox.");
-        // Optionally switch back to login mode after successful reset request
         setTimeout(() => handleModeSwitch("login"), 5000);
       }
     } catch (err) {
       setError(err.message || "An unexpected error occurred.");
     } finally {
-      setLoading(false);
+      setLoading(false); // End local loading state
     }
   };
 
   // Handle Logout
   const handleLogout = async () => {
-    setLoading(true);
+    setLoading(true); // Start local loading for logout button
     try {
       await authContextSignOut();
-      // Reset all states after logout
+      // Reset Auth component's local states after successful logout.
       setFormData({ email: "", password: "" });
       setError("");
       setSuccessMessage("You have been successfully logged out.");
@@ -196,7 +183,7 @@ export default function Auth({ mode: initialMode }) {
     } catch (err) {
       setError(err.message || "Failed to log out.");
     } finally {
-      setLoading(false);
+      setLoading(false); // End local loading for logout button
     }
   };
 
@@ -213,7 +200,7 @@ export default function Auth({ mode: initialMode }) {
   };
 
   // Render content based on authentication status
-  if (currentUser) {
+  if (!authContextLoading && currentUser) {
     return (
       <div className="auth-page-wrapper">
         <div className="auth-container logged-in-state">
@@ -235,7 +222,17 @@ export default function Auth({ mode: initialMode }) {
     );
   }
 
-  // Render authentication forms
+  // Render authentication forms if not logged in or still loading auth context
+  if (authContextLoading) {
+    return (
+      <div className="auth-page-wrapper">
+        <div className="auth-container auth-loading-state">
+          <p><FaSpinner className="spinner" /> Checking authentication status...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="auth-page-wrapper">
       <div className="auth-container">
@@ -307,7 +304,7 @@ export default function Auth({ mode: initialMode }) {
             )}
 
             {/* Submit button for Login/Register */}
-            {currentMode !== "forgot-password" && ( // Ensure button is only shown for these modes
+            {currentMode !== "forgot-password" && (
               <button
                 type="submit"
                 className="auth-button"
@@ -348,7 +345,7 @@ export default function Auth({ mode: initialMode }) {
 
           {/* Forgot Password Form (separate form for onSubmit but shares email input) */}
           <form
-            onSubmit={handleSubmit} // Re-using handleSubmit for forgot password
+            onSubmit={handleSubmit}
             className={`auth-form-inner ${currentMode === "forgot-password" ? "auth-form-visible" : "auth-form-hidden"}`}
           >
             {/* Email input for Forgot Password mode */}

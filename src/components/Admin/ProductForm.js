@@ -1,13 +1,13 @@
 // src/components/Admin/ProductForm.js
+
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // Import useParams
+import { useNavigate, useParams } from "react-router-dom";
 import "./AddProductForm.css";
 
-// ProductForm now expects a 'products' prop to find the product for editing
 export default function ProductForm({ onSubmit, products }) {
   const navigate = useNavigate();
-  const { id } = useParams(); // Get the ID from the URL if it exists
-  const isEditing = !!id; // Boolean flag: true if an ID is present in the URL
+  const { id } = useParams();
+  const isEditing = !!id;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -17,30 +17,30 @@ export default function ProductForm({ onSubmit, products }) {
     description: "",
     sizes: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Effect to populate form when editing, or clear when adding
   useEffect(() => {
+    setErrorMessage("");
     if (isEditing && products) {
-      // Find the product by ID
       const productToEdit = products.find((p) => p.id === id);
       if (productToEdit) {
         setFormData({
           name: productToEdit.name || "",
           brand: productToEdit.brand || "",
-          price: productToEdit.price || "",
-          img: productToEdit.img || productToEdit.image || "",
+          price: productToEdit.price ? String(productToEdit.price) : "",
+          img: productToEdit.image || "", 
           description: productToEdit.description || "",
           sizes: Array.isArray(productToEdit.sizes)
-            ? productToEdit.sizes.join(",")
+            ? productToEdit.sizes.join(", ")
             : productToEdit.sizes || "",
         });
       } else {
-        // If product not found, maybe navigate away or show error
         console.warn(`Product with ID ${id} not found.`);
-        navigate('/admin/products'); // Redirect to admin list if product not found
+        setErrorMessage("Product not found. Redirecting...");
+        setTimeout(() => navigate("/admin/products"), 1500);
       }
     } else if (!isEditing) {
-      // Clear form when in "add product" mode
       setFormData({
         name: "",
         brand: "",
@@ -50,7 +50,7 @@ export default function ProductForm({ onSubmit, products }) {
         sizes: "",
       });
     }
-  }, [id, isEditing, products, navigate]); // Dependencies: re-run if ID, mode, or products change
+  }, [id, isEditing, products, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,19 +58,32 @@ export default function ProductForm({ onSubmit, products }) {
       ...prevData,
       [name]: value,
     }));
+    setErrorMessage("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
+    setLoading(true);
+    
+    // Find the original product if we're in editing mode
+    const originalProduct = isEditing ? products.find(p => p.id === id) : null;
+    if (isEditing && !originalProduct) {
+        setErrorMessage("Original product data not found.");
+        setLoading(false);
+        return;
+    }
 
-    if (!formData.name || !formData.brand || !formData.price || !formData.img) {
-      alert("Please fill in all required fields: Name, Brand, Price, and Image URL.");
+    if (!isEditing && (!formData.name.trim() || !formData.brand.trim() || !formData.price.trim() || !formData.img.trim())) {
+      setErrorMessage("Please fill in all required fields: Name, Brand, Price, and Image URL.");
+      setLoading(false);
       return;
     }
 
     const priceNum = parseFloat(formData.price);
     if (isNaN(priceNum) || priceNum <= 0) {
-      alert("Please enter a valid positive price.");
+      setErrorMessage("Please enter a valid positive price.");
+      setLoading(false);
       return;
     }
 
@@ -79,27 +92,62 @@ export default function ProductForm({ onSubmit, products }) {
       .map((s) => s.trim())
       .filter(Boolean);
 
-    const productToSubmit = {
-      id: isEditing ? id : `prod-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
-      name: formData.name,
-      brand: formData.brand,
-      price: priceNum,
-      img: formData.img,
-      image: formData.img,
-      description: formData.description,
-      sizes: sizesArray.length > 0 ? sizesArray : null,
-    };
+    let productToSubmit;
+    if (isEditing) {
+      // For editing, only update the fields that are allowed to change
+      productToSubmit = {
+        id: id,
+        name: originalProduct.name,
+        brand: originalProduct.brand,
+        image: originalProduct.image,
+        hoverImage: originalProduct.hoverImage,
+        galleryImages: originalProduct.galleryImages,
+        color: originalProduct.color,
+        price: priceNum,
+        description: formData.description.trim(),
+        sizes: sizesArray.length > 0 ? sizesArray.map(s => parseFloat(s)) : null,
+      };
+    } else {
+      // For adding, create a new product object
+      try {
+          new URL(formData.img.trim());
+      } catch (_) {
+          setErrorMessage("Please enter a valid Image URL.");
+          setLoading(false);
+          return;
+      }
+      productToSubmit = {
+        name: formData.name.trim(),
+        brand: formData.brand.trim(),
+        price: priceNum,
+        image: formData.img.trim(),
+        hoverImage: formData.img.trim(),
+        galleryImages: [formData.img.trim()],
+        description: formData.description.trim(),
+        sizes: sizesArray.length > 0 ? sizesArray.map(s => parseFloat(s)) : null,
+        color: 'blue'
+      };
+    }
 
-    onSubmit(productToSubmit); // onSubmit handles both add and update
-    alert(isEditing ? "Product updated successfully!" : "Product added successfully!");
-
-    navigate("/admin/products"); // Navigate back to the admin product list after submission
+    try {
+      await onSubmit(productToSubmit);
+      alert(isEditing ? "Product updated successfully!" : "Product added successfully!");
+      navigate("/admin/products");
+    } catch (error) {
+      console.error("Submission error:", error);
+      setErrorMessage(`Failed to ${isEditing ? 'update' : 'add'} product: ${error.message || 'Unknown error'}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <section className="add-product-section">
       <h2>{isEditing ? "Edit Sneaker Product" : "Add New Sneaker Product"}</h2>
       <form className="add-product-form" onSubmit={handleSubmit}>
+        {errorMessage && (
+          <p className="form-error-message" role="alert">{errorMessage}</p>
+        )}
         <div className="form-group">
           <label htmlFor="name">Product Name <span className="required">*</span></label>
           <input
@@ -108,7 +156,8 @@ export default function ProductForm({ onSubmit, products }) {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            required
+            required={!isEditing}
+            disabled={isEditing || loading}
           />
         </div>
         <div className="form-group">
@@ -119,7 +168,8 @@ export default function ProductForm({ onSubmit, products }) {
             name="brand"
             value={formData.brand}
             onChange={handleChange}
-            required
+            required={!isEditing}
+            disabled={isEditing || loading}
           />
         </div>
         <div className="form-group">
@@ -133,6 +183,7 @@ export default function ProductForm({ onSubmit, products }) {
             step="0.01"
             min="0"
             required
+            disabled={loading}
           />
         </div>
         <div className="form-group">
@@ -143,18 +194,20 @@ export default function ProductForm({ onSubmit, products }) {
             name="img"
             value={formData.img}
             onChange={handleChange}
-            required
+            required={!isEditing}
+            disabled={isEditing || loading}
             placeholder="e.g., https://example.com/shoe.jpg"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="sizes">Available Sizes (comma-separated, e.g., 7,8,9.5)</label>
+          <label htmlFor="sizes">Available Sizes (comma-separated, e.g., 7, 8, 9.5)</label>
           <input
             type="text"
             id="sizes"
             name="sizes"
             value={formData.sizes}
             onChange={handleChange}
+            disabled={loading}
             placeholder="e.g., 7, 7.5, 8, 9, 10"
           />
         </div>
@@ -166,10 +219,11 @@ export default function ProductForm({ onSubmit, products }) {
             value={formData.description}
             onChange={handleChange}
             rows="4"
+            disabled={loading}
           ></textarea>
         </div>
-        <button type="submit" className="submit-btn">
-          {isEditing ? "Update Product" : "Add Product"}
+        <button type="submit" className="submit-btn" disabled={loading}>
+          {loading ? <div className="spinner"></div> : (isEditing ? "Update Product" : "Add Product")}
         </button>
       </form>
     </section>

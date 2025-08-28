@@ -1,26 +1,23 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-import { AuthContext } from "../context/AuthContext";
 
-import { auth } from "../firebase/firebaseConfig";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-
-import { FaSun, FaMoon } from 'react-icons/fa';
+import { FaSun, FaMoon } from "react-icons/fa";
 import logo from "../assets/mr-step-up-logo.jpg";
 import Modal from "./Modal";
 
-const AuthLinks = ({ user, handleLogout, closeNavbar }) => {
-  if (!user) {
+// Local mock auth state
+const AuthLinks = ({ currentUser, setCurrentUser, closeNavbar }) => {
+  if (!currentUser) {
     return (
       <>
         <li className="nav-item">
-          <Link className="nav-link" to="/login" onClick={closeNavbar}>
+          <Link className="nav-link" to="/coming-soon" onClick={closeNavbar}>
             Login
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/signup" onClick={closeNavbar}>
+          <Link className="nav-link" to="/coming-soon" onClick={closeNavbar}>
             Signup
           </Link>
         </li>
@@ -31,14 +28,14 @@ const AuthLinks = ({ user, handleLogout, closeNavbar }) => {
     <>
       <li className="nav-item nav-user-email">
         <span className="nav-link disabled" tabIndex={-1}>
-          {user.email}
+          {currentUser.email}
         </span>
       </li>
       <li className="nav-item">
         <button
           className="btn btn-link nav-link"
-          onClick={async () => {
-            await handleLogout();
+          onClick={() => {
+            setCurrentUser(null); // local logout
             closeNavbar();
           }}
         >
@@ -56,34 +53,21 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
   const dropdownRef = useRef(null);
   const dropdownButtonRef = useRef(null);
   const navigate = useNavigate();
-
   const { theme, toggleTheme } = useTheme();
-  const { isAdmin } = useContext(AuthContext); // ✅ 'loading' has been removed
-  const [user, setUser] = useState(null);
-  const [togglerIconColor, setTogglerIconColor] = useState('');
+
+  const [togglerIconColor, setTogglerIconColor] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return unsubscribe;
-  }, []);
+  // Local mock current user
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const computedStyle = getComputedStyle(document.documentElement);
-    const color = computedStyle.getPropertyValue('--navbar-toggler-icon-color').trim();
-    setTogglerIconColor(color.replace('#', ''));
+    const color = computedStyle
+      .getPropertyValue("--navbar-toggler-icon-color")
+      .trim();
+    setTogglerIconColor(color.replace("#", ""));
   }, [theme]);
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
 
   const toggleNavbar = () => {
     setIsCollapsed(!isCollapsed);
@@ -103,26 +87,19 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    if (window.location.pathname !== "/products") {
-      navigate("/products");
-    }
+    if (window.location.pathname !== "/products") navigate("/products");
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (window.location.pathname !== "/products") {
-      navigate("/products");
-    }
+    if (window.location.pathname !== "/products") navigate("/products");
   };
 
   const handleManageProductsClick = (e) => {
     e.preventDefault();
     closeNavbar();
-    if (isAdmin) {
-      navigate("/admin/products");
-    } else {
-      setShowModal(true);
-    }
+    // Always show modal because no admin backend
+    setShowModal(true);
   };
 
   useEffect(() => {
@@ -157,7 +134,6 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
 
   const togglerIconSvg = `data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23${togglerIconColor}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e`;
 
-
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top app-navbar" ref={navbarRef}>
@@ -182,10 +158,7 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
             <span className="navbar-toggler-icon" style={{ backgroundImage: `url("${togglerIconSvg}")` }} />
           </button>
 
-          <div
-            className={`collapse navbar-collapse justify-content-center ${isCollapsed ? "" : "show"}`}
-            id="navbarNavDropdown"
-          >
+          <div className={`collapse navbar-collapse justify-content-center ${isCollapsed ? "" : "show"}`}>
             {/* Search Bar */}
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 search-bar-left">
               <li className="nav-item">
@@ -206,24 +179,16 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
             {/* Main Navigation Links */}
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active" to="/" onClick={closeNavbar}>
-                  Home
-                </Link>
+                <Link className="nav-link active" to="/" onClick={closeNavbar}>Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/products" onClick={closeNavbar}>
-                  Sneakers
-                </Link>
+                <Link className="nav-link" to="/products" onClick={closeNavbar}>Sneakers</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/brands" onClick={closeNavbar}>
-                  Brands
-                </Link>
+                <Link className="nav-link" to="/brands" onClick={closeNavbar}>Brands</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/contact" onClick={closeNavbar}>
-                  Contact
-                </Link>
+                <Link className="nav-link" to="/contact" onClick={closeNavbar}>Contact</Link>
               </li>
               <li className="nav-item dropdown">
                 <button
@@ -237,50 +202,31 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
                 >
                   More
                 </button>
-                <ul
-                  className={`dropdown-menu ${isDropdownOpen ? "show" : ""}`}
-                  aria-labelledby="navbarDropdown"
-                  role="menu"
-                  ref={dropdownRef}
-                >
+                <ul className={`dropdown-menu ${isDropdownOpen ? "show" : ""}`} aria-labelledby="navbarDropdown" role="menu" ref={dropdownRef}>
                   <li role="menuitem">
-                    <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>
-                      Promotions
-                    </Link>
+                    <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>Promotions</Link>
                   </li>
                   <li role="menuitem">
-                    <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>
-                      About Us
-                    </Link>
+                    <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>About Us</Link>
                   </li>
                   <li role="menuitem">
-                    <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>
-                      FAQ
-                    </Link>
+                    <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>FAQ</Link>
                   </li>
                   <li role="menuitem">
-                    <Link className="dropdown-item" to="/order-history" onClick={closeNavbar}>
-                      My Orders
-                    </Link>
+                    <Link className="dropdown-item" to="/order-history" onClick={closeNavbar}>My Orders</Link>
                   </li>
                   <li role="menuitem">
-                    <button
-                      className="dropdown-item admin-link"
-                      onClick={handleManageProductsClick}
-                    >
-                      Manage Products
-                    </button>
+                    <button className="dropdown-item admin-link" onClick={handleManageProductsClick}>Manage Products</button>
                   </li>
                 </ul>
               </li>
             </ul>
 
-            {/* Right Nav: Cart, Dark Mode Toggle and Auth Links */}
+            {/* Right Nav: Cart, Dark Mode Toggle, Auth */}
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
               <li className="nav-item">
                 <Link className="nav-link cart-icon-link" to="/cart" onClick={closeNavbar}>
-                  🛒 Cart{" "}
-                  {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
+                  🛒 Cart {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
                 </Link>
               </li>
               <li className="nav-item">
@@ -290,38 +236,30 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
                   aria-label="Toggle dark mode"
                   title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
                 >
-                  {theme === "dark" ? (
-                    <FaSun className="theme-icon sun-icon" />
-                  ) : (
-                    <FaMoon className="theme-icon moon-icon" />
-                  )}
+                  {theme === "dark" ? <FaSun className="theme-icon sun-icon" /> : <FaMoon className="theme-icon moon-icon" />}
                 </button>
               </li>
 
-              {/* Auth links */}
-              <AuthLinks user={user} handleLogout={handleLogout} closeNavbar={closeNavbar} />
+              {/* Local Auth links */}
+              <AuthLinks currentUser={currentUser} setCurrentUser={setCurrentUser} closeNavbar={closeNavbar} />
             </ul>
           </div>
         </div>
       </nav>
 
-      {/* The Admin Unauthorized Modal */}
-      <Modal 
-        show={showModal} 
-        onClose={() => setShowModal(false)}
-        title="Access Denied"
-      >
+      {/* Admin Unauthorized Modal */}
+      <Modal show={showModal} onClose={() => setShowModal(false)} title="Access Denied">
         <p>You do not have the necessary administrator privileges to access this page.</p>
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <button 
-            onClick={() => setShowModal(false)} 
-            style={{ 
-              padding: '10px 20px', 
-              backgroundColor: '#dc3545', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '5px', 
-              cursor: 'pointer' 
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <button
+            onClick={() => setShowModal(false)}
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#dc3545",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer"
             }}
           >
             Close

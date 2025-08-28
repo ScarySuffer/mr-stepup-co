@@ -1,9 +1,11 @@
 // src/components/OrderHistory.js
 import React from "react";
 import { Link } from "react-router-dom";
-import "./OrderHistory.css"; // We'll create this next
+import "./OrderHistory.css";
 
 export default function OrderHistory({ pastOrders }) {
+  if (!pastOrders) return null;
+
   return (
     <section className="order-history-section">
       <h2>Your Order History</h2>
@@ -17,29 +19,58 @@ export default function OrderHistory({ pastOrders }) {
         </div>
       ) : (
         <div className="orders-list">
-          {[...pastOrders].reverse().map((order) => ( // Reverse to show newest first
+          {[...pastOrders].reverse().map((order) => (
             <div key={order.id} className="order-card">
               <div className="order-header">
-                <h3>Order ID: #{order.id.substring(order.id.lastIndexOf('-') + 1).toUpperCase()}</h3>
-                <p>Date: {order.date}</p>
+                <h3>
+                  Order ID: #{order.id.substring(order.id.lastIndexOf("-") + 1).toUpperCase()}
+                </h3>
+                <p>Date: {order.date || "N/A"}</p>
                 <p>Total: R{order.total.toFixed(2)}</p>
               </div>
+
               <div className="customer-info">
                 <h4>Customer Details:</h4>
-                <p><strong>Name:</strong> {order.customerInfo.name}</p>
-                <p><strong>Phone:</strong> {order.customerInfo.phone}</p>
-                {order.customerInfo.email && <p><strong>Email:</strong> {order.customerInfo.email}</p>}
-                <p><strong>Address:</strong> {order.customerInfo.address}, {order.customerInfo.city}, {order.customerInfo.province}, {order.customerInfo.zip}</p>
-                {order.customerInfo.notes && <p><strong>Notes:</strong> {order.customerInfo.notes}</p>}
+                <p>
+                  <strong>Name:</strong> {order.customerInfo.name}
+                </p>
+                <p>
+                  <strong>Phone:</strong> {order.customerInfo.phone}
+                </p>
+                {order.customerInfo.email && (
+                  <p>
+                    <strong>Email:</strong> {order.customerInfo.email}
+                  </p>
+                )}
+                <p>
+                  <strong>Address:</strong>{" "}
+                  {order.customerInfo.address}, {order.customerInfo.city},{" "}
+                  {order.customerInfo.province}, {order.customerInfo.zip || "N/A"}
+                </p>
+                {order.customerInfo.notes && (
+                  <p>
+                    <strong>Notes:</strong> {order.customerInfo.notes}
+                  </p>
+                )}
               </div>
+
               <div className="order-items">
                 <h4>Items Ordered:</h4>
-                {order.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className="order-item-detail">
-                    <img src={item.image} alt={item.name} className="order-item-image" />
+                {order.items.map((item, idx) => (
+                  <div key={idx} className="order-item-detail">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="order-item-image"
+                    />
                     <div className="item-text">
-                      <p><strong>{item.name}</strong> (Size: {item.selectedSize})</p>
-                      <p>Qty: {item.quantity} | R{(item.price * item.quantity).toFixed(2)}</p>
+                      <p>
+                        <strong>{item.name}</strong> (Size: {item.selectedSize})
+                      </p>
+                      <p>
+                        Qty: {item.quantity} | R
+                        {(item.price * item.quantity).toFixed(2)}
+                      </p>
                     </div>
                   </div>
                 ))}

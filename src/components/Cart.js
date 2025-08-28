@@ -3,9 +3,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Cart.css";
 
+/**
+ * Cart component with local cartItems and handlers.
+ */
 export default function Cart({ cartItems, onRemoveFromCart, onUpdateQuantity }) {
-  const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const calculateTotal = () => cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  const handleQuantityChange = (item, value) => {
+    const newQuantity = parseInt(value, 10);
+    if (!isNaN(newQuantity) && newQuantity >= 1) {
+      onUpdateQuantity(item.id, item.selectedSize, newQuantity);
+    }
   };
 
   return (
@@ -15,16 +23,18 @@ export default function Cart({ cartItems, onRemoveFromCart, onUpdateQuantity }) 
       {cartItems.length === 0 ? (
         <div className="empty-cart">
           <p>Your cart is empty. Time to find some fresh kicks!</p>
-          <Link to="/products" className="cta-button">
-            Start Shopping
-          </Link>
+          <Link to="/products" className="cta-button">Start Shopping</Link>
         </div>
       ) : (
         <>
           <div className="cart-items-container">
-            {cartItems.map((item) => (
+            {cartItems.map(item => (
               <div key={`${item.id}-${item.selectedSize}`} className="cart-item-card">
-                <img src={item.image || item.img} alt={item.name} className="cart-item-image" />
+                <img
+                  src={item.image || item.img}
+                  alt={item.name}
+                  className="cart-item-image"
+                />
                 <div className="cart-item-details">
                   <h3>{item.name}</h3>
                   <p>Size: {item.selectedSize}</p>
@@ -35,20 +45,16 @@ export default function Cart({ cartItems, onRemoveFromCart, onUpdateQuantity }) 
                     <button
                       onClick={() => onUpdateQuantity(item.id, item.selectedSize, item.quantity - 1)}
                       disabled={item.quantity === 1}
-                    >
-                      -
-                    </button>
+                    >-</button>
                     <input
                       type="number"
                       value={item.quantity}
-                      onChange={(e) => onUpdateQuantity(item.id, item.selectedSize, parseInt(e.target.value) || 1)}
                       min="1"
+                      onChange={(e) => handleQuantityChange(item, e.target.value)}
                     />
                     <button
                       onClick={() => onUpdateQuantity(item.id, item.selectedSize, item.quantity + 1)}
-                    >
-                      +
-                    </button>
+                    >+</button>
                   </div>
                   <button
                     className="remove-item-btn"
@@ -65,13 +71,8 @@ export default function Cart({ cartItems, onRemoveFromCart, onUpdateQuantity }) 
           <div className="cart-summary">
             <h3>Cart Total: R{calculateTotal().toFixed(2)}</h3>
             <div className="cart-actions">
-              <Link to="/products" className="continue-shopping-btn">
-                Continue Shopping
-              </Link>
-              {/* UPDATED LINK */}
-              <Link to="/checkout" className="checkout-btn">
-                Proceed to Checkout
-              </Link>
+              <Link to="/products" className="continue-shopping-btn">Continue Shopping</Link>
+              <Link to="/checkout" className="checkout-btn">Proceed to Checkout</Link>
             </div>
           </div>
         </>

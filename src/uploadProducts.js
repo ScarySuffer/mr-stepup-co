@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const productData = require('./components/productData.js'); // now works
+const productData = require('./components/productData.js').default;
 const serviceAccount = require('./firebase-admin-key.json');
 
 admin.initializeApp({

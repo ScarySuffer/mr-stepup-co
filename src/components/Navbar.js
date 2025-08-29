@@ -1,73 +1,49 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-
 import { FaSun, FaMoon } from "react-icons/fa";
+import { auth, db } from "../firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import logo from "../assets/mr-step-up-logo.jpg";
 import Modal from "./Modal";
-
-// Local mock auth state
-const AuthLinks = ({ currentUser, setCurrentUser, closeNavbar }) => {
-  if (!currentUser) {
-    return (
-      <>
-        <li className="nav-item">
-          <Link className="nav-link" to="/coming-soon" onClick={closeNavbar}>
-            Login
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/coming-soon" onClick={closeNavbar}>
-            Signup
-          </Link>
-        </li>
-      </>
-    );
-  }
-  return (
-    <>
-      <li className="nav-item nav-user-email">
-        <span className="nav-link disabled" tabIndex={-1}>
-          {currentUser.email}
-        </span>
-      </li>
-      <li className="nav-item">
-        <button
-          className="btn btn-link nav-link"
-          onClick={() => {
-            setCurrentUser(null); // local logout
-            closeNavbar();
-          }}
-        >
-          Logout
-        </button>
-      </li>
-    </>
-  );
-};
 
 export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
   const navbarRef = useRef(null);
   const dropdownRef = useRef(null);
   const dropdownButtonRef = useRef(null);
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
 
-  const [togglerIconColor, setTogglerIconColor] = useState("");
-  const [showModal, setShowModal] = useState(false);
-
-  // Local mock current user
-  const [currentUser, setCurrentUser] = useState(null);
-
   useEffect(() => {
-    const computedStyle = getComputedStyle(document.documentElement);
-    const color = computedStyle
-      .getPropertyValue("--navbar-toggler-icon-color")
-      .trim();
-    setTogglerIconColor(color.replace("#", ""));
-  }, [theme]);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setCurrentUser(user);
+      if (user) {
+        try {
+          const userRef = doc(db, "users", user.uid);
+          const snap = await getDoc(userRef);
+          if (snap.exists()) {
+            setUserRole(snap.data().role || "user");
+          } else {
+            setUserRole(null);
+          }
+        } catch (err) {
+          console.error("Error reading user role:", err);
+          setUserRole(null);
+        }
+      } else {
+        setUserRole(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const toggleNavbar = () => {
     setIsCollapsed(!isCollapsed);
@@ -95,16 +71,39 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
     if (window.location.pathname !== "/products") navigate("/products");
   };
 
-  const handleManageProductsClick = (e) => {
-    e.preventDefault();
+  const handleManageProductsClick = () => {
+    // if not logged in or not admin show modal, otherwise go to admin route
+    if (!currentUser) {
+      setModalMessage("You need to log in to access this page.");
+      setShowLoginModal(true);
+    } else if (userRole !== "admin") {
+      setModalMessage("You do not have the necessary administrator privileges to access this page.");
+      setShowLoginModal(true);
+    } else {
+      navigate("/admin/products");
+    }
     closeNavbar();
-    // Always show modal because no admin backend
-    setShowModal(true);
+  };
+
+  const handleProtectedClick = (action) => {
+    if (!currentUser) {
+      setModalMessage(action);
+      setShowLoginModal(true);
+    } else {
+      navigate(action === "checkout" ? "/checkout" : "/order-history");
+    }
+    closeNavbar();
+  };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    closeNavbar();
+    navigate("/");
   };
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (!isCollapsed && navbarRef.current && !navbarRef.current.contains(event.target)) {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
         closeNavbar();
       }
       if (
@@ -119,24 +118,14 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isCollapsed, isDropdownOpen]);
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setIsDropdownOpen(false);
-        setIsCollapsed(true);
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  const togglerIconSvg = `data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23${togglerIconColor}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e`;
+  }, [isDropdownOpen]);
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top app-navbar" ref={navbarRef}>
+      <nav
+        className="navbar navbar-expand-lg bg-body-tertiary fixed-top app-navbar"
+        ref={navbarRef}
+      >
         <div className="container-fluid">
           <Link className="navbar-brand" to="/" onClick={closeNavbar}>
             <img
@@ -155,114 +144,102 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
             aria-label="Toggle navigation"
             onClick={toggleNavbar}
           >
-            <span className="navbar-toggler-icon" style={{ backgroundImage: `url("${togglerIconSvg}")` }} />
+            <span className="navbar-toggler-icon" />
           </button>
 
-          <div className={`collapse navbar-collapse justify-content-center ${isCollapsed ? "" : "show"}`}>
-            {/* Search Bar */}
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 search-bar-left">
+          <div className={`collapse navbar-collapse ${isCollapsed ? "" : "show"}`}>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>
                   <input
-                    name="search"
-                    className="form-control me-2"
                     type="search"
                     placeholder="Search sneakers..."
-                    aria-label="Search"
                     value={searchTerm}
                     onChange={handleSearchChange}
+                    className="form-control me-2"
                   />
                 </form>
               </li>
             </ul>
 
-            {/* Main Navigation Links */}
             <ul className="navbar-nav mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link active" to="/" onClick={closeNavbar}>Home</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/products" onClick={closeNavbar}>Sneakers</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/brands" onClick={closeNavbar}>Brands</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/contact" onClick={closeNavbar}>Contact</Link>
-              </li>
+              <li className="nav-item"><Link className="nav-link" to="/" onClick={closeNavbar}>Home</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/products" onClick={closeNavbar}>Sneakers</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/brands" onClick={closeNavbar}>Brands</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/contact" onClick={closeNavbar}>Contact</Link></li>
               <li className="nav-item dropdown">
                 <button
                   className={`nav-link dropdown-toggle btn btn-link ${isDropdownOpen ? "show" : ""}`}
                   id="navbarDropdown"
-                  aria-haspopup="true"
-                  aria-expanded={isDropdownOpen}
                   type="button"
                   onClick={toggleDropdown}
                   ref={dropdownButtonRef}
                 >
                   More
                 </button>
-                <ul className={`dropdown-menu ${isDropdownOpen ? "show" : ""}`} aria-labelledby="navbarDropdown" role="menu" ref={dropdownRef}>
-                  <li role="menuitem">
-                    <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>Promotions</Link>
+                <ul className={`dropdown-menu ${isDropdownOpen ? "show" : ""}`} ref={dropdownRef}>
+                  <li><Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>Promotions</Link></li>
+                  <li><Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>About Us</Link></li>
+                  <li><Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>FAQ</Link></li>
+                  <li>
+                    <button className="dropdown-item" onClick={() => handleProtectedClick("order-history")}>
+                      My Orders
+                    </button>
                   </li>
-                  <li role="menuitem">
-                    <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>About Us</Link>
-                  </li>
-                  <li role="menuitem">
-                    <Link className="dropdown-item" to="/coming-soon" onClick={closeNavbar}>FAQ</Link>
-                  </li>
-                  <li role="menuitem">
-                    <Link className="dropdown-item" to="/order-history" onClick={closeNavbar}>My Orders</Link>
-                  </li>
-                  <li role="menuitem">
-                    <button className="dropdown-item admin-link" onClick={handleManageProductsClick}>Manage Products</button>
+                  <li>
+                    <button className="dropdown-item admin-link" onClick={handleManageProductsClick}>
+                      Manage Products
+                    </button>
                   </li>
                 </ul>
               </li>
             </ul>
 
-            {/* Right Nav: Cart, Dark Mode Toggle, Auth */}
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
               <li className="nav-item">
-                <Link className="nav-link cart-icon-link" to="/cart" onClick={closeNavbar}>
+                <Link className="nav-link" to="/cart" onClick={closeNavbar}>
                   🛒 Cart {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
                 </Link>
               </li>
+
               <li className="nav-item">
-                <button
-                  className="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center theme-toggle-btn"
-                  onClick={toggleTheme}
-                  aria-label="Toggle dark mode"
-                  title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                >
-                  {theme === "dark" ? <FaSun className="theme-icon sun-icon" /> : <FaMoon className="theme-icon moon-icon" />}
+                <button className="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center theme-toggle-btn" onClick={toggleTheme}>
+                  {theme === "dark" ? <FaSun /> : <FaMoon />}
                 </button>
               </li>
 
-              {/* Local Auth links */}
-              <AuthLinks currentUser={currentUser} setCurrentUser={setCurrentUser} closeNavbar={closeNavbar} />
+              {currentUser ? (
+                <>
+                  <li className="nav-item"><span className="nav-link disabled">{currentUser.email}</span></li>
+                  <li className="nav-item"><button className="btn btn-link nav-link" onClick={handleLogout}>Logout</button></li>
+                </>
+              ) : (
+                <li className="nav-item"><Link className="nav-link" to="/auth" onClick={closeNavbar}>Login / Signup</Link></li>
+              )}
             </ul>
           </div>
         </div>
       </nav>
 
-      {/* Admin Unauthorized Modal */}
-      <Modal show={showModal} onClose={() => setShowModal(false)} title="Access Denied">
-        <p>You do not have the necessary administrator privileges to access this page.</p>
+      <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)} title="Login Required">
+        <p>{modalMessage}</p>
         <div style={{ textAlign: "center", marginTop: "20px" }}>
           <button
-            onClick={() => setShowModal(false)}
+            onClick={() => {
+              setShowLoginModal(false);
+              navigate("/auth");
+            }}
             style={{
               padding: "10px 20px",
-              backgroundColor: "#dc3545",
+              backgroundColor: "#0d6efd",
               color: "white",
               border: "none",
               borderRadius: "5px",
               cursor: "pointer"
             }}
           >
-            Close
+            Login
+            
           </button>
         </div>
       </Modal>

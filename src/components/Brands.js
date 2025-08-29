@@ -1,9 +1,9 @@
-// src/components/Brands.js
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { db } from "../firebase";
+import { collection, onSnapshot } from "firebase/firestore";
 import ProductCard from "./ProductCard";
-import products from "./productData";
 import "./Products.css";
-import "./Brands.css"; // Ensure this is imported
+import "./Brands.css";
 
 const groupByBrand = (items) => {
   return items.reduce((groups, product) => {
@@ -15,6 +15,29 @@ const groupByBrand = (items) => {
 };
 
 export default function Brands({ onAddToCart }) {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const colRef = collection(db, "products");
+    const unsubscribe = onSnapshot(
+      colRef,
+      (snapshot) => {
+        const prodData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setProducts(prodData);
+        setLoading(false);
+      },
+      (err) => {
+        console.error("Error loading products:", err);
+        setLoading(false);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) return <p>Loading products...</p>;
+
   const productsByBrand = groupByBrand(products);
 
   return (

@@ -8,9 +8,9 @@ const productData = [
   "price": 999.99,
   "description": "High-quality sneaker from Adidas. Experience comfort and style.",
   "sizes": [
+    6,
     7,
     8,
-    9,
     10,
     11,
     12
@@ -30,7 +30,10 @@ const productData = [
   "price": 999.99,
   "description": "High-quality sneaker from Adidas. Experience comfort and style.",
   "sizes": [
+    7,
     8,
+    9,
+    10,
     11,
     12
   ],
@@ -50,7 +53,9 @@ const productData = [
   "price": 999.99,
   "description": "High-quality sneaker from Adidas. Experience comfort and style.",
   "sizes": [
+    7,
     8,
+    9,
     10,
     11
   ],
@@ -69,8 +74,11 @@ const productData = [
   "description": "High-quality sneaker from Adidas. Experience comfort and style.",
   "sizes": [
     7,
+    8,
     9,
-    10
+    10,
+    11,
+    12
   ],
   "color": "blue",
   "image": "/assets/adidas/right/adidas-Originals Campus-right-right.png",
@@ -108,7 +116,9 @@ const productData = [
   "sizes": [
     6,
     7,
-    11,
+    8,
+    9,
+    10,
     12
   ],
   "color": "pink",
@@ -129,7 +139,7 @@ const productData = [
     6,
     7,
     8,
-    10,
+    9,
     11,
     12
   ],
@@ -149,10 +159,7 @@ const productData = [
   "sizes": [
     6,
     7,
-    8,
-    10,
-    11,
-    12
+    11
   ],
   "color": "pink",
   "image": "/assets/Converse/right/Converse-Run-Star-Motion-Light Twine-brown.png",
@@ -169,7 +176,6 @@ const productData = [
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
     8,
-    9,
     10,
     11
   ],
@@ -189,9 +195,9 @@ const productData = [
   "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
+    6,
     9,
-    10,
-    11
+    12
   ],
   "color": "green",
   "image": "/assets/New-Balance/front/New-Balance-530-White-Gray-Navy.png",
@@ -208,12 +214,10 @@ const productData = [
   "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
+    6,
     7,
     8,
-    9,
-    10,
-    11,
-    12
+    9
   ],
   "color": "green",
   "image": "/assets/New-Balance/front/New-Balance-530-White-Green-Navy.png",
@@ -229,9 +233,9 @@ const productData = [
   "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
-    8,
-    11,
-    12
+    6,
+    7,
+    8
   ],
   "color": "green",
   "image": "/assets/New-Balance/front/New-Balance-550-Varsity-Gold.png",
@@ -251,7 +255,6 @@ const productData = [
     6,
     7,
     8,
-    10,
     11,
     12
   ],
@@ -273,7 +276,6 @@ const productData = [
     7,
     8,
     9,
-    10,
     11
   ],
   "color": "green",
@@ -290,10 +292,8 @@ const productData = [
   "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
-    6,
     7,
-    9,
-    11,
+    8,
     12
   ],
   "color": "green",
@@ -310,7 +310,9 @@ const productData = [
   "price": 999.99,
   "description": "High-quality sneaker from New Balance. Experience comfort and style.",
   "sizes": [
+    6,
     7,
+    8,
     9,
     12
   ],
@@ -323,4 +325,4 @@ const productData = [
 }
 ];
 
-export default productData;
+module.exports = productData;

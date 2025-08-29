@@ -1,9 +1,8 @@
-// src/App.js
 import './App.css';
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-
-import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -18,117 +17,156 @@ import Checkout from './components/Checkout';
 import OrderHistory from './components/OrderHistory';
 import NotFoundPage from './components/NotFoundPage';
 import ScrollToTopButton from './components/ScrollToTopButton';
-
-// Import products from separate data file
+import Auth from './components/Auth';
+import PrivateRouteWithModal from './components/PrivateRouteWithModal';
 import products from './components/productData';
+import { db } from './firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+
+// Admin page
+import AdminProducts from './components/Admin/AdminProducts';
 
 function AppContent() {
-  const { theme, toggleTheme } = useTheme();
-
+  const { currentUser, loading: authLoading } = useAuth();
   const [cartItems, setCartItems] = useState([]);
-  const [pastOrders, setPastOrders] = useState([]);
-
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('All');
   const [selectedSize, setSelectedSize] = useState('All');
   const [sortBy, setSortBy] = useState('default');
 
-  // Cart handlers
+  // Sync cart to Firestore / localStorage
+  const syncCart = useCallback(
+    async (updatedCart) => {
+      if (!currentUser) {
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        console.log('[Cart] Guest cart saved to localStorage:', updatedCart);
+        return;
+      }
+
+      const userRef = doc(db, 'users', currentUser.uid);
+      try {
+        await setDoc(userRef, { cart: updatedCart }, { merge: true });
+        console.log(`[Cart] Cart synced to Firestore for user ${currentUser.uid}:`, updatedCart);
+      } catch (err) {
+        console.error('[Cart] Error saving cart to Firestore:', err);
+      }
+    },
+    [currentUser]
+  );
+
+  // Load cart on mount or when user changes
+  useEffect(() => {
+    const loadCart = async () => {
+      let localCart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (currentUser) {
+        const userRef = doc(db, 'users', currentUser.uid);
+        try {
+          const docSnap = await getDoc(userRef);
+          let firestoreCart = [];
+          if (docSnap.exists()) {
+            firestoreCart = docSnap.data().cart || [];
+          } else {
+            await setDoc(userRef, { cart: [], pastOrders: [] });
+          }
+
+          // Merge local cart with Firestore cart
+          const mergedCart = [...firestoreCart];
+          localCart.forEach(localItem => {
+            if (!firestoreCart.some(f => f.id === localItem.id && f.selectedSize === localItem.selectedSize)) {
+              mergedCart.push(localItem);
+            }
+          });
+
+          setCartItems(mergedCart);
+          syncCart(mergedCart);
+        } catch (err) {
+          console.error('[Cart] Error loading cart:', err);
+          setCartItems(localCart);
+        }
+      } else {
+        setCartItems(localCart);
+      }
+    };
+
+    if (!authLoading) loadCart();
+  }, [currentUser, authLoading, syncCart]);
+
+  // Add to cart handler
   const handleAddToCart = useCallback((product, selectedSize, quantity = 1) => {
-    const newItem = { ...product, selectedSize, quantity };
-
-    const existingIndex = cartItems.findIndex(
-      item => item.id === newItem.id && item.selectedSize === newItem.selectedSize
-    );
-
-    let updatedCart;
-    if (existingIndex > -1) {
-      updatedCart = cartItems.map((item, idx) =>
-        idx === existingIndex ? { ...item, quantity: item.quantity + newItem.quantity } : item
+    setCartItems(prevCart => {
+      const existingIndex = prevCart.findIndex(
+        item => item.id === product.id && item.selectedSize === selectedSize
       );
-    } else {
-      updatedCart = [...cartItems, newItem];
-    }
 
-    setCartItems(updatedCart);
-  }, [cartItems]);
+      const updatedCart = existingIndex > -1
+        ? prevCart.map((item, idx) =>
+            idx === existingIndex ? { ...item, quantity: item.quantity + quantity } : item
+          )
+        : [...prevCart, { ...product, selectedSize, quantity }];
 
-  const handleRemoveFromCart = useCallback((productId, selectedSize) => {
-    setCartItems(prev => prev.filter(item => !(item.id === productId && item.selectedSize === selectedSize)));
-  }, []);
+      syncCart(updatedCart); // Firestore/localStorage sync
+      return updatedCart;
+    });
+  }, [syncCart]);
 
   const handleUpdateQuantity = useCallback((productId, selectedSize, newQuantity) => {
-    setCartItems(prev => prev.map(item =>
+    const updatedCart = cartItems.map(item =>
       item.id === productId && item.selectedSize === selectedSize
         ? { ...item, quantity: Math.max(1, newQuantity) }
         : item
-    ));
-  }, []);
+    );
+    setCartItems(updatedCart);
+    syncCart(updatedCart);
+  }, [cartItems, syncCart]);
 
   const handleClearCart = useCallback(() => {
     setCartItems([]);
-  }, []);
-
-  const handleAddPastOrder = useCallback((orderDetails) => {
-    const newOrder = {
-      ...orderDetails,
-      date: new Date().toLocaleString(),
-      status: 'processing',
-    };
-    setPastOrders(prev => [...prev, newOrder]);
-    setCartItems([]);
-  }, []);
+    syncCart([]);
+  }, [syncCart]);
 
   // Filtering & sorting
   const productsToDisplay = useMemo(() => {
-    let filteredProducts = [...products];
-
+    let filtered = [...products];
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      filteredProducts = filteredProducts.filter(p =>
+      filtered = filtered.filter(p =>
         p.name.toLowerCase().includes(term) ||
         p.brand.toLowerCase().includes(term) ||
         (p.description && p.description.toLowerCase().includes(term))
       );
     }
-    if (selectedBrand !== 'All') filteredProducts = filteredProducts.filter(p => p.brand === selectedBrand);
-    if (selectedSize !== 'All') filteredProducts = filteredProducts.filter(p => p.sizes?.includes(parseInt(selectedSize)));
-
-    filteredProducts = filteredProducts.filter(p => p.hidden === false);
+    if (selectedBrand !== 'All') filtered = filtered.filter(p => p.brand === selectedBrand);
+    if (selectedSize !== 'All') filtered = filtered.filter(p => p.sizes?.includes(parseInt(selectedSize)));
+    filtered = filtered.filter(p => !p.hidden);
 
     switch (sortBy) {
-      case 'price-asc': filteredProducts.sort((a, b) => a.price - b.price); break;
-      case 'price-desc': filteredProducts.sort((a, b) => b.price - a.price); break;
-      case 'name-asc': filteredProducts.sort((a, b) => a.name.localeCompare(b.name)); break;
-      case 'name-desc': filteredProducts.sort((a, b) => b.name.localeCompare(a.name)); break;
+      case 'price-asc': filtered.sort((a, b) => a.price - b.price); break;
+      case 'price-desc': filtered.sort((a, b) => b.price - a.price); break;
+      case 'name-asc': filtered.sort((a, b) => a.name.localeCompare(b.name)); break;
+      case 'name-desc': filtered.sort((a, b) => b.name.localeCompare(a.name)); break;
       default: break;
     }
-
-    return filteredProducts;
+    return filtered;
   }, [searchTerm, selectedBrand, selectedSize, sortBy]);
 
-  const getUniqueBrands = useMemo(() => {
-    const brandsSet = new Set(products.map(p => p.brand));
-    return ['All', ...Array.from(brandsSet).sort()];
-  }, []);
-
-  const getUniqueSizes = useMemo(() => {
+  const uniqueBrands = useMemo(() => ['All', ...Array.from(new Set(products.map(p => p.brand)))], []);
+  const uniqueSizes = useMemo(() => {
     const sizesSet = new Set();
-    products.forEach(p => p.sizes?.forEach(size => sizesSet.add(size)));
-    return ['All', ...Array.from(sizesSet).sort((a, b) => parseFloat(a) - parseFloat(b))];
+    products.forEach(p => p.sizes?.forEach(s => sizesSet.add(s)));
+    return ['All', ...Array.from(sizesSet).sort((a, b) => a - b)];
   }, []);
 
   return (
     <>
       <Navbar
-        cartItemCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+        cartItemCount={cartItems.reduce((acc, i) => acc + i.quantity, 0)}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        theme={theme}
-        toggleTheme={toggleTheme}
       />
+
       <main className="flex-grow flex flex-col min-h-screen pt-20">
         <Routes>
+          <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<Home onAddToCart={handleAddToCart} filteredProducts={productsToDisplay} />} />
           <Route path="/products" element={<Products
             onAddToCart={handleAddToCart}
@@ -139,27 +177,33 @@ function AppContent() {
             setSelectedSize={setSelectedSize}
             sortBy={sortBy}
             setSortBy={setSortBy}
-            uniqueBrands={getUniqueBrands}
-            uniqueSizes={getUniqueSizes}
+            uniqueBrands={uniqueBrands}
+            uniqueSizes={uniqueSizes}
           />} />
           <Route path="/products/:id" element={<ProductDetails onAddToCart={handleAddToCart} products={products} />} />
           <Route path="/brands" element={<Brands onAddToCart={handleAddToCart} productsToDisplay={products} />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/coming-soon" element={<ComingSoon />} />
-          <Route path="/cart" element={<Cart
-            cartItems={cartItems}
-            onRemoveFromCart={handleRemoveFromCart}
-            onUpdateQuantity={handleUpdateQuantity}
-          />} />
-          <Route path="/checkout" element={<Checkout
-            cartItems={cartItems}
-            onClearCart={handleClearCart}
-            onAddPastOrder={handleAddPastOrder}
-          />} />
-          <Route path="/order-history" element={<OrderHistory pastOrders={pastOrders} />} />
+          <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} onUpdateQuantity={handleUpdateQuantity} />} />
+          <Route path="/checkout" element={
+            <PrivateRouteWithModal>
+              <Checkout cartItems={cartItems} onClearCart={handleClearCart} />
+            </PrivateRouteWithModal>
+          } />
+          <Route path="/order-history" element={
+            <PrivateRouteWithModal>
+              <OrderHistory />
+            </PrivateRouteWithModal>
+          } />
+
+          {/* Admin products management */}
+          <Route path="/admin/products" element={<AdminProducts />} />
+
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+
       </main>
+
       <Footer />
       <ScrollToTopButton />
     </>
@@ -169,7 +213,9 @@ function AppContent() {
 export default function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

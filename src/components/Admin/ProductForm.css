@@ -149,8 +149,9 @@
   transition: background-color 0.2s, transform 0.1s;
 }
 
+
 .cancel-btn:hover {
-  background-color: #d1d5db;
+  background-color: var(--secondary-button-hover-bg); /* instead of #d1d5db */
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -162,13 +163,13 @@
   padding: 1rem;
   text-align: center;
   cursor: pointer;
-  background: #f9f9f9;
+  background: var(--input-bg); /* instead of #f9f9f9 */
   transition: border-color 0.2s, background 0.2s;
 }
 
 .upload-box:hover {
   border-color: var(--primary-color);
-  background: #f4f6fc;
+  background: var(--bg-main); /* instead of #f4f6fc */
 }
 
 .file-input {

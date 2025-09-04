@@ -24,7 +24,7 @@ body {
 /* Dark Mode background and text color (activated when 'dark-mode' class is on <body>) */
 /* UPDATED: Changed the selector from `.dark-mode` to `[data-theme='dark']` */
 [data-theme='dark'] {
-  background-color: #111827; /* Replaced Tailwind's bg-gray-900 */
+  background-color: #21d421; /* Replaced Tailwind's bg-gray-900 */
   color: #f3f4f6; /* Replaced Tailwind's text-gray-100 */
 }
 

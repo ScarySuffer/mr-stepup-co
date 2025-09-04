@@ -6,7 +6,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import localProducts from "./productData.js";
 import "./Products.css";
 
-export default function Products({ onAddToCart }) {
+export default function Products({ onAddToCart, isAdmin = false }) {
   const [products, setProducts] = useState(localProducts);
   const [loading, setLoading] = useState(true);
 
@@ -29,18 +29,21 @@ export default function Products({ onAddToCart }) {
           ),
         ];
 
-        setProducts(mergedProducts);
+        // Filter products: hide hidden items for normal users
+        const visibleProducts = mergedProducts.filter((p) => isAdmin || !p.hidden);
+
+        setProducts(visibleProducts);
         setLoading(false);
       },
       (error) => {
         console.error("Error fetching real-time products:", error);
-        setProducts(localProducts);
+        setProducts(localProducts.filter((p) => isAdmin || !p.hidden));
         setLoading(false);
       }
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [isAdmin]);
 
   if (loading) {
     return (
@@ -67,7 +70,8 @@ export default function Products({ onAddToCart }) {
             <ProductCard
               key={product.id}
               product={product}
-              onAddToCart={onAddToCart} // Ensure cart updates App.js
+              onAddToCart={onAddToCart}
+              isAdmin={isAdmin} // <-- pass admin status
             />
           ))}
         </div>

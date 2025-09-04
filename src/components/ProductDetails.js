@@ -1,3 +1,4 @@
+// src/components/ProductDetails.js
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
@@ -5,7 +6,7 @@ import { db } from "../firebase";
 import AddToCartConfirmation from './AddToCartConfirmation';
 import "./ProductDetails.css";
 
-export default function ProductDetails({ onAddToCart }) {
+export default function ProductDetails({ onAddToCart, isAdmin = false }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState("");
@@ -71,6 +72,10 @@ export default function ProductDetails({ onAddToCart }) {
       <div className="product-detail-card">
         <div className="imgBx">
           <img src={mainImage} alt={product.name} />
+          {/* Hidden badge for admins */}
+          {product.hidden && isAdmin && (
+            <span className="product-hidden-badge">Hidden</span>
+          )}
         </div>
 
         <div className="contentBx">

@@ -69,6 +69,11 @@ export default function ProductCard({ product, onAddToCart }) {
   return (
     <div className={`product product--${product.color || "blue"}`}>
       <div className="product_inner">
+        {/* Hidden Badge */}
+        {product.hidden && (
+          <span className="product-hidden-badge">Hidden</span>
+        )}
+
         <Link
           to={`/products/${product.id}`}
           className="product-image-link"

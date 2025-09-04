@@ -74,7 +74,7 @@ export default function Checkout({ cartItems, onClearCart }) {
     }
 
     // WhatsApp message
-    const whatsappNumber = "27721234567";
+    const whatsappNumber = "27636140298";
     const whatsappMessage = encodeURIComponent(
       `Hello Mr StepUp Co, I'd like to place an order:\n\n` +
       `*Customer Details:*\nName: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email || "N/A"}\n` +
@@ -97,7 +97,7 @@ export default function Checkout({ cartItems, onClearCart }) {
         <p>Thank you for your order, {formData.name}!</p>
         <p>Your order details have been sent. We will contact you via WhatsApp shortly.</p>
         <div className="order-actions">
-          <a href={`https://wa.me/27721234567?text=Hi Mr StepUp Co, I'm following up on my recent order.`}
+          <a href={`https://wa.me/27636140298?text=Hi Mr StepUp Co, I'm following up on my recent order.`}
              target="_blank" rel="noopener noreferrer" className="whatsapp-followup-btn">Open WhatsApp to Confirm</a>
           <Link to="/products" className="continue-shopping-btn">Continue Shopping</Link>
           <Link to="/order-history" className="view-history-btn">View My Orders</Link>

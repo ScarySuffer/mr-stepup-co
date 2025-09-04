@@ -1,4 +1,3 @@
-// src/components/Admin/AdminProducts.js
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
 import {
@@ -9,7 +8,8 @@ import {
   setDoc,
   deleteDoc,
   getDoc,
-  serverTimestamp
+  serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import ProductForm from "./ProductForm";
@@ -23,7 +23,6 @@ export default function AdminProducts() {
   const [showForm, setShowForm] = useState(false);
   const [userData, setUserData] = useState(null);
 
-  // Fetch user document to get role
   useEffect(() => {
     const fetchUserData = async () => {
       if (!currentUser) return;
@@ -35,30 +34,28 @@ export default function AdminProducts() {
     fetchUserData();
   }, [currentUser]);
 
-  // Load products from Firestore in real-time (only if admin)
   useEffect(() => {
     if (!userData || userData.role !== "admin") return;
-
     const colRef = collection(db, "products");
     const unsubscribe = onSnapshot(
       colRef,
       (snapshot) => {
-        const prodData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const prodData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setProducts(prodData);
       },
       (err) => console.error("Error loading products:", err)
     );
-
     return () => unsubscribe();
   }, [userData]);
 
-  // Admin access check
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="loading-state">Loading...</p>;
   if (!currentUser || userData?.role !== "admin") {
-    return <p style={{ textAlign: "center", marginTop: "3rem" }}>Access Denied. Admins only.</p>;
+    return <p className="access-denied-message">Access Denied. Admins only.</p>;
   }
 
-  // Add or update product
   const handleSaveProduct = async (productData) => {
     try {
       if (editingProduct) {
@@ -75,7 +72,6 @@ export default function AdminProducts() {
     }
   };
 
-  // Delete product
   const handleDeleteProduct = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
@@ -86,53 +82,149 @@ export default function AdminProducts() {
     }
   };
 
+  // HIDDEN TOGGLE
+  const toggleHidden = async (product) => {
+    try {
+      const docRef = doc(db, "products", product.id);
+      await updateDoc(docRef, { hidden: !product.hidden });
+    } catch (err) {
+      console.error("Error updating hidden status:", err);
+    }
+  };
+
   return (
     <div className="admin-products-container">
-      <h1>Admin: Manage Products</h1>
-      <button className="add-product-btn" onClick={() => { setEditingProduct(null); setShowForm(true); }}>
-        Add Product
-      </button>
+      <div className="admin-header">
+        <h1 className="page-title">Admin: Manage Products</h1>
+        <button
+          className="add-product-btn"
+          onClick={() => {
+            setEditingProduct(null);
+            setShowForm(true);
+          }}
+        >
+          + Add Product
+        </button>
+      </div>
 
+      {/* Modal Form */}
       {showForm && (
         <div className="product-form-modal">
           <div className="modal-content">
-            <h2>{editingProduct ? "Edit Product" : "Add New Product"}</h2>
             <ProductForm
               initialData={editingProduct}
               onSave={handleSaveProduct}
+              onCancel={() => setShowForm(false)}
             />
-            <button className="close-modal-btn" onClick={() => setShowForm(false)}>Cancel</button>
           </div>
         </div>
       )}
 
-      <table className="admin-products-table">
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Brand</th>
-            <th>Price</th>
-            <th>Sizes</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(product => (
-            <tr key={product.id}>
-              <td><img src={product.image} alt={product.name} className="admin-product-image" /></td>
-              <td>{product.name}</td>
-              <td>{product.brand}</td>
-              <td>R{product.price}</td>
-              <td>{product.sizes?.join(", ")}</td>
-              <td>
-                <button onClick={() => { setEditingProduct(product); setShowForm(true); }}>Edit</button>
-                <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
-              </td>
-            </tr>
+      {/* Desktop Table */}
+      <div className="desktop-view">
+        <div className="table-container">
+          <table className="admin-products-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Price</th>
+                <th>Sizes</th>
+                <th>Hidden</th> {/* HIDDEN COLUMN */}
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td>
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="admin-product-image"
+                    />
+                  </td>
+                  <td>{product.name}</td>
+                  <td>{product.brand}</td>
+                  <td>R{product.price}</td>
+                  <td>{product.sizes?.join(", ")}</td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={product.hidden || false}
+                      onChange={() => toggleHidden(product)}
+                    />
+                  </td>
+                  <td className="actions-cell">
+                    <button
+                      className="edit-btn"
+                      onClick={() => {
+                        setEditingProduct(product);
+                        setShowForm(true);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDeleteProduct(product.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Mobile Cards */}
+      <div className="mobile-view">
+        <div className="product-cards-container">
+          {products.map((product) => (
+            <div className="product-card" key={product.id}>
+              <img
+                src={product.image}
+                alt={product.name}
+                className="product-card-image"
+              />
+              <div className="card-info">
+                <p><strong>Name:</strong> {product.name}</p>
+                <p><strong>Brand:</strong> {product.brand}</p>
+                <p><strong>Price:</strong> R{product.price}</p>
+                <p><strong>Sizes:</strong> {product.sizes?.join(", ")}</p>
+                <p>
+                  <strong>Hidden:</strong>{" "}
+                  <input
+                    type="checkbox"
+                    checked={product.hidden || false}
+                    onChange={() => toggleHidden(product)}
+                  />
+                </p>
+              </div>
+              <div className="card-actions">
+                <button
+                  className="edit-btn"
+                  onClick={() => {
+                    setEditingProduct(product);
+                    setShowForm(true);
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDeleteProduct(product.id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 }

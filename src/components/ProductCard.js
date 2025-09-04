@@ -71,13 +71,13 @@ export default function ProductCard({ product, onAddToCart }) {
       <div className="product_inner">
         {/* Hidden Badge */}
         {product.hidden && (
-          <span className="product-hidden-badge">Hidden</span>
+          <span className="product-hidden-badge">Out of stock</span>
         )}
 
         <Link
           to={`/products/${product.id}`}
           className="product-image-link"
-          onMouseEnter={handleMouseEnterImage}
+          onMouseEnter={handleMouseEnterImage} 
           onMouseLeave={handleMouseLeaveImage}
         >
           <img src={displayedImage} alt={product.name} />

@@ -5,13 +5,13 @@ import "./ProductForm.css";
 
 export default function ProductForm({ initialData = {}, onSave, onCancel }) {
   const [productData, setProductData] = useState({
-    name: initialData.name || "",
-    brand: initialData.brand || "",
-    price: initialData.price || 0,
-    description: initialData.description || "",
-    sizes: initialData.sizes?.join(",") || "",
-    image: initialData.image || "",
-    galleryImages: initialData.galleryImages?.join(",") || "",
+    name: initialData?.name ?? "", // UPDATED: More resilient to null
+    brand: initialData?.brand ?? "", // UPDATED: More resilient to null
+    price: initialData?.price ?? 0, // UPDATED: More resilient to null
+    description: initialData?.description ?? "", // UPDATED: More resilient to null
+    sizes: initialData?.sizes?.join(",") ?? "", // UPDATED: More resilient to null
+    image: initialData?.image ?? "", // UPDATED: More resilient to null
+    galleryImages: initialData?.galleryImages?.join(",") ?? "", // UPDATED: More resilient to null
   });
   const [loading, setLoading] = useState(false);
 
@@ -61,7 +61,7 @@ export default function ProductForm({ initialData = {}, onSave, onCancel }) {
       {/* Sticky Header */}
       <div className="product-form-header">
         <h2 className="product-form-title">
-          {initialData.id ? "Edit Product" : "Add New Product"}
+          {initialData?.id ? "Edit Product" : "Add New Product"}
         </h2>
         <button type="button" className="cancel-btn" onClick={onCancel}>
           ✕ Close
@@ -150,13 +150,7 @@ export default function ProductForm({ initialData = {}, onSave, onCancel }) {
           />
         </div>
 
-        <div className="form-group full-width">
-          <label>Upload Images</label>
-          <div className="upload-box">
-            <p>Drag & drop or click to upload</p>
-            <input type="file" multiple className="file-input" />
-          </div>
-        </div>
+       
 
         {/* Sticky Footer */}
         <div className="form-buttons">

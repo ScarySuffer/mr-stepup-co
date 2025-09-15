@@ -22,6 +22,7 @@ export default function AdminProducts() {
   const [editingProduct, setEditingProduct] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // ADDED: New state for search term
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -92,14 +93,34 @@ export default function AdminProducts() {
     }
   };
 
+  // ADDED: Handler for search input
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // ADDED: Filter logic
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.brand.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="admin-products-container">
       <div className="admin-header">
         <h1 className="page-title">Admin: Manage Products</h1>
+        {/* ADDED: Search input field */}
+        <input
+          type="text"
+          placeholder="Search products..."
+          className="search-input"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
         <button
           className="add-product-btn"
           onClick={() => {
-            setEditingProduct(null);
+            // UPDATED: Pass an empty object to prevent the null error
+            setEditingProduct({});
             setShowForm(true);
           }}
         >
@@ -131,12 +152,13 @@ export default function AdminProducts() {
                 <th>Brand</th>
                 <th>Price</th>
                 <th>Sizes</th>
-                <th>Hidden</th> {/* HIDDEN COLUMN */}
+                <th>Hidden</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
+              {/* UPDATED: Map over filteredProducts */}
+              {filteredProducts.map((product) => (
                 <tr key={product.id}>
                   <td>
                     <img
@@ -183,7 +205,8 @@ export default function AdminProducts() {
       {/* Mobile Cards */}
       <div className="mobile-view">
         <div className="product-cards-container">
-          {products.map((product) => (
+          {/* UPDATED: Map over filteredProducts */}
+          {filteredProducts.map((product) => (
             <div className="product-card" key={product.id}>
               <img
                 src={product.image}
@@ -191,10 +214,18 @@ export default function AdminProducts() {
                 className="product-card-image"
               />
               <div className="card-info">
-                <p><strong>Name:</strong> {product.name}</p>
-                <p><strong>Brand:</strong> {product.brand}</p>
-                <p><strong>Price:</strong> R{product.price}</p>
-                <p><strong>Sizes:</strong> {product.sizes?.join(", ")}</p>
+                <p>
+                  <strong>Name:</strong> {product.name}
+                </p>
+                <p>
+                  <strong>Brand:</strong> {product.brand}
+                </p>
+                <p>
+                  <strong>Price:</strong> R{product.price}
+                </p>
+                <p>
+                  <strong>Sizes:</strong> {product.sizes?.join(", ")}
+                </p>
                 <p>
                   <strong>Hidden:</strong>{" "}
                   <input

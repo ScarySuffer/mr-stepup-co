@@ -1,2 +1,5 @@
-https://mrstepup.co.za/* https://www.mrstepup.co.za/:splat 301!
+# Redirect www to root domain
+https://www.mrstepup.co.za/*  https://mrstepup.co.za/:splat 301
+
+# SPA fallback
 /* /index.html 200

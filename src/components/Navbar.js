@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-import { FaSun, FaMoon } from "react-icons/fa";
 import { auth, db } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import logo from "../assets/mr-step-up-logo.jpg";
 import Modal from "./Modal";
+
+import "./Navbar.css";
+import logo from "../assets/Mr-Step-Up-logos.jpg"; // Local logo
 
 export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -29,14 +30,10 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
         try {
           const userRef = doc(db, "users", user.uid);
           const snap = await getDoc(userRef);
-          if (snap.exists()) {
-            setUserRole(snap.data().role || "user");
-          } else {
-            setUserRole(null);
-          }
+          setUserRole(snap.exists() ? snap.data().role || "user" : "user");
         } catch (err) {
           console.error("Error reading user role:", err);
-          setUserRole(null);
+          setUserRole("user");
         }
       } else {
         setUserRole(null);
@@ -72,7 +69,6 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
   };
 
   const handleManageProductsClick = () => {
-    // if not logged in or not admin show modal, otherwise go to admin route
     if (!currentUser) {
       setModalMessage("You need to log in to access this page.");
       setShowLoginModal(true);
@@ -87,7 +83,7 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
 
   const handleProtectedClick = (action) => {
     if (!currentUser) {
-      setModalMessage(action);
+      setModalMessage(`You must be logged in to view your ${action === "checkout" ? "checkout" : "order history"}.`);
       setShowLoginModal(true);
     } else {
       navigate(action === "checkout" ? "/checkout" : "/order-history");
@@ -103,9 +99,7 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
-        closeNavbar();
-      }
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) closeNavbar();
       if (
         isDropdownOpen &&
         dropdownRef.current &&
@@ -122,18 +116,10 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
 
   return (
     <>
-      <nav
-        className="navbar navbar-expand-lg bg-body-tertiary fixed-top app-navbar"
-        ref={navbarRef}
-      >
+      <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top app-navbar" ref={navbarRef}>
         <div className="container-fluid">
           <Link className="navbar-brand" to="/" onClick={closeNavbar}>
-            <img
-              src={logo}
-              alt="Mr StepUp Logo"
-              className="navbar-logo"
-              style={{ height: "40px", objectFit: "contain" }}
-            />
+            <img src={logo} alt="Mr StepUp Logo" className="navbar-logo" />
           </Link>
 
           <button
@@ -164,8 +150,8 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
 
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item"><Link className="nav-link" to="/" onClick={closeNavbar}>Home</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/products" onClick={closeNavbar}>Sneakers</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/brands" onClick={closeNavbar}>Brands</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/products" onClick={closeNavbar}>Shop</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/brands" onClick={closeNavbar}>Discover</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/contact" onClick={closeNavbar}>Contact</Link></li>
               <li className="nav-item dropdown">
                 <button
@@ -186,11 +172,13 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
                       My Orders
                     </button>
                   </li>
-                  <li>
-                    <button className="dropdown-item admin-link" onClick={handleManageProductsClick}>
-                      Manage Products
-                    </button>
-                  </li>
+                  {userRole === 'admin' && (
+                    <li>
+                      <button className="dropdown-item admin-link" onClick={handleManageProductsClick}>
+                        Manage Products
+                      </button>
+                    </li>
+                  )}
                 </ul>
               </li>
             </ul>
@@ -203,8 +191,12 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
               </li>
 
               <li className="nav-item">
-                <button className="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center theme-toggle-btn" onClick={toggleTheme}>
-                  {theme === "dark" ? <FaSun /> : <FaMoon />}
+                <button
+                  className="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center theme-toggle-btn"
+                  onClick={toggleTheme}
+                  title={`Toggle to ${theme === "dark" ? "light" : "dark"} mode`}
+                >
+                  {theme === "dark" ? '☀️' : '🌙'}
                 </button>
               </li>
 
@@ -223,23 +215,15 @@ export default function Navbar({ cartItemCount, searchTerm, setSearchTerm }) {
 
       <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)} title="Login Required">
         <p>{modalMessage}</p>
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <div className="modal-actions">
           <button
             onClick={() => {
               setShowLoginModal(false);
               navigate("/auth");
             }}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#0d6efd",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer"
-            }}
+            className="modal-login-btn"
           >
             Login
-            
           </button>
         </div>
       </Modal>

@@ -66,12 +66,14 @@ function AppContent() {
           if (docSnap.exists()) {
             firestoreCart = docSnap.data().cart || [];
           } else {
+            // Initialize document if it doesn't exist
             await setDoc(userRef, { cart: [], pastOrders: [] });
           }
 
-          // Merge local cart with Firestore cart
+          // Merge local cart with Firestore cart (prioritizing Firestore if logged in)
           const mergedCart = [...firestoreCart];
           localCart.forEach(localItem => {
+            // Check if the item (by id AND size) already exists in Firestore cart
             if (!firestoreCart.some(f => f.id === localItem.id && f.selectedSize === localItem.selectedSize)) {
               mergedCart.push(localItem);
             }
@@ -164,7 +166,8 @@ function AppContent() {
         setSearchTerm={setSearchTerm}
       />
 
-      <main className="flex-grow flex flex-col min-h-screen pt-20">
+      {/* Tailwind utility: pt-20 added to offset fixed-top navbar height */}
+      <main className="flex-grow flex flex-col min-h-screen pt-20"> 
         <Routes>
           <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<Home onAddToCart={handleAddToCart} filteredProducts={productsToDisplay} />} />

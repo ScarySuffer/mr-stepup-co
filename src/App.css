@@ -1,5 +1,7 @@
 /* --- Layout Fix for Footer --- */
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -20,25 +22,25 @@ body {
 /* THEME VARIABLES (Consolidated) */
 :root {
   /* Light Mode Variables - All in one place now */
-  --bg-color: #fcfbf8; 
-  --bg-main: #ffffff; 
+  --bg-color: #fcfbf8;
+  --bg-main: #ffffff;
 
-  --text-main: #333333; 
+  --text-main: #333333;
   --text-color: #2b2b2b;
   --text-color-secondary: #707070;
 
-  --link-color: #007bff; 
+  --link-color: #007bff;
 
-  --header-bg: #f5f5f0; 
-  --navbar-bg: #ffffff; 
+  --header-bg: #f5f5f0;
+  --navbar-bg: #ffffff;
 
-  --input-bg: #ffffff; 
-  --border-color: #cccccc; 
-  --dashed-border-color: #d0d0d0; 
+  --input-bg: #ffffff;
+  --border-color: #cccccc;
+  --dashed-border-color: #d0d0d0;
 
-  --shadow-color: rgba(0, 0, 0, 0.1); 
-  --cart-badge-bg: #ef4444; 
-  --cart-badge-text: #fff; 
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --cart-badge-bg: #ef4444;
+  --cart-badge-text: #fff;
   --navbar-search-bg: #ffffff;
   --navbar-search-text: #111827;
   --navbar-search-placeholder: #6b7280;
@@ -46,7 +48,7 @@ body {
   --navbar-toggler-icon-color: #374151;
   --navbar-dropdown-bg: #ffffff;
   --navbar-dropdown-item-color: #374151;
-  --navbar-dropdown-hover-bg: #e0e7ff; 
+  --navbar-dropdown-hover-bg: #e0e7ff;
   --heading-color: #111827;
 
   /* Loading Spinner Colors */
@@ -63,12 +65,12 @@ body {
   --secondary-button-hover-bg: #cccccc;
 
   /* Product Card Text/Button Colors (Previously in ProductCard.css) */
-  --card-text-primary: #2B2D42;
-  --product-price-color: #007bff; 
-  --button-primary-text: #2B2D42;
-  --button-primary-border: #2B2D42;
-  --button-primary-hover-bg: #2B2D42;
-  --button-primary-hover-text: #FFFFFF;
+  --card-text-primary: #2b2d42;
+  --product-price-color: #007bff;
+  --button-primary-text: #2b2d42;
+  --button-primary-border: #2b2d42;
+  --button-primary-hover-bg: #2b2d42;
+  --button-primary-hover-text: #ffffff;
   --dropdown-toggle-bg: #f0f0f0;
   --dropdown-toggle-text: #333;
   --dropdown-toggle-border: #ccc;
@@ -79,30 +81,29 @@ body {
   --dropdown-menu-bg-hover: #f0f0f0;
   --overlay-bg: rgba(255, 255, 255, 0.9);
   --overlay-text: rgba(43, 45, 66, 0.7);
-
 }
 
 /* Dark Mode Styles (Now using the data-theme attribute selector) */
-[data-theme='dark'] {
+[data-theme="dark"] {
   /* Dark Mode Variables - Cohesive dark blue-grey palette */
-  --bg-color: #1a202c; 
-  --bg-main: #2d3748; 
+  --bg-color: #1a202c;
+  --bg-main: #2d3748;
 
-  --text-main: #e2e8f0; 
-  --text-color: #f7fafc; 
-  --text-color-secondary: #a0aec0; 
+  --text-main: #e2e8f0;
+  --text-color: #f7fafc;
+  --text-color-secondary: #a0aec0;
 
-  --link-color: #63b3ed; 
+  --link-color: #63b3ed;
 
-  --header-bg: #2d3748; 
-  --navbar-bg: #1f2937; 
+  --header-bg: #2d3748;
+  --navbar-bg: #1f2937;
 
-  --input-bg: #2d3748; 
-  --border-color: #4a5568; 
-  --dashed-border-color: #4f5f73; 
+  --input-bg: #2d3748;
+  --border-color: #4a5568;
+  --dashed-border-color: #4f5f73;
 
   --shadow-color: rgba(0, 0, 0, 0.8);
-  --cart-badge-bg: #ef4444; 
+  --cart-badge-bg: #ef4444;
   --cart-badge-text: #fff;
   --navbar-search-bg: #374151;
   --navbar-search-text: #f3f4f6;
@@ -112,14 +113,14 @@ body {
   --navbar-dropdown-bg: #374151;
   --navbar-dropdown-item-color: #f3f4f6;
   --navbar-dropdown-hover-bg: #4f46e5;
-  --heading-color: #f3f4f6; 
+  --heading-color: #f3f4f6;
 
   /* Loading Spinner Colors (Dark Mode) */
-  --spinner-border-color: rgba(0, 188, 212, 0.2); 
+  --spinner-border-color: rgba(0, 188, 212, 0.2);
   --spinner-top-color: #00bcd4;
 
   /* Scroll-to-Top Button Colors (Dark Mode) */
-  --scroll-btn-bg: #5c6bc0; 
+  --scroll-btn-bg: #5c6bc0;
   --scroll-btn-hover-bg: #7986cb;
 
   /* Theme Toggle Button Colors (Dark Mode) */
@@ -128,17 +129,17 @@ body {
   --secondary-button-hover-bg: #636b77;
 
   /* Product Card Text/Button Colors (Previously in ProductCard.css) */
-  --card-text-primary: #DDDDDD;
+  --card-text-primary: #dddddd;
   --product-price-color: #63b3ed;
-  --button-primary-text: #DDDDDD;
-  --button-primary-border: #DDDDDD;
-  --button-primary-hover-bg: #DDDDDD;
-  --button-primary-hover-text: #1A1A1A;
+  --button-primary-text: #dddddd;
+  --button-primary-border: #dddddd;
+  --button-primary-hover-bg: #dddddd;
+  --button-primary-hover-text: #1a1a1a;
   --dropdown-toggle-bg: #333;
-  --dropdown-toggle-text: #F5F5F5;
+  --dropdown-toggle-text: #f5f5f5;
   --dropdown-toggle-border: #555;
   --dropdown-menu-bg: #222;
-  --dropdown-menu-text: #F5F5F5;
+  --dropdown-menu-text: #f5f5f5;
   --dropdown-menu-border: #555;
   --dropdown-toggle-bg-hover: #444;
   --dropdown-menu-bg-hover: #333;
@@ -148,14 +149,19 @@ body {
 
 /* GLOBAL STYLES */
 body {
-  background-color: var(--bg-color); 
-  color: var(--text-main); 
+  background-color: var(--bg-color);
+  color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
-  padding-top: 72px; 
+  padding-top: 72px;
 }
 
 /* Ensure all heading elements use the theme's heading color */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--heading-color);
   transition: color 0.3s ease;
 }
@@ -167,7 +173,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* APP-SPECIFIC STYLES */
 .App {
-  background-color: var(--bg-main); 
+  background-color: var(--bg-main);
   color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -184,7 +190,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .App-header {
-  background-color: var(--header-bg); 
+  background-color: var(--header-bg);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -192,11 +198,11 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   transition: background-color 0.3s ease;
-  color: var(--text-main); 
+  color: var(--text-main);
 }
 
 .App-link {
-  color: var(--link-color); 
+  color: var(--link-color);
   text-decoration: underline;
   transition: color 0.3s ease;
 }
@@ -217,11 +223,11 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; 
-  background-color: var(--bg-color); 
+  min-height: 100vh;
+  background-color: var(--bg-color);
   color: var(--text-main);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  gap: 15px; 
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  gap: 15px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -245,7 +251,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .loading-container p {
   font-size: 1.2em;
-  margin: 0; 
+  margin: 0;
   color: var(--text-main);
 }
 
@@ -266,7 +272,8 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, background-color 0.3s ease;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
+    background-color 0.3s ease;
   z-index: 1000;
 }
 
@@ -284,11 +291,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* --- Theme Toggle Button Styles --- */
 /* This block was in ThemeToggle.css but moved here for centralisation */
-.theme-toggle-btn { 
-  background-color: var(--secondary-button-bg); 
-  color: var(--secondary-button-text); 
-  border: 1px solid var(--border-color); 
-  border-radius: 50%; 
+.theme-toggle-btn {
+  background-color: var(--secondary-button-bg);
+  color: var(--secondary-button-text);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
   width: 40px;
   height: 40px;
   display: flex;
@@ -297,13 +304,14 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.2rem;
   cursor: pointer;
   box-shadow: 0 2px 5px var(--shadow-color);
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  outline: none; 
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
 }
 
 .theme-toggle-btn:hover {
-  background-color: var(--secondary-button-hover-bg); 
-  transform: scale(1.05); 
+  background-color: var(--secondary-button-hover-bg);
+  transform: scale(1.05);
 }
 
 .theme-toggle-btn:active {
